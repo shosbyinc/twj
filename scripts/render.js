@@ -149,7 +149,7 @@ for (const a of payload.articles) {
   routes.push({ path: `/article/${a.slug}`, file: `article/${a.slug}/index.html`,
     type: 'article', priority: '0.8', lastmod: a.published,
     image: a.og_card ?? a.cover_absolute, title: `${a.title} — The Water Journal`,
-    desc: clip(a.standfirst || a.title) });
+    desc: clip(a.standfirst || a.title), article: a });
 }
 for (const c of payload.cities) {
   routes.push({ path: `/city/${c.id}`, file: `city/${c.id}/index.html`,
@@ -228,9 +228,47 @@ function jsonld(route) {
 /* Not a courtesy. Without it the address exists and its content does not, and
    a page whose figures are invisible without JavaScript cannot be read by
    anything that does not run it. */
+const rubricName = id => payload.rubrics.find(r => r.id === id)?.name ?? 'The Water Journal';
+
 function noscriptFor(route) {
   const link = (label, path) => `<li><a href="${BASE + path.replace(/^\//, '')}">${esc(label)}</a></li>`;
   let lead = `<h2>${esc(route.title)}</h2><p>${esc(route.desc)}</p>`;
+
+  /* An article page shipped its title, its standfirst and then a paragraph about
+     JavaScript — the same paragraph on every URL, and none of the piece itself.
+     Google executes JS and saw the text; the crawlers that do not — GPTBot,
+     ClaudeBot, PerplexityBot, CCBot, and Bing on a bad day — saw a stub. A
+     publication whose whole claim is that its working is visible should not be
+     invisible to the readers who never run its scripts.
+     The prose is already rendered into the payload, so it costs nothing to
+     ship it. */
+  if (route.article) {
+    const a = route.article;
+    return `<div class="wrap ns"><article>
+      <p class="r">${esc(rubricName(a.rubric))}</p>
+      <h1>${esc(a.title)}</h1>
+      ${a.standfirst ? `<p class="sf">${esc(a.standfirst)}</p>` : ''}
+      <p class="m">${esc(a.author || 'The Water Journal')} &middot;
+        <time datetime="${esc(a.published)}">${esc(a.published)}</time>
+        &middot; ${a.minutes} min read</p>
+      ${a.html}
+      </article>
+      <ul>${routes.filter(r => !r.article).map(r => link(r.title.split(' — ')[0], r.path)).join('')}</ul>
+      </div>`;
+  }
+
+  /* The Journal and the rubric pages listed nothing at all: a crawler that does
+     not run scripts could not discover one article from either. */
+  const listing = route.path === '/journal'
+    ? payload.articles
+    : payload.rubrics.some(r => route.path === '/journal/' + r.id)
+      ? payload.articles.filter(a => '/journal/' + a.rubric === route.path)
+      : null;
+  if (listing && listing.length) {
+    lead += '<ul>' + listing.map(a =>
+      `<li><a href="${BASE}article/${a.slug}">${esc(a.title)}</a>`
+      + (a.standfirst ? ` &mdash; ${esc(clip(a.standfirst))}` : '') + '</li>').join('') + '</ul>';
+  }
 
   const city = payload.cities.find(c => route.path === '/city/' + c.id);
   if (city && !city.not_priced) {
@@ -390,3 +428,7 @@ ${feedItems}
   console.log('  + 404.html · sitemap.xml · feed.xml · robots.txt · site.json');
 }
 if (missing.length) console.log(`  missing: ${[...new Set(missing)].join(', ')}`);
+
+/* Exported for the tests: the crawler-facing text is a published surface and is
+   checked from the source that produces it, not from a build artifact. */
+export { noscriptFor, routes };

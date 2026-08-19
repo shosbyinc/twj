@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import vm from 'node:vm';
 import { payload } from '../scripts/site.js';
+import { noscriptFor, routes as ROUTES } from '../scripts/render.js';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
@@ -265,5 +266,62 @@ describe('unknown is not zero', () => {
       'the chart takes a maximum before dropping unknowns');
     assert.match(cbar, /not shown/);
     void sandbox;
+  });
+});
+
+/**
+ * A page a crawler cannot read is a page that does not exist for most of them.
+ *
+ * Every article shipped its title, its standfirst, and then one paragraph about
+ * JavaScript — the same paragraph on every URL and none of the piece itself.
+ * Google runs scripts and saw the text; the crawlers that do not, which now
+ * includes most of the ones training and answering from the open web, saw a
+ * stub. For a publication whose argument is that its working is visible, being
+ * invisible without scripts is close to self-refuting.
+ *
+ * The prose is already in the payload. These tests hold it on the page.
+ */
+describe('the page carries its own text', () => {
+  const noscriptOf = path => {
+    const route = ROUTES.find(r => r.path === path);
+    assert.ok(route, `no route for ${path}`);
+    return noscriptFor(route);
+  };
+  const words = s => s.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+
+  test('every article ships its body without scripts', () => {
+    for (const a of payload.articles) {
+      const ns = noscriptOf(`/article/${a.slug}`);
+      assert.ok(words(ns) > 800,
+        `${a.slug}: ${words(ns)} words without scripts — the piece is not on the page`);
+      assert.ok(ns.includes(a.title), `${a.slug}: no headline`);
+      assert.ok(ns.includes(a.published), `${a.slug}: no date`);
+    }
+  });
+
+  test('no two articles ship the same text', () => {
+    /* The failure this replaces was not "too little text" but "the same text
+       everywhere", which is the shape a crawler reads as boilerplate. */
+    const seen = new Map();
+    for (const a of payload.articles) {
+      const body = noscriptOf(`/article/${a.slug}`);
+      const prev = seen.get(body);
+      assert.equal(prev, undefined, `${a.slug} and ${prev} ship identical text`);
+      seen.set(body, a.slug);
+    }
+  });
+
+  test('the Journal and its sections link to the pieces', () => {
+    const j = noscriptOf('/journal');
+    for (const a of payload.articles) {
+      assert.ok(j.includes(`article/${a.slug}`), `the Journal does not link ${a.slug}`);
+    }
+    for (const r of payload.rubrics) {
+      const inRubric = payload.articles.filter(a => a.rubric === r.id);
+      if (!inRubric.length) continue;
+      const page = noscriptOf(`/journal/${r.id}`);
+      for (const a of inRubric) assert.ok(page.includes(`article/${a.slug}`),
+        `${r.id} does not link ${a.slug}`);
+    }
   });
 });
