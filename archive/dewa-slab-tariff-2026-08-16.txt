@@ -1,0 +1,38 @@
+DEWA — SLAB TARIFF PAGE
+Source: dewa.gov.ae, slab tariff
+Captured 16 August 2026 as three screenshots, archived alongside this extract
+and hashed individually.
+
+RESIDENTIAL WATER — SLAB TARIFF (AED per m³)
+  0 – 27 m³ / month        7.700
+  27 – 54 m³ / month       8.800
+  54 m³ and above         10.120
+
+COMMERCIAL / INDUSTRIAL — SLAB TARIFF (AED per m³)
+  0 – 45 m³ / month        7.700
+  45 – 91 m³ / month       8.800
+  91 m³ and above         10.120
+
+METER SERVICE CHARGE (AED)
+  Meter Type 1             5
+  Meter Type 2             7
+
+FUEL SURCHARGE — AUGUST 2026
+  Water                    AED 1.100 / m³
+
+NOTE ON THE PAGE
+  "5% VAT is applicable on these tariffs."
+
+RECORDED AT CAPTURE
+  1. The page states the slab in AED per cubic metre. The verified residential
+     invoice bills in AED per imperial gallon at 0.035. At 3,740 IG the invoice
+     charges 130.90; the per-m³ rate over the same volume gives 130.92. The
+     per-gallon rate is the operative one and reproduces the bill exactly, so
+     source precedence keeps it: statutory formula, then billing formula, then
+     invoice rate, before a rounded presentation table.
+  2. The surcharge shown is for AUGUST 2026. July 2026 is not evidenced by this
+     capture. DEWA resets the surcharge monthly.
+  3. The page does not state which meter type applies to a standard residential
+     connection. Type 1 at AED 5 is established for a Residential – Flat account
+     by the verified invoice, and remains a scope disclosure rather than a
+     universal rule.

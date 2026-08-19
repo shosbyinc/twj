@@ -1,0 +1,21 @@
+{
+  "id": "nycwaterboard-rate-history",
+  "tier": 1,
+  "publisher": "New York City Water Board",
+  "title": "Rate History — metered water and sewer rates from Fiscal Year 1980",
+  "url": "https://www.nyc.gov/site/nycwaterboard/rates/rates-regulations.page",
+  "accessed_at": "2026-08-14",
+  "archive_path": "archive/nycwaterboard-rate-history-2026-08-16.txt",
+  "archive_sha256": "sha256:118fb391206d5e2317ede3b269affcf22abb2f8443e556024b4e70418a199d4e",
+  "caveat": "The Board states the table is informational and that the Rate Schedule is the definitive billing basis. Individual year schedules are linked from the same page and are the documents of record for each year; the back-series is recomputed against them as they are archived.",
+  "coverage": "FY1980 through FY2027, 49 schedules including two mid-year changes",
+  "affects": [
+    "newyork"
+  ],
+  "class": "rate_history",
+  "archived_at": "2026-08-16",
+  "archive_bytes": 968,
+  "archive_kind": "extract",
+  "archive_note": "Text extract of the rate history table, taken from a direct fetch of the page.",
+  "captured_by": "The Water Journal"
+}

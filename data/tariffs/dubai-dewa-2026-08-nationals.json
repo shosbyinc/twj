@@ -1,0 +1,93 @@
+{
+  "id": "dubai-dewa-2026-08-nationals",
+  "_note": "Alternative tariff plan, held for context and never averaged with the benchmark. Executive Council Resolution 16/2011, Schedule 2, item 7 sets water for residences and farms of UAE nationals at 0.0 fils per gallon up to 10,000 gallons and 1.5 above. Article 2(f) exempts the same category from the fuel surcharge. At the TWJ reference volume of 15 m³ — 3,300 gallons — such a household pays nothing for water consumption and nothing for fuel.",
+  "scenario": "TWJ-R180-v1.0",
+  "city": "dubai",
+  "utility": "DEWA",
+  "currency": "AED",
+  "shape": "monthly_blocks",
+  "grade": "A",
+  "streams_separable": true,
+  "wastewater_status": "not_established",
+  "effective_from": "2011-01-01",
+  "source_id": "dubai-ecr-16-2011",
+  "benchmark_eligible": false,
+  "residency_class": "residences and farms of UAE nationals — concessionary",
+  "volume_conversion": {
+    "unit": "imperial_gallon",
+    "m3_per_unit": 0.004545454545454545,
+    "ig_per_m3": 220,
+    "source": "DEWA meter multiplication factor"
+  },
+  "components": [
+    {
+      "id": "water_slab",
+      "name": "Water consumption",
+      "stream": "water",
+      "kind": "volumetric",
+      "volume_unit": "imperial_gallon",
+      "rate_display": "0.000 AED / IG to 10,000 gallons, then 0.015",
+      "blocks": [
+        {
+          "from": 0,
+          "to": 10000,
+          "rate": 0
+        },
+        {
+          "from": 10000,
+          "to": null,
+          "rate": 0.015
+        }
+      ]
+    },
+    {
+      "id": "meter_service_charge",
+      "name": "Meter service charge",
+      "stream": "water",
+      "kind": "fixed",
+      "period": "monthly",
+      "amount": 5,
+      "rate_display": "AED 5.00 / month, Type 1",
+      "scope": true,
+      "scope_note": "Type 1 meter, as for the benchmark profile."
+    },
+    {
+      "id": "vat",
+      "name": "VAT",
+      "stream": "water",
+      "kind": "tax_percent",
+      "rate": 0.05,
+      "rate_display": "5%",
+      "base": [
+        "water_slab",
+        "meter_service_charge"
+      ]
+    }
+  ],
+  "reference_connection": {
+    "size": "Residential – Flat, Type 1 water meter",
+    "designation": "Same designated connection as the general residential plan; only the entitlement class differs.",
+    "source_id": "dewa-slab-tariff",
+    "basis": "utility_designated"
+  },
+  "jurisdiction": {
+    "tariff_jurisdiction_id": "ae-dubai-dewa",
+    "utility_id": "dewa",
+    "service_area_id": "dubai-territory",
+    "customer_class_id": "residential-flat-type1-national",
+    "customer_class_name": "Residential – Flat, Type 1 meter, UAE National",
+    "tariff_schedule_id": "dubai-dewa-2026-08-nationals",
+    "observation_id": "obs-dubai-dewa-2026-08-nationals",
+    "note": "City is a display layer. The observation belongs to jurisdiction x utility x service area x customer class x schedule x period."
+  },
+  "continuity": {
+    "basis": "recorded_search",
+    "in_force_source_id": "dubai-ecr-16-2011",
+    "search": {
+      "performed_on": "2026-08-14",
+      "scope": "Executive Council Resolutions of the Government of Dubai published by the Supreme Legislation Committee, and DEWA's published tariff pages, for an instrument amending or replacing the UAE National residential water tariff set by Resolution No. (16) of 2011.",
+      "finding": "None found. The 2011 resolution is the operative instrument for this customer class and DEWA publishes the same figures."
+    },
+    "note": "The basis here is a search and not a live schedule, because the instrument is a 2011 Executive Council Resolution rather than a page the publisher keeps current. This record is the concessionary UAE National class and is not the benchmark tariff under §5.3; it is held to the same standard so that it can never quietly become one."
+  }
+}

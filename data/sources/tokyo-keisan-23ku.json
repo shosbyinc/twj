@@ -1,0 +1,45 @@
+{
+  "id": "tokyo-keisan-23ku",
+  "tier": 1,
+  "publisher": "Tokyo Metropolitan Government Bureau of Waterworks",
+  "title": "水道料金・下水道料金の計算方法（23区）— Method of calculating the water and sewerage charge, 23 wards",
+  "url": "https://www.waterworks.metro.tokyo.lg.jp/tetsuduki/ryokin/keisan_23",
+  "document_id": "081-001-20240819-006172",
+  "accessed_at": "2026-08-18",
+  "archive_kind": "print_to_pdf",
+  "archive_note": "Browser print-to-PDF supplied by the collector; the Bureau's site refuses automated fetching. This is a direct capture of the page that tokyo-waterworks-partial held only as a search-engine extract of a search-engine extract.",
+  "licence": "public information, cited with attribution",
+  "class": "tariff_schedule",
+  "affects": [
+    "tokyo"
+  ],
+  "captured_by": "Evgeny Basov",
+  "supersedes": "tokyo-waterworks-partial, for the calculation-method page. The partial record is kept: it is what the tier table was corroborated against before it could be read.",
+  "establishes": [
+    "The water rate table for one month, stated on its face to apply from 1 January 2005 (平成17年1月1日から適用). Basic charge by bore: 13 mm 860円, 20 mm 1,170円, 25 mm 1,460円, 30 mm 3,435円, 40 mm 6,865円, 50 mm 20,720円, 75 mm 45,623円, 100 mm 94,568円, 150 mm 159,094円, 200 mm 349,434円, 250 mm 480,135円, 300 mm and above 816,145円.",
+    "The volumetric bands in full: nil to 5 m3, 22円 from 6 to 10, 128円 from 11 to 20, 163円 from 21 to 30, 202円 from 31 to 50, 213円 from 51 to 100, 298円 from 101 to 200, 372円 from 201 to 1,000, 404円 from 1,001 up. The record had the first five of these; the four above 50 m3 had never been read.",
+    "The sewerage rate table for one month, stated to apply from 1 June 1998 (平成10年6月1日から適用). 一般汚水: 560円 for the first 8 m3, then 110円 from 9 to 20, 140円 from 21 to 30, 170円 from 31 to 50, 200円 from 51 to 100, 230円 from 101 to 200, 270円 from 201 to 500, 310円 from 501 to 1,000, 345円 from 1,001 up.",
+    "That the volume of sewage discharged is deemed equal to the volume of water used (汚水排出量は、水道ご使用量と同量とみなして算出します), which is what lets one metered volume drive both streams.",
+    "Both billing formulas and their rounding, stated separately: the water charge is (basic + volumetric) × 1.10 truncated to the yen, and the sewerage charge is the amount computed from the rate table × 1.10, truncated to the yen.",
+    "The Bureau's own bi-monthly worked example at 20 mm and 59 m3, split 30 and 29: water 9,038円, sewerage 7,062円, together 16,100円.",
+    "A second worked example for a supply started or stopped mid-month, showing the day-proration rule (日割算定方式) applied to the basic and volumetric charges together.",
+    "The public bath-house category (公衆浴場用), priced separately at 0円 to 5 m3, 22円 to 10, and 109円 above — a business class, excluded here."
+  ],
+  "does_not_establish": [
+    "Any designation of an ordinary residential bore. Twelve bores are priced and none is named as the ordinary one for a single dwelling.",
+    "The Bureau of Sewerage's own schedule. This is the waterworks bureau publishing the sewerage rate it collects on the sewerage bureau's behalf, which is one remove from the levying authority."
+  ],
+  "reconciliations_passed": [
+    "The Bureau's own worked example, water, 20 mm at 30 + 29 m3: (1,170 × 2 + 3,020 + 2,857) × 1.10 = 9,038.7, truncated to 9,038. The page prints 9,038. Exact.",
+    "The same example, sewerage: (3,280 + 3,140) × 1.10 = 7,062. The page prints 7,062. Exact, and it fixes the 8 m3 and 20 m3 band boundaries from the rate table itself rather than from the ready-reckoner.",
+    "Combined 9,038 + 7,062 = 16,100, as printed."
+  ],
+  "archive_path": "archive/tokyo-keisan-23ku-2026-08-18.pdf",
+  "archive_sha256": "sha256:ed19cdb8c1850628027a33b5e39beb144cfb716767454593049b5230db02be1a",
+  "archive_bytes": 1007035,
+  "archived_at": "2026-08-18",
+  "archive_text_path": "archive/tokyo-keisan-23ku-2026-08-18.txt",
+  "archive_text_sha256": "sha256:409c6e74683dff075869098f7a88656ebf03643fb190a61351ae32210d16eb87",
+  "archive_text_bytes": 6188,
+  "archive_text_note": "The text layer of the same PDF, extracted mechanically with pdftotext and not retyped. On the Japanese captures the font's character map is broken and the kanji extract as mojibake; the digits do not, and the digits are what the verbatim second pass reads. The PDF is the capture; this file is the machine-readable face of it."
+}

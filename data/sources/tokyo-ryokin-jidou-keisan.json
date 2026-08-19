@@ -1,0 +1,30 @@
+{
+  "id": "tokyo-ryokin-jidou-keisan",
+  "tier": 1,
+  "publisher": "Tokyo Metropolitan Government Bureau of Waterworks",
+  "title": "料金自動計算（23区）— the Bureau's automatic charge calculator",
+  "url": null,
+  "url_note": "Print-to-PDF supplied by the collector; the page's own article ID is 081-001-20240819-006200.",
+  "document_id": "081-001-20240819-006200",
+  "accessed_at": "2026-08-18",
+  "archive_kind": "print_to_pdf",
+  "archive_note": "Captured unrun. The form displays no figure until a bore, a volume and a number of months are entered, so the file is a form and not a result.",
+  "licence": "public information, cited with attribution",
+  "class": "calculator",
+  "admissible_as_schedule": false,
+  "affects": [
+    "tokyo"
+  ],
+  "captured_by": "Evgeny Basov",
+  "cited_by_any_tariff": false,
+  "establishes": [
+    "That the Bureau publishes an automatic calculator for the 23 wards, and that the page states its result does not apply to accounts under a reduction or under the shared-dwelling treatment — which is the same scope the tariff record carries."
+  ],
+  "does_not_establish": [
+    "Any rate. A calculator is not the schedule under §7.1, and this capture is not even a calculator run: it is an empty form. It is archived because it was supplied and the record should show what was received, not only what was used."
+  ],
+  "archive_path": "archive/tokyo-ryokin-jidou-keisan-2026-08-18.pdf",
+  "archive_sha256": "sha256:d17e9988bbddadb4a5730230718e1f165fe29f827e605b1428b0bca5f1ae9be0",
+  "archive_bytes": 1066450,
+  "archived_at": "2026-08-18"
+}

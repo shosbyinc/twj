@@ -1,0 +1,116 @@
+{
+  "id": "london-thames-2026-04-01",
+  "scenario": "TWJ-R180-v1.0",
+  "city": "london",
+  "utility": "Thames Water",
+  "currency": "GBP",
+  "shape": "flat",
+  "grade": "A",
+  "streams_separable": true,
+  "effective_from": "2026-04-01",
+  "effective_to": "2027-03-31",
+  "source_id": "thames-charges-scheme-2026-27",
+  "grade_reason": "All eight points satisfied from the Charges Scheme 2026-27 v2.0, the document of record. Uncertainty is zero: the rates and both fixed charges are printed. The metered reference account is a scope disclosure, not an error bar, and does not lower the grade.",
+  "notes": [
+    "Thames bills the same volume for wastewater as for water supplied; the published wastewater rate already assumes up to 10% is not returned (clause 6.1.3).",
+    "There is no VAT on domestic water and wastewater charges in the United Kingdom.",
+    "Fixed charges are the single-household figures from Table 1, applied per year and prorated across twelve months."
+  ],
+  "components": [
+    {
+      "id": "water_volumetric",
+      "name": "Water supply service",
+      "stream": "water",
+      "kind": "volumetric",
+      "volume_unit": "m3",
+      "rate_display": "273.46 p / m3",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 2.7346
+        }
+      ]
+    },
+    {
+      "id": "water_fixed",
+      "name": "Metered fixed charge — water",
+      "stream": "water",
+      "kind": "fixed",
+      "period": "annual",
+      "amount": 66.87,
+      "rate_display": "GBP 66.87 / year"
+    },
+    {
+      "id": "ww_volumetric",
+      "name": "Wastewater service",
+      "stream": "wastewater",
+      "kind": "volumetric",
+      "volume_unit": "m3",
+      "rate_display": "147.21 p / m3",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 1.4721
+        }
+      ]
+    },
+    {
+      "id": "ww_fixed",
+      "name": "Metered fixed charge — wastewater (full)",
+      "stream": "wastewater",
+      "kind": "fixed",
+      "period": "annual",
+      "amount": 128.13,
+      "rate_display": "GBP 128.13 / year"
+    }
+  ],
+  "scope_disclosures": [
+    "Reference account is metered. Metering is not universal in the Thames region; assessed and unmetered regimes exist and are priced differently.",
+    "Full wastewater fixed charge applied. The abated GBP 80.43 rate requires a surface water drainage rebate the reference account does not claim."
+  ],
+  "source_precedence_note": "Thames website pages show GBP 65.76 for the assessed household tariff and GBP 81.76 for unmetered customers. Neither is the metered fixed charge. Table 1 of the Charges Scheme gives GBP 66.87 water and GBP 128.13 wastewater for single households, and the Scheme outranks a summary page.",
+  "gate": {
+    "primary_source": true,
+    "current_tariff": true,
+    "customer_class": true,
+    "residency_class": true,
+    "volumetric_known": true,
+    "fixed_known": true,
+    "levies_known": true,
+    "reproducible": true
+  },
+  "transparency": {
+    "subsidised_tariff": "no",
+    "nationality_dependent": "no",
+    "wastewater_included": "no",
+    "fixed_charge": "yes",
+    "consumption_blocks": "no",
+    "variable_surcharge": "no"
+  },
+  "reference_connection": {
+    "size": "Standard metered household connection",
+    "designation": "Table 1 of the Charges Scheme 2026-27 gives one standing charge for a single metered household — GBP 66.87 water and GBP 128.13 wastewater — without differentiating by meter size, so the designated residential connection is the metered household account itself.",
+    "source_id": "thames-charges-scheme-2026-27",
+    "basis": "utility_designated"
+  },
+  "no_reconciliation_available": {
+    "status": "validation gap, not a blocker (v1.5)",
+    "publisher_offers_none": null,
+    "detail": "Thames Water publishes the Charges Scheme and no worked example of a 15 m3 household. It is under no obligation to compute our benchmark. The tariff is deterministic: a stated volumetric rate, a stated annual fixed charge, a stated customer class and a stated period, from which 15 x 2.7346 + 66.87/12 follows and nothing else does.",
+    "classification": "validation_gap",
+    "history": "Held from publication on 17 August 2026 by the v1.3 checklist, which required a reconciliation. That requirement amounted to: an official tariff is insufficient until the utility computes our scenario. Reclassified in v1.5 and republished."
+  },
+  "validation_note": "Source verified and calculation verified. No public reconciliation exists to perform.",
+  "jurisdiction": {
+    "tariff_jurisdiction_id": "gb-thames",
+    "utility_id": "thames-water",
+    "service_area_id": "thames-london",
+    "customer_class_id": "metered-household",
+    "customer_class_name": "Standard metered household",
+    "tariff_schedule_id": "london-thames-2026-04-01",
+    "observation_id": "obs-london-thames-2026-04-01",
+    "note": "City is a display layer. The observation belongs to jurisdiction x utility x service area x customer class x schedule x period."
+  }
+}

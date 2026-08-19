@@ -1,0 +1,38 @@
+{
+  "id": "tokyo-mushou-press",
+  "tier": 1,
+  "publisher": "Tokyo Metropolitan Government Bureau of Waterworks",
+  "title": "猛暑から都民の命と健康と暮らしを守るため今夏４か月間、水道料金の基本料金を無償とし、都民の暑さ対策を支援します — press release, 15 May 2026",
+  "url": null,
+  "url_note": "The capture is a print-to-PDF supplied by the collector and the reconstructed address is not recorded, because a URL nobody fetched is not provenance. The page carries the Bureau's own article ID, 081-001-20260515-012067, and names its own special page at https://www.waterworks.metro.tokyo.lg.jp/tetsuduki/ryokin/mushou.",
+  "document_id": "081-001-20260515-012067",
+  "accessed_at": "2026-08-18",
+  "archive_kind": "print_to_pdf",
+  "archive_note": "Browser print-to-PDF supplied by the collector. This is the announcement itself, dated 15 May 2026, under 報道発表 for Reiwa 8.",
+  "licence": "public information, cited with attribution",
+  "class": "policy_instrument",
+  "affects": [
+    "tokyo"
+  ],
+  "captured_by": "Evgeny Basov",
+  "establishes": [
+    "The measure and its date: announced by the Bureau on 15 May 2026 as a temporary special measure limited to this summer (今夏に限った臨時的な特別措置).",
+    "Who it covers: holders of small-bore supply contracts at 13, 20 and 25 mm, described as the bores mainly used by households, with no application required (申請不要).",
+    "What it waives: the basic charge of the water charge, and that alone.",
+    "The value at each bore over four months: 13 mm 3,440円 (3,784円 with tax), 20 mm 4,680円 (5,148円), 25 mm 5,840円 (6,424円) — printed as 860, 1,170 and 1,460円 × 4 months, which is the basic charge of the standing tariff unchanged.",
+    "The term: four months of the Reiwa 8 summer, billed as the 5–6 and 7–8 months or the 6–7 and 8–9 months according as the property is read in an even or an odd month, first applying to readings from 1 June.",
+    "The funding: a transfer from the metropolitan general account, which the Bureau states is why the measure does not affect the water undertaking's financial management or its capital programme."
+  ],
+  "does_not_establish": [
+    "Any amendment to the charging articles. Nothing here changes the ordinance: the measure is announced by the Bureau, funded from general revenue, and the rates it multiplies are the rates already in force. That is the whole ground of the payable/structural split under §5.4 — the structural price is not a reconstruction, it is the tariff, still standing.",
+    "Anything about 2027. The issuer calls the measure limited to this summer and has now run it two summers in a row; that is a repetition to record, not a schedule to extrapolate."
+  ],
+  "archive_path": "archive/tokyo-mushou-press-2026-08-18.pdf",
+  "archive_sha256": "sha256:6ae60999a967a71e7ff7ac96e500b12c472ac59f5b801f545395887de553bee9",
+  "archive_bytes": 1183690,
+  "archived_at": "2026-08-18",
+  "archive_text_path": "archive/tokyo-mushou-press-2026-08-18.txt",
+  "archive_text_sha256": "sha256:45185db4bf30e4002968d34e2cba85f0d1e07df5afc78969a8d06ada3a45e59b",
+  "archive_text_bytes": 941,
+  "archive_text_note": "The text layer of the same PDF, extracted mechanically with pdftotext and not retyped. On the Japanese captures the font's character map is broken and the kanji extract as mojibake; the digits do not, and the digits are what the verbatim second pass reads. The PDF is the capture; this file is the machine-readable face of it."
+}

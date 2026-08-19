@@ -1,0 +1,185 @@
+{
+  "id": "seoul-arisu-2026",
+  "scenario": "TWJ-R180-v1.0",
+  "city": "seoul",
+  "utility": "Seoul Arisu Waterworks Authority",
+  "currency": "KRW",
+  "symbol": "₩",
+  "shape": "monthly_blocks",
+  "effective_from": "2026-01-01",
+  "effective_to": "2026-12-31",
+  "grade": "B",
+  "grade_reason": "Grade B. Every rate is established from Arisu's own table under named ordinances and the VAT treatment of the water supply is established from the Value-Added Tax Act. What keeps it from Grade A is §2.5: the rate table prices eight bores and designates none as ordinary for a single dwelling, so 15 mm is the smallest priced rather than the designated one, and that is printed as scope.",
+  "source_id": "seoul-arisu-tariff-table",
+  "sources": [
+    "seoul-arisu-tariff-table",
+    "kr-vat-act-26-water"
+  ],
+  "statutory_basis": "Article 23 of the Seoul Water Supply Ordinance; Article 23 of the Seoul Sewerage Use Ordinance",
+  "reference_connection": {
+    "size": "15 mm meter",
+    "designation": "Arisu's rate table prices eight bores and 15 mm is the smallest, which is the §2.5 tie-break: the smallest size priced for residential service. The table does not use the word ordinary, so the choice is printed as scope rather than claimed as a designation. A larger bore is a different reference customer and a different basic charge, not a different reading of this one.",
+    "source_id": "seoul-arisu-tariff-table",
+    "basis": "smallest_documented"
+  },
+  "component_states": [
+    {
+      "component": "basic_charge",
+      "status": "observed",
+      "source_id": "seoul-arisu-tariff-table"
+    },
+    {
+      "component": "volumetric_water",
+      "status": "observed",
+      "source_id": "seoul-arisu-tariff-table"
+    },
+    {
+      "component": "water_use_burden_levy",
+      "status": "observed",
+      "source_id": "seoul-arisu-tariff-table"
+    },
+    {
+      "component": "volumetric_sewerage",
+      "status": "observed",
+      "source_id": "seoul-arisu-tariff-table"
+    },
+    {
+      "component": "vat_water_supply",
+      "status": "confirmed_absent",
+      "source_id": "kr-vat-act-26-water",
+      "basis": "Value-Added Tax Act art. 26(1)2 exempts the supply of tap water, and Basic Ruling 26-0-1 defines it as water supplied through conduits by a water supplier under the Water Supply Act. Seoul Arisu is that supplier for Seoul, so the usage charge and the meter basic charge carry no VAT. Established from tax law, which is where the answer was always going to be — the silence of a rate table proved nothing, and Tokyo is why."
+    },
+    {
+      "component": "reference_connection_designation",
+      "status": "not_applicable",
+      "question": "§2.5 requires the size the utility explicitly designates, or failing that the smallest size explicitly documented as suitable for an individual dwelling. The rate table documents neither — it simply prices eight bores. A primary designation is needed, or the reference must be justified some other way.",
+      "found_by": "Rule 2.2",
+      "resolution": "Resolved as scope under §5.1, which separates uncertainty from scope. For a given bore the bill is exactly one number and U = 0; which bore the reference household has is a scope disclosure like London's metered account, and it is printed. Blocking on it conflated the two, which is the error v1.2 was written to fix.",
+      "blocker_class": "validation_gap"
+    },
+    {
+      "component": "vat_sewerage",
+      "status": "unresolved",
+      "blocker_class": "material",
+      "affects_metric": "total_water_services",
+      "question": "Art. 26(1)2 names 수돗물 and not 하수도 사용료. A sewerage use charge is levied by a local authority under the Sewerage Act rather than supplied by a business, which is a different question from exemption. Closing it needs law.go.kr obtained by hand or a Seoul Metropolitan Government statement on the treatment of the sewerage charge."
+    },
+    {
+      "component": "vat_water_use_levy",
+      "status": "unresolved",
+      "blocker_class": "validation_gap",
+      "affects_metric": "water_supply",
+      "question": "물이용부담금 is a statutory levy under river management law rather than consideration for a supply, so it is almost certainly outside VAT for a different reason than the water exemption. Almost certainly is not a source. Recorded as a validation gap rather than a blocker: if it were taxed the supply bill would move by ₩255, but no reading of the levy's statutory character supports that."
+    }
+  ],
+  "components": [
+    {
+      "id": "water_usage",
+      "name": "Water usage (가정용)",
+      "stream": "water",
+      "kind": "volumetric",
+      "rate_display": "₩580/m³, a single rate with no bands",
+      "source_id": "seoul-arisu-tariff-table",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 580
+        }
+      ]
+    },
+    {
+      "id": "meter_basic",
+      "name": "Basic charge, 15 mm meter",
+      "stream": "water",
+      "kind": "fixed",
+      "period": "monthly",
+      "amount": 1080,
+      "rate_display": "₩1,080/month at 15 mm; ₩3,000 at 20 mm; ₩5,200 at 25 mm",
+      "source_id": "seoul-arisu-tariff-table"
+    },
+    {
+      "id": "water_use_levy",
+      "name": "Water-use burden levy (물이용부담금)",
+      "stream": "water",
+      "kind": "surcharge_volumetric",
+      "rate": 170,
+      "rate_display": "₩170/m³, universal across categories since 1 January 2011",
+      "source_id": "seoul-arisu-tariff-table"
+    },
+    {
+      "id": "sewerage",
+      "name": "Sewerage (가정용)",
+      "stream": "wastewater",
+      "kind": "volumetric",
+      "rate_display": "₩480/m³ for 2026; rising to ₩560, ₩630, ₩700 and ₩770 through 2030",
+      "source_id": "seoul-arisu-tariff-table",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 480
+        }
+      ]
+    }
+  ],
+  "forward_schedule": {
+    "source_id": "seoul-arisu-tariff-table",
+    "metric": "domestic sewerage, won per m³",
+    "years": {
+      "2026": 480,
+      "2027": 560,
+      "2028": 630,
+      "2029": 700,
+      "2030": 770
+    },
+    "note": "A published five-year escalation, which is unusual in this Index and worth keeping: most utilities publish one year at a time. It is recorded and not used — a future rate is not an observation."
+  },
+  "excluded": [
+    {
+      "item": "욕탕용 and 일반용 categories",
+      "reason": "Bath-house and general-use categories are not residential.",
+      "source_id": "seoul-arisu-tariff-table"
+    },
+    {
+      "item": "요금감면제도 reductions",
+      "reason": "Rule 3.1: Arisu operates a charge-reduction scheme for defined groups. Means-tested or status-based, and not a universal automatic feature of the tariff."
+    }
+  ],
+  "scope_disclosures": [
+    "Reference account is a separately metered dwelling on a 15 mm connection. Arisu's own moving-settlement page shows apartments on a shared meter with the basic charge apportioned between households, which is a different reference customer.",
+    "The 15 mm connection is assumed, not designated. See the open component state."
+  ],
+  "shape_note": "Three flat volumetric components and one fixed charge, so the curve declines only through the ₩1,080 basic charge spread over more water.",
+  "page_inconsistency_note": "The prose on Arisu's page states that all four categories use a three-band progressive structure. The table shows domestic use as a single rate and dates itself to 1 July 2021; the prose describes the superseded structure. The table governs — a rate schedule outranks a sentence describing the schedule.",
+  "jurisdiction": {
+    "tariff_jurisdiction_id": "kr-seoul-arisu",
+    "utility_id": "arisu",
+    "service_area_id": "seoul",
+    "customer_class_id": "domestic-15mm",
+    "customer_class_name": "Domestic, 15 mm connection",
+    "tariff_schedule_id": "seoul-arisu-2026",
+    "observation_id": "obs-seoul-arisu-2026",
+    "note": "City is a display layer. The observation belongs to jurisdiction x utility x service area x customer class x schedule x period."
+  },
+  "metric_eligibility": {
+    "water_supply": {
+      "publishable": true,
+      "basket_eligible": false,
+      "reason": "Grade B on the reference connection being the smallest priced bore rather than a designated one"
+    },
+    "total_water_services": {
+      "publishable": false,
+      "basket_eligible": false,
+      "reason": "sewerage VAT unresolved"
+    }
+  },
+  "no_reconciliation_available": {
+    "status": "validation gap (v1.5)",
+    "publisher_offers_none": null,
+    "classification": "validation_gap",
+    "detail": "Arisu publishes a rate table and a charge calculator, and no worked example of a 15 m3 household. The tariff is deterministic: three flat volumetric rates and one fixed charge, each under a named ordinance.",
+    "candidate": "Arisu's own 요금계산 calculator could be run at a known volume and reconciled against. Not attempted, and it would also settle the sewerage tax treatment if the calculator itemises it."
+  },
+  "validation_note": "Source verified and calculation verified. No reconciliation performed."
+}

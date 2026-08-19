@@ -1,0 +1,118 @@
+SOURCE CAPTURE — The Water Journal
+==================================
+Publisher : PUB, Singapore's National Water Agency
+Title     : Water price to rise from April 2024; Government to provide support
+            for lower- and middle-income households
+Published : 27 September 2023
+Page note : "Last Updated 04 Jun 2024"
+URL       : https://www.pub.gov.sg/Resources/News-Room/PressReleases/2023/09/Water-price-to-rise-from-April-2024-Government-to-provide-support
+Captured  : 2026-08-17
+Capture   : Text rendering of the page as returned by a direct fetch. This is
+            not the publisher's original HTML file. It is recorded as an
+            extract for that reason. The figures below are machine-readable in
+            the source: Annex A is an HTML table, not an image. This is the
+            distinction that separates this document from the PUB Water Price
+            page (source id pub-water-price), whose rate table is an image and
+            therefore establishes nothing.
+
+VERBATIM EXTRACT — the passages relied upon
+-------------------------------------------
+
+[Body, paragraph 5]
+
+"The current potable water price is set at $2.74 per cubic metre. To meet the
+higher costs of supplying and producing water, the potable water price will
+increase by 50 cents per cubic metre (equivalent to 1,000 litres of water).
+This will be implemented in two phases – an increase of 20 cents per cubic
+metre from 1 April 2024, and a further 30 cents per cubic metre from 1 April
+2025."
+
+[Annex A]
+
+Annex A
+Phasing of Increase in Potable Water Prices for Domestic and Non-Domestic Users
+
+Domestic Potable Water Prices ($ per cubic metre)
+
+                                  Current        From 1 Apr 2024   From 1 Apr 2025
+                              0-40m3   >40m3     0-40m3   >40m3    0-40m3   >40m3
+  Tariff                       1.21     1.52      1.29     1.63     1.43     1.81
+  Water Conservation Tax
+    (% of Tariff)*             0.61     0.99      0.65     1.06     0.72     1.18
+  Waterborne Tax               0.92     1.18      1.00     1.25     1.09     1.40
+  Total Price                  2.74     3.69      2.94     3.94     3.24     4.39
+                                                (+0.20) (+0.25)  (+0.30) (+0.45)
+
+Note: All figures are before GST.
+
+* Water Conservation Tax is applied at 50% of Tariff for domestic users
+consuming less than 40 cubic metres per month, and at a higher rate of 65% of
+Tariff for the volume in excess of 40 cubic metres per month. This higher
+Tariff and Water Conservation Tax, for volume in excess of 40 cubic metres per
+month, apply to about 4% of households today.
+
+Non-Domestic Potable Water Prices ($ per cubic metre)
+
+                                  Current   From 1 Apr 2024   From 1 Apr 2025
+  Tariff                           1.21          1.29              1.43
+  Water Conservation Tax
+    (% of Tariff)                  0.61          0.65              0.72
+  Waterborne Tax                   0.92          1.00              1.09
+  Total Price                      2.74          2.94              3.24
+
+Note: All figures are before GST.
+
+[Annex B — NEWater, recorded for completeness; outside the scenario]
+
+  NEWater ($ per cubic metre)      Current   From 1 Apr 2024   From 1 Apr 2025
+  Tariff                            1.28          1.28              1.28
+  Water Conservation Tax            0.13          0.13              0.13
+    (10% of Tariff)
+  Waterborne Tax                    0.92          1.00              1.09
+  Total Price                       2.33          2.41              2.50
+
+Note: All figures are before GST.
+
+[Annex E, Frequently Asked Questions, question 4]
+
+"What is the average monthly household water usage?
+
+The average household consumes about 15 cubic metres of water each month.
+
+With the full price increase, the average HDB household will see an increase of
+$7 a month in water bill. The water bill also accounts for less than a third of
+the average utility bill, which includes electricity charges."
+
+[Annex E, question 6]
+
+"Are there any rebates for households who conserve water, or use less than the
+national average?
+
+There are no rebates for households who consume below a certain volume."
+
+[Annex E, question 7]
+
+"More than 96% of households use less than 40 cubic metres (m3) of water
+monthly."
+
+WHAT THIS DOCUMENT ESTABLISHES
+------------------------------
+1. The domestic water tariff from 1 April 2025: 1.43 below 40 m³/month, 1.81
+   above. Tier 1, from the publisher.
+2. The Waterborne Tax from the same date: 1.09 below 40 m³, 1.40 above.
+3. The Water Conservation Tax rule: 50% of tariff below 40 m³, 65% above.
+
+WHAT IT DOES NOT ESTABLISH
+--------------------------
+The rounding stage. The Annex A row is labelled "(% of Tariff)" and prints
+0.72, while the stated rule gives 50% of 1.43 = 0.715. Under source precedence
+a statutory or official formula outranks a rounded presentation table, so the
+formula governs and the stored rate is 0.715. Whether SP Services bills 0.715
+or 0.72 is a fact about billing, and only an invoice shows it. An invoice may
+never supply a rate; it validates. The unresolved rounding stage is what holds
+this city at Grade B rather than A: U = 0.233%.
+
+It also does not establish that these rates are still in force. This release
+announces a future revision. Currency is evidenced separately by the SP
+Services tariff page (source id sp-tariff-information), SP being PUB's billing
+agent.

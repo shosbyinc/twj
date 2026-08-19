@@ -1,0 +1,116 @@
+SOURCE CAPTURE — The Water Journal
+==================================
+Publisher : Water Supplies Department, Government of the Hong Kong SAR
+Title     : Water & Sewage Tariff
+URL       : https://www.wsd.gov.hk/en/customer-services/manage-account-and-water-bills/water-sewage-tariff/index.html
+Captured  : 2026-08-17
+Capture   : Text of the page as returned by a direct fetch, all sections
+            expanded. Not the publisher's original HTML file; recorded as an
+            extract. The figures are machine-readable in the source.
+
+VERBATIM EXTRACT — the passages relied upon
+-------------------------------------------
+
+[Domestic supplies — the complete tariff]
+
+"Domestic consumers are usually billed for their water charges at 4-monthly
+ intervals according to the meter readings taken. The charges payable are
+ calculated on a tariff structure which consists of 4 tiers with progressively
+ increasing prices.
+
+ The following tariff structure is applicable to water consumed in billing
+ periods which commence on or after 16 February 1995:
+   * the first tier of 12 cubic metres is free of charge;
+   * the second tier of 31 cubic metres is charged at $4.16 per cubic metre;
+   * the third tier of 19 cubic metres is charged at $6.45 per cubic metre; and
+   * the fourth tier for any consumption above the level of 62 cubic metres is
+     charged at $9.05 per cubic metre."
+
+[The statutory period, and proration]
+
+"For the purpose of calculating water charges, a 4-month period is defined as
+ 121.64 days in the Waterworks Regulations. Since water meters will not be read
+ at intervals of exactly 121.64 days, the volume covered by each tier is
+ adjusted on a pro-rata basis according to the actual number of days in the
+ period between two meter readings. As such, a consumer who uses the same amount
+ of water as another one but over a longer period of time will receive a lower
+ water bill."
+
+[Calculation Example 1 — reproduced verbatim]
+
+  Registered consumer: Mr. Chan
+  Consumption period: from 1/8/1995 to 6/12/1995 (127 days)
+  Water consumption: 66 cubic metres
+
+  Tier    Consumption                Rate(HK$)   Charges(HK$)
+  first   12x127/121.64 = 12.529      0.00          0.00
+  second  31x127/121.64 = 32.366      4.16        134.64
+  third   19x127/121.64 = 19.837      6.45        127.94
+  fourth  remaining 1.268             9.05         11.47
+  Total   66.000                                  274.05
+
+[Calculation Example 2 — reproduced verbatim]
+
+  Registered consumer: Mr. Lee
+  Consumption period: from 1/8/1995 to 26/11/1995 (117 days)
+  Water consumption: 66 cubic metres
+
+  Tier    Consumption                Rate(HK$)   Charges(HK$)
+  first   12x117/121.64 = 11.542      0.00          0.00
+  second  31x117/121.64 = 29.817      4.16        124.03
+  third   19x117/121.64 = 18.275      6.45        117.87
+  fourth  remaining 6.366             9.05         57.61
+  Total   66.000                                  299.51
+
+  "Mr. Lee pays more than Mr. Chan because he consumed the same quantity of
+   water in a shorter period (117 days) than Mr. Chan (127 days)."
+
+[What else can appear on a bill — the enumeration]
+
+"Please note that the above calculations are for reference only. Actual bills
+ will be different from the amounts calculated because of the Sewage Charges,
+ rounding of odd cents brought down from last water bills or carried forward to
+ next bills and surcharges of 5% for overdue bills."
+
+[Sewage charges — domestic]
+
+"Domestic consumers are billed for their sewage charges at a 4-month interval.
+ The sewage charges are calculated at $2.92 (with effect from 1.4.2017) per cubic
+ metre of water consumed, with an exemption for the first 12 cubic metres for a
+ 4-month period, which is defined as 121.64 days in the Waterworks Regulations."
+
+[Non-domestic concession — recorded because it was checked, and does not apply]
+
+"...reducing water charge, sewage charge and trade effluent surcharge ('TES')
+ (if applicable) for non-domestic accounts by 50%... These concession measures
+ will be valid for one year from 15 January 2026 to 14 January 2027."
+
+WHAT THIS DOCUMENT ESTABLISHES
+------------------------------
+1. The complete domestic fresh water tariff: four tiers, 12 m³ free, then 4.16,
+   6.45 and 9.05 per m³, per four-month period, in force since 16 February 1995.
+2. The domestic sewage charge: 2.92 per m³ with the same 12 m³ exemption, in
+   force since 1 April 2017.
+3. The statutory period of 121.64 days, from the Waterworks Regulations
+   (Cap. 102A), and that tier volumes prorate to the actual reading interval.
+4. THE ABSENCE OF ANY STANDING CHARGE. The page enumerates the whole of what a
+   domestic consumer pays — four tiers of water, plus sewage — and separately
+   enumerates the only other things that can appear on a bill: sewage charges,
+   odd cents carried between bills, and a 5% surcharge on overdue bills. No
+   meter rent, no service charge, no standing charge. This is what turns the
+   fixed-charge question from an assumed zero into a confirmed absence.
+5. THE BILLING FORMULA, twice over, from the publisher's own worked examples:
+   the prorated tier volume is rounded to three decimals before multiplying,
+   and the line amount is truncated to cents rather than rounded. Example 1's
+   third tier of 19.837 m³ bills 127.94, not the 127.95 the unrounded 19.83722
+   would give; example 2's fourth tier bills 57.61 from 6.366 × 9.05 = 57.6123.
+   The TWJ engine reproduces both examples exactly.
+
+WHAT IT DOES NOT ESTABLISH
+--------------------------
+That there is no tax. Hong Kong levies no general consumption tax, and no tax
+line appears in this enumeration, but the absence of a GST is a fact about Hong
+Kong law rather than about this page.
+
+The 5% surcharge on overdue bills is a penalty for late payment, not part of the
+cost of receiving water, and is excluded under §8 with the other penalties.

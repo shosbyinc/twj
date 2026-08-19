@@ -1,0 +1,62 @@
+{
+  "scenario": "TWJ-R180-v1.0",
+  "status": "draft",
+  "grade": "B",
+  "blocking": [
+    "no archived primary source — Rule 7.2"
+  ],
+  "draft_note": "Calculation spec from the city-expansion handoff. Not a publishable observation: no source is archived.",
+  "id": "perth-watercorp-2026-07",
+  "city": "perth",
+  "utility": "Water Corporation",
+  "currency": "AUD",
+  "symbol": "A$",
+  "shape": "annual_accumulating_blocks",
+  "effective_from": "2026-07-01",
+  "components": [
+    {
+      "id": "water_usage",
+      "name": "Water use",
+      "stream": "water",
+      "kind": "volumetric",
+      "blocks": [
+        {
+          "from": 0,
+          "to": 150,
+          "rate": 2.108
+        },
+        {
+          "from": 150,
+          "to": 500,
+          "rate": 2.809
+        },
+        {
+          "from": 500,
+          "to": null,
+          "rate": 5.256
+        }
+      ]
+    },
+    {
+      "id": "water_service",
+      "name": "Water service charge",
+      "stream": "water",
+      "kind": "fixed",
+      "period": "annual",
+      "amount": 305.05
+    }
+  ],
+  "tax_note": "Ongoing volumetric and fixed water charges are GST-free in Australia.",
+  "confirmed_absent": [
+    "GST — water supply charges are GST-free"
+  ],
+  "wastewater_note": "Perth sewerage service charge is assessed on Gross Rental Value of the property. Property-value billing is Grade C under §5.2 and is not standardised.",
+  "reference_connection": {
+    "size": "Perth metropolitan residential service",
+    "designation": "One annual water service charge, no size parameter in the modelled components.",
+    "source_id": "PENDING — no archived source",
+    "basis": "size_independent"
+  },
+  "superseded_by": "data/tariffs/perth-watercorp-2026-07-01.json",
+  "superseded_note": "Source capture completed 17 August 2026. Two things the draft could not know: the GST-free status rests on s 38-285 of the GST Act rather than on a general rule about Australian water, and Total Water Services must be withheld rather than reported equal to Water Supply — Perth assesses sewerage on Gross Rental Value by law."
+}

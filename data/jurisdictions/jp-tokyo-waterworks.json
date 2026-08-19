@@ -1,0 +1,22 @@
+{
+  "name": "Tokyo Metropolitan Waterworks jurisdiction",
+  "authority": "Tokyo Metropolitan Government Bureau of Waterworks",
+  "country": "JP",
+  "utilities": [
+    {
+      "id": "tokyo-waterworks",
+      "name": "Bureau of Waterworks"
+    }
+  ],
+  "service_areas": [
+    {
+      "id": "tokyo-23-wards",
+      "name": "Tokyo 23 wards"
+    }
+  ],
+  "display_cities": [
+    "tokyo"
+  ],
+  "note": "Musashino City is inside Tokyo Metropolis and outside this jurisdiction.",
+  "tariff_jurisdiction_id": "jp-tokyo-waterworks"
+}

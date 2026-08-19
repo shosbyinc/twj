@@ -1,0 +1,51 @@
+{
+  "id": "dubai-ecr-16-2011",
+  "tier": 1,
+  "publisher": "Government of Dubai — Supreme Legislation Committee (English version)",
+  "title": "Executive Council Resolution No. (16) of 2011 approving the Electricity and Water Tariff in the Emirate of Dubai",
+  "url": "https://dlp.dubai.gov.ae/Legislation%20Reference/2011/Executive%20Council%20Resolution%20No.%20%2816%29%20of%202011.html",
+  "accessed_at": "2026-08-14",
+  "archive_path": "archive/dubai-ecr-16-2011-2026-08-16.pdf",
+  "archive_sha256": "sha256:32df95213f70ff0ddfa85e5c8a7436855958d832dc607fab5bafb59cc4595257",
+  "extracted": {
+    "schedule_2_water_tariff_fils_per_gallon": {
+      "residential": {
+        "1-6000": 3.5,
+        "6001-12000": 4.0,
+        "over_12000": 4.6
+      },
+      "commercial": {
+        "1-10000": 3.5,
+        "10001-20000": 4.0,
+        "over_20000": 4.6
+      },
+      "industrial": {
+        "1-10000": 3.5,
+        "10001-20000": 4.0,
+        "over_20000": 4.6
+      },
+      "uae_nationals_residences_and_farms": {
+        "1-10000": 0.0,
+        "over_10000": 1.5
+      },
+      "ports": 4.2,
+      "tanks": 5.2
+    },
+    "article_2a": "DEWA may add a fuel surcharge to consumers' monthly bills.",
+    "article_2d": "The surcharge is determined and charged monthly by resolution of the DEWA CEO.",
+    "article_2f": "The monthly bills of UAE nationals' private residences and farms are not subject to the fuel surcharge.",
+    "unit_note": "The Schedule says \"gallon\" without qualifying it. The verified DEWA invoice states 1 m³ = 219.9692 IG and its rate column reads AED/IG, so the operative unit is the imperial gallon.",
+    "interpretation_note": "The English version states that the Arabic text prevails in case of conflict."
+  },
+  "affects": [
+    "dubai"
+  ],
+  "class": "tariff_schedule",
+  "archive_kind": "original",
+  "archive_note": "Original English PDF of the legislation. The document states that the Arabic text prevails in case of conflict, which is recorded here rather than assumed away.",
+  "archived_at": "2026-08-16",
+  "archive_bytes": 51316,
+  "issued": "2011-06-09",
+  "effective_from": "2011-01-01",
+  "captured_by": "The Water Journal"
+}

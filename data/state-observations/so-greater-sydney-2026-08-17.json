@@ -1,0 +1,17 @@
+{
+  "state_observation_id": "so-greater-sydney-2026-08-17",
+  "state_type": "reservoir_storage",
+  "authority": "WaterNSW",
+  "geography": "Greater Sydney",
+  "value": 92,
+  "unit": "%",
+  "observed_at": "2026-08-17",
+  "effective_from": "2026-08-17",
+  "retrieved_at": "2026-08-17",
+  "source_id": "waternsw-greater-sydney-storage",
+  "snapshot_sha256": "sha256:b119a47d1bbb5303d31c5ded21b0cbddc9cb3d1840395c79646818e17fb3e493",
+  "tariff_state_result": "normal",
+  "weekly_change": -0.1,
+  "distance_to_trigger": "32 points above the 60% engagement threshold",
+  "note": "observed_at equals retrieved_at here because WaterNSW publishes a current level rather than a timestamped reading. The two are separate fields on purpose: a document archived today can prove the state of the system on a past date, and a historical benchmark would use the storage history series."
+}

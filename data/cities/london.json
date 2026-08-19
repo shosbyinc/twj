@@ -1,0 +1,32 @@
+{
+  "id": "london",
+  "name": "London",
+  "country": "GB",
+  "coordinates": [
+    51.5072,
+    -0.1276
+  ],
+  "utility": "Thames Water",
+  "tariff_id": "london-thames-2026-04-01",
+  "status": "published",
+  "sources": [
+    "thames-charges-scheme-2026-27"
+  ],
+  "supply": {
+    "categories": [
+      "surface_water",
+      "groundwater"
+    ],
+    "shares_published": false
+  },
+  "freshness": "current",
+  "verified_at": "2026-08-14",
+  "verified_by": [
+    "collector",
+    "second-reader"
+  ],
+  "open_items": [
+    "A Thames Water worked example or bill calculator, if one exists, to add a reconciliation layer. A validation gap under v1.5, not a blocker: the tariff determines the figure by itself."
+  ],
+  "publication_status": "published"
+}

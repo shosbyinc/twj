@@ -1,0 +1,36 @@
+{
+  "_note": "Home page. Only pieces supplied by the editor appear here.",
+  "featured": {
+    "article": "the-visible-fraction",
+    "kicker": "Issue 001"
+  },
+  "cards": [
+    {
+      "slug": "smooth-until-proven-otherwise"
+    },
+    {
+      "slug": "between-two-beats"
+    },
+    {
+      "slug": "the-long-pause"
+    },
+    {
+      "slug": "the-closed-loop"
+    },
+    {
+      "slug": "seven-point-four"
+    },
+    {
+      "slug": "the-visible-fraction"
+    },
+    {
+      "slug": "water-was-an-element"
+    },
+    {
+      "slug": "the-last-step-of-every-breath"
+    },
+    {
+      "slug": "judgement-goes-first"
+    }
+  ]
+}

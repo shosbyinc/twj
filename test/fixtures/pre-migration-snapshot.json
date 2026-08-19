@@ -1,0 +1,269 @@
+{
+  "abu-dhabi": {
+    "price_m3": 8.232,
+    "grade": "A",
+    "supply": null,
+    "components": [
+      [
+        0,
+        "Water consumption",
+        117.6
+      ],
+      [
+        1,
+        "Value Added Tax",
+        5.88
+      ]
+    ],
+    "_grade_moved": "C to B on 2026-08-18 and B to A the same day, neither by a schema migration. The VAT ambiguity that set the C ceiling fell to two archived booklets showing an unchanged rate across the introduction of the tax; the recurring-charge component that held it at B was closed by the publisher's own Understand Your Bill guide, where the water service line equals the consumption total including VAT with no residual. This guard exists to catch a migration moving a figure. A figure that appears because the evidence arrived is the system working — as Singapore's C to B was — and the snapshot is updated with the reason rather than the guard weakened. The city was unpriced here before; the price is new, not moved."
+  },
+  "dubai": {
+    "price_m3": 9.59,
+    "grade": "A",
+    "supply": null,
+    "components": [
+      [
+        0,
+        "Water consumption",
+        115.5
+      ],
+      [
+        1,
+        "Fuel surcharge",
+        16.5
+      ],
+      [
+        2,
+        "Meter service charge",
+        5
+      ],
+      [
+        3,
+        "Sewerage fee (Dubai Municipality)",
+        66
+      ],
+      [
+        4,
+        "VAT",
+        6.85
+      ]
+    ]
+  },
+  "hong-kong": {
+    "price_m3": 3.975,
+    "grade": "A",
+    "supply": null,
+    "components": [
+      [
+        0,
+        "Water charge",
+        59.62
+      ],
+      [
+        1,
+        "Sewage charge",
+        35.03
+      ]
+    ]
+  },
+  "london": {
+    "price_m3": 3.106,
+    "grade": "A",
+    "supply": null,
+    "components": [
+      [
+        0,
+        "Water supply service",
+        41.02
+      ],
+      [
+        1,
+        "Metered fixed charge — water",
+        5.57
+      ],
+      [
+        2,
+        "Wastewater service",
+        22.08
+      ],
+      [
+        3,
+        "Metered fixed charge — wastewater (full)",
+        10.68
+      ]
+    ]
+  },
+  "newyork": {
+    "price_m3": 1.889,
+    "grade": "A",
+    "supply": null,
+    "components": [
+      [
+        0,
+        "Metered water",
+        28.34
+      ],
+      [
+        1,
+        "Wastewater charge",
+        45.06
+      ]
+    ]
+  },
+  "perth": {
+    "price_m3": 3.919,
+    "grade": "A",
+    "supply": null,
+    "components": [
+      [
+        0,
+        "Water use",
+        33.37
+      ],
+      [
+        1,
+        "Water service charge",
+        25.42
+      ]
+    ]
+  },
+  "singapore": {
+    "price_m3": 2.338,
+    "grade": "B",
+    "supply": null,
+    "components": [
+      [
+        0,
+        "Water Tariff",
+        21.45
+      ],
+      [
+        1,
+        "Water Conservation Tax",
+        10.72
+      ],
+      [
+        2,
+        "Waterborne Tax",
+        16.35
+      ],
+      [
+        3,
+        "GST",
+        2.9
+      ],
+      [
+        4,
+        "GST",
+        1.47
+      ]
+    ]
+  },
+  "toronto": {
+    "price_m3": null,
+    "grade": "C",
+    "supply": null,
+    "components": []
+  },
+  "tokyo": {
+    "price_m3": 140.8,
+    "grade": "B",
+    "supply": null,
+    "components": [
+      [
+        0,
+        "Basic charge (基本料金), 20 mm",
+        1170
+      ],
+      [
+        1,
+        "Volumetric charge (従量料金)",
+        750
+      ],
+      [
+        2,
+        "Sewerage basic charge (下水道基本料金)",
+        560
+      ],
+      [
+        3,
+        "Sewerage charge (下水道料金)",
+        770
+      ],
+      [
+        4,
+        "Consumption tax (消費税等相当額)",
+        192
+      ],
+      [
+        5,
+        "Consumption tax on sewerage",
+        133
+      ]
+    ],
+    "_added": "Added on 2026-08-18, when Tokyo first cleared the gate. price_m3 is the structural price, which is the comparable one and the one that goes on the map; the payable price of 55 yen/m3 travels beside it in the relief block and is the headline on the city page. Both are locked here so that a change to either is a decision somebody makes rather than a build somebody ships."
+  },
+  "paris": {
+    "price_m3": 1.872,
+    "grade": "B",
+    "supply": null,
+    "components": [
+      [
+        0,
+        "Fourniture d'eau potable",
+        17.91
+      ],
+      [
+        1,
+        "Redevance soutien d'étiage (EPTB)",
+        0.11
+      ],
+      [
+        2,
+        "Prélèvement sur les ressources en eau",
+        1.39
+      ],
+      [
+        3,
+        "Voies Navigables de France",
+        0.25
+      ],
+      [
+        4,
+        "Part communale (Ville de Paris)",
+        0.24
+      ],
+      [
+        5,
+        "Redevance de performance des réseaux d'eau potable",
+        0.61
+      ],
+      [
+        6,
+        "Redevance pour consommation de l'eau potable",
+        5.38
+      ],
+      [
+        7,
+        "Collecte des eaux usées (SAP)",
+        10.05
+      ],
+      [
+        8,
+        "Transport et épuration des eaux usées (SIAAP)",
+        25.48
+      ],
+      [
+        9,
+        "Redevance de performance des systèmes d'assainissement collectifs",
+        2.03
+      ],
+      [
+        10,
+        "Abonnement, compteur 15 mm",
+        2.18
+      ]
+    ],
+    "_added": "Added on 2026-08-19, when Paris was built and published in one step. Locked because the whole point of this city is that its ten volumetric lines sum to a figure the publisher also prints: if a migration moved any one of them, the sum would stop matching and this guard should be what says so."
+  }
+}

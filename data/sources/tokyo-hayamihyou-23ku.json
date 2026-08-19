@@ -1,0 +1,35 @@
+{
+  "id": "tokyo-hayamihyou-23ku",
+  "tier": 1,
+  "publisher": "Tokyo Metropolitan Government Bureau of Waterworks",
+  "title": "水道料金・下水道料金早見表【2か月用】（23区）— Water and sewerage charge ready-reckoner, two-month, 23 wards",
+  "url": "https://www.waterworks.metro.tokyo.lg.jp/tetsuduki/ryokin/hayami/rh_23ku",
+  "accessed_at": "2026-08-18",
+  "archive_kind": "print_to_pdf",
+  "archive_note": "Browser print-to-PDF; the Bureau's site refuses automated fetching. The table states on its face that it applies from the December 2019 billing month.",
+  "licence": "public information, cited with attribution",
+  "class": "tariff_schedule",
+  "affects": [
+    "tokyo"
+  ],
+  "captured_by": "Evgeny Basov",
+  "establishes": [
+    "The two-month charge for bores of 13, 20 and 25 mm at every volume from 0 to 100 m3, with the consumption tax shown in parentheses.",
+    "The sewerage charge over the same volumes, from which the sewerage structure is read: 560 yen for the first 8 m3 a month, 110 yen/m3 above 8 to 20, 140 above 20 to 30, 170 above 30 to 50.",
+    "That the ready-reckoner is a two-month table computed as two monthly charges, which is what makes it reconcilable against the ordinance."
+  ],
+  "does_not_establish": [
+    "Any designation of an ordinary residential bore. The table prices three bores side by side and names none as ordinary."
+  ],
+  "reconciliations_passed": [
+    "20 mm, 30 m3 over two months: (1,170 + 750) x 1.10 = 2,112 a month, 4,224 for two. Table row 30 reads 4,224 with 384 of tax. Exact.",
+    "20 mm, 59 m3 over two months, split 30 and 29: (2,340 + 3,020 + 2,857) x 1.10 = 9,038.7, truncated to 9,038. Table row 59 reads 9,038. Exact, and it is the same figure as the Bureau's own worked example.",
+    "13 mm, 0-10 m3 over two months: 860 x 2 x 1.10 = 1,892. Table reads 1,892 with 172 of tax. Exact — the basic volume carries no volumetric charge.",
+    "Sewerage, 30 m3 over two months: (560 + 7 x 110) x 2 x 1.10 = 2,926. Table row 30 reads 2,926 with 266 of tax. Exact.",
+    "Sewerage, 41 m3 over two months, split 21 and 20: (1,880 + 2,020) x 1.10 = 4,290. Table row 41 reads 4,290. Exact, and it fixes the 20 m3 band boundary."
+  ],
+  "archive_path": "archive/tokyo-hayamihyou-23ku-2026-08-18.pdf",
+  "archive_sha256": "sha256:11f5620f78973088bd30fa845d8029db1dc91bff8b86ea890a4e0cbde370375d",
+  "archived_at": "2026-08-18",
+  "archive_bytes": 49001
+}

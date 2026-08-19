@@ -1,0 +1,22 @@
+{
+  "name": "twj-water-index",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test",
+    "monitor": "node scripts/monitor.js",
+    "data": "node scripts/site.js",
+    "render": "node scripts/render.js",
+    "build": "node --test && node scripts/site.js && node scripts/render.js",
+    "deploy": "node --test && node scripts/site.js && TWJ_INLINE_IMAGES=false node scripts/render.js",
+    "archive": "node scripts/archive.js",
+    "new": "node scripts/new-article.js",
+    "cover": "node scripts/cover.js",
+    "og": "node scripts/og.js",
+    "list": "node scripts/shopping-list.js"
+  }
+}

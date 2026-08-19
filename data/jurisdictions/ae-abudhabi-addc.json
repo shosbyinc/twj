@@ -1,0 +1,22 @@
+{
+  "name": "Abu Dhabi Distribution Company jurisdiction",
+  "authority": "ADDC / TAQA Distribution",
+  "country": "AE",
+  "utilities": [
+    {
+      "id": "addc",
+      "name": "ADDC"
+    }
+  ],
+  "service_areas": [
+    {
+      "id": "abudhabi-and-al-dhafra",
+      "name": "Abu Dhabi city and Al Dhafra"
+    }
+  ],
+  "display_cities": [
+    "abu-dhabi"
+  ],
+  "note": "AADC applies identical rates in Al Ain and is a separate jurisdiction under the same authority.",
+  "tariff_jurisdiction_id": "ae-abudhabi-addc"
+}

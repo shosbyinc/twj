@@ -1,0 +1,27 @@
+{
+  "id": "dubai-decree-47-2024",
+  "tier": 1,
+  "publisher": "Government of Dubai — Dubai Legislation Portal",
+  "title": "Decree No. (47) of 2024 amending Decree No. (1) of 2015 concerning the Sewerage Fee in the Emirate of Dubai",
+  "jurisdiction": "Dubai, UAE",
+  "issued": "2024-07-10",
+  "effective_from": "2025-01-01",
+  "url": "https://dlp.dubai.gov.ae/",
+  "accessed_at": "2026-08-16",
+  "archive_kind": "not_captured",
+  "archive_path": null,
+  "archive_sha256": "PENDING — original not yet obtained",
+  "archive_note": "Schedule and dates recorded from the legislation portal. The original PDF has not been obtained, so this source cannot yet produce a published figure on its own.",
+  "extracted": {
+    "schedule_fils_per_imperial_gallon": {
+      "2025-01-01_to_2025-12-31": 1.5,
+      "2026-01-01_to_2026-12-31": 2.0,
+      "from_2027-01-01": 2.8
+    },
+    "validated_by": "The January 2025 invoice charges AED 49.50 on 3,300 IG, which is exactly 1.5 fils per gallon"
+  },
+  "affects": [
+    "dubai"
+  ],
+  "class": "tariff_schedule"
+}

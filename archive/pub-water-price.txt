@@ -1,0 +1,24 @@
+PUB, SINGAPORE'S NATIONAL WATER AGENCY — WATER PRICE
+Source: https://www.pub.gov.sg/Public/WaterLoop/Water-Price
+Captured by The Water Journal, 16 August 2026, by direct fetch of the page.
+Page footer at capture: "Last Updated 14 Apr 2025".
+
+WHAT THE PAGE STATES IN TEXT
+  There are three components to the water price in the monthly bill: the Water
+  Tariff, the Water Conservation Tax and the Waterborne Tax.
+  The Water Conservation Tax is imposed as a percentage of the water tariff.
+  The Waterborne Tax is a contribution to the national used water system and
+  goes towards treating used water and maintaining the used water network.
+  SP Services is PUB's billing agent.
+
+WHAT THE PAGE DOES NOT STATE IN TEXT
+  The rate table is published as an image file
+  (/-/media/Notices/2025-water-price/PW-price.PNG) and contains no
+  machine-readable figures. The rates of S$1.43 per cubic metre, the 50%
+  conservation tax and S$1.09 waterborne tax are therefore NOT established by
+  this capture.
+
+SEPARATELY ESTABLISHED
+  PUB media release, 2023: the Water Conservation Tax is applied at 50% of the
+  tariff for domestic users consuming less than 40 cubic metres per month, and
+  65% above that. All figures stated before GST.

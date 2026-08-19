@@ -1,0 +1,37 @@
+{
+  "id": "toronto-water-rates-fees",
+  "tier": 1,
+  "publisher": "City of Toronto",
+  "title": "Water Rates & Fees — 2026 rates and the full fee schedules",
+  "url": "https://www.toronto.ca/services-payments/property-taxes-utilities/utility-bill/water-rates-fees/",
+  "published_at": "2020-01-03",
+  "document_date": "2026-05-05",
+  "accessed_at": "2026-08-19",
+  "archive_kind": "extract",
+  "archive_note": "Text of the page as fetched. Every fee table is reproduced in full rather than sampled, because the value of this capture is the enumeration and a sampled enumeration establishes nothing.",
+  "licence": "public information, cited with attribution",
+  "class": "tariff_schedule",
+  "affects": [
+    "toronto"
+  ],
+  "captured_by": "The Water Journal",
+  "establishes": [
+    "The 2026 Block 1 rate from the City itself: $4.8629 per m3 paid on or before the due date, $5.1188 after. The circulating figure was 4.8629 and this is the publisher printing it.",
+    "That the increase effective 1 January 2026 is 3.75 per cent for Block 1 and 1.25 per cent for Block 2, and that Block 2 is the Industrial Water Rate Program and not a domestic tier.",
+    "Every fee the City levies on a water account, in four tables: utility bill fees, meter reading fees, water fees and wastewater fees. All are one-off events — a failed payment, a reprint, an ownership change, a turn-on, a meter test, an installation — or the Flat Rate Legacy Fee, which falls only on an owner who has refused an automated meter.",
+    "That HST is named three times on the page, all three against Technical Review by Toronto Water staff, and against no consumption rate and no other fee. The differential the statutory schedule showed is reproduced independently here."
+  ],
+  "does_not_establish": [
+    "That the 2026 rate is the Municipal Code figure. This is the City's live rates page under Rule 3.10, not Chapter 441 Appendix D; 4.6872 x 1.0375 = 4.862970, and 4.8629 is consistent with truncation and, printed here without its derivation, still not evidence of it.",
+    "The tax treatment on its own. Naming HST against one fee and not another is a differential, and a differential is suggestive. What closes the question is the bill that carries no tax line, not this page's silence.",
+    "A water-only rate. The rates here are the combined water and wastewater consumption rates."
+  ],
+  "reconciliations_passed": [
+    "4.6872 x 1.0375 = 4.862970 and 4.9338 x 1.0375 = 5.1188175. The City prints 4.8629 and 5.1188, both consistent with truncation to four places, and now printed by the publisher rather than circulating.",
+    "4.8629 / 5.1188 = 0.9500, the early payment discount to four places."
+  ],
+  "archive_path": "archive/toronto-water-rates-fees-2026-08-19.txt",
+  "archive_sha256": "sha256:d74fdf77c11792d51d6c3ac6215b997db92c321c43ef9204ca900b28be5f880f",
+  "archive_bytes": 5467,
+  "archived_at": "2026-08-19"
+}

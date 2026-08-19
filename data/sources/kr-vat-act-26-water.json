@@ -1,0 +1,30 @@
+{
+  "id": "kr-vat-act-26-water",
+  "tier": 1,
+  "publisher": "Republic of Korea — statute",
+  "title": "부가가치세법 제26조 제1항 제2호 (Value-Added Tax Act art. 26(1)2), with Basic Ruling 26-0-1",
+  "url": "https://www.law.go.kr/법령/부가가치세법/제26조",
+  "accessed_at": "2026-08-17",
+  "archive_path": "archive/kr-vat-act-26-water-2026-08-17.txt",
+  "archive_sha256": "sha256:c40055f01e9a45b130a7f55f47282759e677c4a6f8b01d41cf485638eb70d244",
+  "archive_bytes": 4130,
+  "archived_at": "2026-08-17",
+  "archive_kind": "extract",
+  "partial": true,
+  "archive_note": "PARTIAL. law.go.kr disallows automated access. The article and the basic ruling are recorded as quoted verbatim in a National Tax Service reply and several professional commentaries — identical across sources, which corroborates the text without being a capture of the statute.",
+  "licence": "Korean legislation",
+  "class": "statute",
+  "affects": [
+    "seoul"
+  ],
+  "captured_by": "The Water Journal",
+  "establishes": [
+    "The supply of tap water is exempt from Korean VAT under art. 26(1)2",
+    "Basic Ruling 26-0-1 defines tap water as water supplied through conduits by a water supplier under the Water Supply Act — which is what makes the exemption attach to Seoul Arisu",
+    "That the exemption attaches to the statutory supplier: a non-supplier selling tap water on its own account is chargeable"
+  ],
+  "does_not_establish": [
+    "The treatment of 하수도 사용료. Art. 26(1)2 names tap water and not sewerage. A sewerage use charge is levied by a local authority under the Sewerage Act rather than supplied by a business, which is a different question and is not answered here.",
+    "The treatment of 물이용부담금, a statutory levy rather than consideration for a supply. Almost certainly outside VAT for that reason, and almost certainly is not a source."
+  ]
+}

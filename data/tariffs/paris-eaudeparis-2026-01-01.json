@@ -1,0 +1,337 @@
+{
+  "id": "paris-eaudeparis-2026-01-01",
+  "scenario": "TWJ-R180-v1.0",
+  "city": "paris",
+  "utility": "Eau de Paris",
+  "currency": "EUR",
+  "shape": "flat",
+  "grade": "B",
+  "streams_separable": true,
+  "effective_from": "2026-01-01",
+  "effective_to": "2026-12-31",
+  "source_id": "eaudeparis-catalogue-2026",
+  "sources": [
+    "eaudeparis-catalogue-2026"
+  ],
+  "grade_reason": "Grade B, and the metric it was blocked on now exists. Paris publishes one headline — 4,23 EUR TTC per cubic metre, excluding the subscription — which is a total water services price and was never a supply price. The Catalogue des tarifs 2026 prices all ten volumetric lines separately, HT and TTC, with the VAT rate against each, and the ten sum to 4,2300 exactly. The split is the publisher's own: French law charges drinking water at 5.5% and collective sanitation at 10%, so the tax rate on each line sorts it without a judgement from us. What holds it below Grade A is §2.5 — fourteen meter diameters are priced and none is designated the ordinary household connection.",
+  "notes": [
+    "The published 4,23 EUR/m3 is the total variable price including wastewater, third-party levies and VAT, and excluding the subscription. Fifteen times it is a Total Water Services figure and not a TWJ Water Supply Bill.",
+    "Seven of the ten volumetric lines carry 5.5% VAT and are the drinking-water side; three carry 10% and are the collective sanitation side. The rates are set by the Code general des impots, not by Eau de Paris, which is what makes the sorting evidence rather than allocation.",
+    "Six of the seven drinking-water lines are levies rather than the supply rate itself, and they are 30.8% of the water-side price. A city that published only its Fourniture d'eau potable line would look a third cheaper than it is.",
+    "Three volumetric lines are collected by Eau de Paris on behalf of third parties whose own assemblies set them — SAP and SIAAP for wastewater, and the Agence de l'eau levies. They are on the household's bill and are counted."
+  ],
+  "components": [
+    {
+      "id": "water_supply",
+      "name": "Fourniture d'eau potable",
+      "stream": "water",
+      "kind": "volumetric",
+      "volume_unit": "m3",
+      "rate_display": "1,1942 EUR TTC / m3 (1,1319 HT, TVA 5,5%)",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 1.1942
+        }
+      ],
+      "vat_rate_percent": 5.5,
+      "source_id": "eaudeparis-catalogue-2026"
+    },
+    {
+      "id": "levy_etiage",
+      "name": "Redevance soutien d'étiage (EPTB)",
+      "stream": "water",
+      "kind": "volumetric",
+      "volume_unit": "m3",
+      "rate_display": "0,0074 EUR TTC / m3",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 0.0074
+        }
+      ],
+      "vat_rate_percent": 5.5,
+      "source_id": "eaudeparis-catalogue-2026"
+    },
+    {
+      "id": "levy_prelevement",
+      "name": "Prélèvement sur les ressources en eau",
+      "stream": "water",
+      "kind": "volumetric",
+      "volume_unit": "m3",
+      "rate_display": "0,0928 EUR TTC / m3",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 0.0928
+        }
+      ],
+      "vat_rate_percent": 5.5,
+      "source_id": "eaudeparis-catalogue-2026"
+    },
+    {
+      "id": "levy_vnf",
+      "name": "Voies Navigables de France",
+      "stream": "water",
+      "kind": "volumetric",
+      "volume_unit": "m3",
+      "rate_display": "0,0169 EUR TTC / m3",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 0.0169
+        }
+      ],
+      "vat_rate_percent": 5.5,
+      "source_id": "eaudeparis-catalogue-2026"
+    },
+    {
+      "id": "part_communale",
+      "name": "Part communale (Ville de Paris)",
+      "stream": "water",
+      "kind": "volumetric",
+      "volume_unit": "m3",
+      "rate_display": "0,0158 EUR TTC / m3",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 0.0158
+        }
+      ],
+      "vat_rate_percent": 5.5,
+      "source_id": "eaudeparis-catalogue-2026"
+    },
+    {
+      "id": "levy_perf_eau",
+      "name": "Redevance de performance des réseaux d'eau potable",
+      "stream": "water",
+      "kind": "volumetric",
+      "volume_unit": "m3",
+      "rate_display": "0,0406 EUR TTC / m3",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 0.0406
+        }
+      ],
+      "vat_rate_percent": 5.5,
+      "source_id": "eaudeparis-catalogue-2026"
+    },
+    {
+      "id": "levy_conso",
+      "name": "Redevance pour consommation de l'eau potable",
+      "stream": "water",
+      "kind": "volumetric",
+      "volume_unit": "m3",
+      "rate_display": "0,3587 EUR TTC / m3",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 0.3587
+        }
+      ],
+      "vat_rate_percent": 5.5,
+      "source_id": "eaudeparis-catalogue-2026"
+    },
+    {
+      "id": "ww_collecte",
+      "name": "Collecte des eaux usées (SAP)",
+      "stream": "wastewater",
+      "kind": "volumetric",
+      "volume_unit": "m3",
+      "rate_display": "0,6699 EUR TTC / m3 (0,6090 HT, TVA 10%)",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 0.6699
+        }
+      ],
+      "vat_rate_percent": 10.0,
+      "source_id": "eaudeparis-catalogue-2026"
+    },
+    {
+      "id": "ww_siaap",
+      "name": "Transport et épuration des eaux usées (SIAAP)",
+      "stream": "wastewater",
+      "kind": "volumetric",
+      "volume_unit": "m3",
+      "rate_display": "1,6984 EUR TTC / m3",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 1.6984
+        }
+      ],
+      "vat_rate_percent": 10.0,
+      "source_id": "eaudeparis-catalogue-2026"
+    },
+    {
+      "id": "ww_perf",
+      "name": "Redevance de performance des systèmes d'assainissement collectifs",
+      "stream": "wastewater",
+      "kind": "volumetric",
+      "volume_unit": "m3",
+      "rate_display": "0,1353 EUR TTC / m3",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 0.1353
+        }
+      ],
+      "vat_rate_percent": 10.0,
+      "source_id": "eaudeparis-catalogue-2026"
+    },
+    {
+      "id": "abonnement",
+      "name": "Abonnement, compteur 15 mm",
+      "stream": "water",
+      "kind": "fixed",
+      "period": "quarterly",
+      "amount": 6.55,
+      "rate_display": "6,55 EUR TTC / trimestre (6,21 HT, TVA 5,5%)",
+      "vat_rate_percent": 5.5,
+      "source_id": "eaudeparis-catalogue-2026"
+    }
+  ],
+  "component_states": [
+    {
+      "component": "volumetric_water",
+      "status": "observed",
+      "source_id": "eaudeparis-catalogue-2026",
+      "basis": "Seven lines at 5.5% VAT, each priced HT and TTC in the catalogue, summing to 1,7264 TTC per m3."
+    },
+    {
+      "component": "volumetric_wastewater",
+      "status": "observed",
+      "source_id": "eaudeparis-catalogue-2026",
+      "basis": "Three lines at 10% VAT, summing to 2,5036 TTC per m3. Collected by Eau de Paris for SAP, the SIAAP and the Agence de l'eau, which the catalogue states on its face."
+    },
+    {
+      "component": "fixed_charge",
+      "status": "observed",
+      "source_id": "eaudeparis-catalogue-2026",
+      "basis": "6,55 EUR TTC per quarter at 15 mm, from the ABONNEMENT schedule. This is the component the published 4,23 headline explicitly excludes."
+    },
+    {
+      "component": "vat",
+      "status": "observed",
+      "source_id": "eaudeparis-catalogue-2026",
+      "basis": "Printed against every line and reconciling to the fourth decimal on all ten. 5.5% on drinking water and 10% on collective sanitation are the statutory French rates; the catalogue applying them line by line is what lets the bill be separated without an assumption."
+    },
+    {
+      "component": "recurring_charge_other",
+      "status": "confirmed_absent",
+      "source_id": "eaudeparis-catalogue-2026",
+      "basis": "Enumerated, not assumed. Section 3 of the catalogue prices individualisation of a collective meter, event and provisional access to water, penalties, bench tests, branch closure and reopening, and payment rejections. Every one is a one-off event. The only recurring line on a metered household is the abonnement, which is modelled."
+    },
+    {
+      "component": "reference_connection_designation",
+      "status": "not_applicable",
+      "blocker_class": "validation_gap",
+      "note": "Fourteen meter diameters are priced in the ABONNEMENT schedule and none is designated the ordinary household connection. 15 mm is used as the smallest priced, which is a reading and not a designation, and it is why this record is Grade B rather than Grade A. Not unresolved in the Rule 7.6 sense: no document is awaited, because there is nothing to say the publisher has not said. Same posture as Seoul and Tokyo."
+    },
+    {
+      "component": "collective_metering",
+      "status": "not_applicable",
+      "blocker_class": "validation_gap",
+      "note": "The catalogue prices the individualisation of a collective meter as a service, which implies that behind a shared meter is the common arrangement in Paris. This record models an individual 15 mm account, which is the arrangement the catalogue prices directly. What a household behind a collective meter pays, and how the abonnement divides among lots, is a different measurement rather than a missing rate — it is published as a scope disclosure and not modelled."
+    }
+  ],
+  "public_reconciliation": {
+    "source_id": "eaudeparis-catalogue-2026",
+    "cases": [
+      {
+        "label": "The ten volumetric lines against the published headline",
+        "published": 4.23,
+        "engine": 4.23,
+        "note": "1,1942 + 0,0074 + 0,0928 + 0,0169 + 0,0158 + 0,0406 + 0,3587 + 0,6699 + 1,6984 + 0,1353 = 4,2300. Eau de Paris publishes 4,23 EUR TTC/m3 hors abonnement at 1 January 2026. Exact."
+      },
+      {
+        "label": "The drinking-water side against its own VAT rate",
+        "published": 1.7264,
+        "engine": 1.7264,
+        "note": "Seven lines summing to 1,6364 HT; 1,6364 x 1.055 = 1,726402."
+      },
+      {
+        "label": "The wastewater side against its own VAT rate",
+        "published": 2.5036,
+        "engine": 2.5036,
+        "note": "Three lines summing to 2,2760 HT; 2,2760 x 1.10 = 2,5036 exactly."
+      },
+      {
+        "label": "The subscription at 15 mm",
+        "published": 6.55,
+        "engine": 6.55,
+        "note": "6,21 x 1.055 = 6,55155, printed as 6,55 per quarter."
+      }
+    ],
+    "limits": "Eau de Paris publishes no worked household bill, so what is reconciled is the decomposition against the publisher's own total, line by line and side by side. The monthly figures this record computes are not printed by anyone."
+  },
+  "scope_disclosures": [
+    "Reference connection is a 15 mm individual meter, the smallest priced. Fourteen diameters are priced and none is designated.",
+    "Collective metering is the common arrangement in Paris and is not modelled. A household behind a shared meter does not hold its own abonnement.",
+    "The separate non-potable network, priced at 0,5549 EUR TTC/m3, serves street washing and park irrigation and is not a household supply."
+  ],
+  "excluded": [
+    {
+      "item": "Eau non potable (non-potable network)",
+      "reason": "Not a household supply. Paris runs a second network for municipal use."
+    },
+    {
+      "item": "Individualisation, event access, provisional access, penalties, bench tests",
+      "reason": "One-off events, not recurring charges on a metered household."
+    },
+    {
+      "item": "Usage de l'eau de Secours Incendie à d'autres fins",
+      "reason": "A penalty rate for misuse of a fire supply, at exactly twice the ordinary rate."
+    }
+  ],
+  "transparency": {
+    "subsidised_tariff": "no",
+    "nationality_dependent": "no",
+    "wastewater_included": "no",
+    "fixed_charge": "yes",
+    "consumption_blocks": "no",
+    "variable_surcharge": "no"
+  },
+  "reference_connection": {
+    "size": "Individual meter, 15 mm",
+    "designation": "Not designated. The ABONNEMENT schedule prices fourteen diameters from 15 mm to 500 mm and names none as the ordinary household connection. 15 mm is the smallest priced and is used on that basis.",
+    "source_id": "eaudeparis-catalogue-2026",
+    "basis": "smallest_priced"
+  },
+  "metric_eligibility": {
+    "water_supply": {
+      "publishable": true,
+      "basket_eligible": false,
+      "reason": "Grade B on the reference connection being the smallest priced diameter rather than a designated one"
+    },
+    "total_water_services": {
+      "publishable": true,
+      "basket_eligible": false,
+      "reason": "Same Grade B ceiling. The services figure is the publisher's own headline plus the subscription it excludes."
+    }
+  },
+  "validation_note": "Source verified, calculation verified, and the decomposition reconciled against the publisher's own published total to the last centime — which is what closed the blocker.",
+  "tariff_jurisdiction_id": "fr-paris-eaudeparis",
+  "jurisdiction": {
+    "tariff_jurisdiction_id": "fr-paris-eaudeparis",
+    "utility_id": "eaudeparis",
+    "service_area_id": "paris-intra-muros",
+    "customer_class_id": "abonne-domestique-individuel",
+    "customer_class_name": "Abonne domestique, compteur individuel",
+    "tariff_schedule_id": "catalogue-des-tarifs-2026",
+    "observation_id": "obs-paris-2026",
+    "note": "City is a display layer. Three of the ten volumetric lines are set by other assemblies — the SAP, the SIAAP and the Agence de l'eau — and collected on this bill; the jurisdiction is the one that issues the bill, not the one that sets every rate on it."
+  }
+}

@@ -1,0 +1,102 @@
+City of Toronto — Water Rates & Fees
+https://www.toronto.ca/services-payments/property-taxes-utilities/utility-bill/water-rates-fees/
+Date modified: May 5, 2026
+Retrieved: 2026-08-19
+
+[Extract. Every fee table on the page is reproduced in full, because the point
+of the capture is the enumeration. Navigation and sharing links are omitted.]
+
+Toronto Water operates 24/7 and is solely funded by rates and user fees. Your
+utility bill payments support safe drinking water, wastewater treatment
+services, updates to aging infrastructure, and address the impacts of extreme
+storms.
+
+--- Water Rates ---
+
+Effective January 1, 2026, City Council approved a 3.75 per cent rate increase
+for Block 1 water consumers and a 1.25 per cent rate increase for Block 2 water
+consumers.
+
+2026 Metric Rates
+                                                Rate if paid on   Rate if paid
+                                                or before due     after due date
+                                                date
+  Block 1 - all water consumption up to 5,000 m3  $4.8629 per m3   $5.1188 per m3
+  Block 2 - consumption over 5,000 m3             $3.3219 per m3   $3.4967 per m3
+
+Block 2 rates apply to businesses participating in the Industrial Water Rate
+Program.
+
+2026 Gallon Rates
+  Block 1 - up to 1,099,850 gallons   $0.02210711 / gallon  $0.02327045 / gallon
+  Block 2 - over 1,099,850 gallons    $0.01510160 / gallon  $0.01589626 / gallon
+
+--- Utility Bill Fees (effective January 1, 2026) ---
+
+  Dishonoured/Failed Payment                                    $47.27
+  Duplicate Utility Bill Fee                    $24.25 per additional bill
+  New Account Setup Fee                         $90.74 per new account
+  Overdue utility amounts added to the tax roll                 $51.61
+  Ownership Change Fee - Utility Account only                   $51.56
+  Ownership Change Fee - tax and utility together  $73.78 combined fee
+  Outstanding Utility Fees/Charges for Condo/Management Boards
+                                                $40.25 per notification
+  Payment Re-Distribution Fee                   $57.88 per request
+  Reprint Utility Bill                          $24.59 per bill
+  Special/Final Read Fee                                        $22.09
+  Utility Clearance Certificate                 $69.50 per certificate
+  Water Collection Field Visit                                  $36.85
+  Water Consumption Statement, one specified year               $58.95
+  Water Consumption Statement, each subsequent year             $36.85
+
+--- Meter Reading Fees (effective January 1, 2026) ---
+
+  Automated Meter Reading Transmitter (lost or damaged)        $124.07
+  Flat Rate Legacy Fee - property owners who have not permitted
+    the installation of a new automated meter                $1,502.36
+  Manual Water Meter Reading Fee                     $112.63 per visit
+
+--- Water Fees (effective January 1, 2026) ---
+
+  Annual Seasonal Meter Activation Fee                         $282.64
+  Conduct fire hydrant flow test                               $367.42
+  Disconnection Fee, residential water service <= 25 mm      $1,739.74
+  Fire hydrant permit                                          $220.42
+  Installing 19 mm new residential water service and meter   $5,884.44
+  Installing 25 mm new residential water service and meter   $6,818.29
+  Processing annual backflow prevention device testing reports  $68.50
+  Reuse of residential water service 19 mm to 25 mm            $367.13
+  Single Service call Turn-off/Turn-on within 30 minutes       $110.13
+  Unregistered water, each day order not complied               $73.41
+  Water meter accuracy test, meter <= 50 mm, no chamber        $220.42
+  Water Turn-off/Turn-on Fee                                   $110.13
+  Water Turn-off Fee for demolition                            $110.13
+  Water Service Upgrade Fee 19 mm to 25 mm                     $669.03
+  Water Service Upgrade Fee greater than 25 mm    actual cost plus 15 per cent
+
+Water Fees will appear in the Summary of Total Adjustments of your bill.
+
+--- Wastewater Fees (effective January 1, 2026) ---
+
+  Disconnect residential sanitary sewer service connection    $1,816.50
+  Inspection fee, reuse of residential City sewer connection
+    up to 150 mm                                                $735.81
+  Install a new residential sanitary sewer service connection $14,718.78
+  Install a new residential storm sewer service connection    $14,718.78
+  Technical Review - driveway sloped downwards exemption      $2,205.37
+  Technical Review - new or altered storm, sanitary or water
+    supply connection    $440.78 minimum fee; additional $108.73/hr for each
+                         hour after 4 hrs to a maximum of $2,205.37 (plus HST)
+  Technical Review - encroachment within a City easement
+                       $440.78 minimum fee; additional $108.73/hr for each
+                       hour after 4 hrs to a maximum of $2,205.37 (plus HST)
+  Technical Review - release from title of a City easement
+                       $440.78 minimum fee; additional $108.73/hr for each
+                       hour after 4 hrs to a maximum of $2,205.37 (plus HST)
+
+Fees are reviewed annually as part of the budget process and are subject to
+change.
+
+[End of the fee tables. "plus HST" appears three times on this page, all three
+against Technical Review by Toronto Water staff. It appears against no
+consumption rate and against no other fee.]

@@ -1,0 +1,47 @@
+{
+  "id": "taqa-understand-your-bill",
+  "tier": 1,
+  "publisher": "TAQA Distribution (formerly Abu Dhabi Distribution Company)",
+  "title": "Understand your bill — Home / Residential",
+  "url": null,
+  "url_note": "Print-to-PDF supplied by the collector from the publisher's residential site. The address is not reconstructed here; the capture and its hash are the record.",
+  "accessed_at": "2026-08-18",
+  "archive_kind": "print_to_pdf",
+  "archive_note": "Browser print-to-PDF, thirteen pages. The specimen bill is reproduced as images inside the page, so the figures below are read from the images and are not in the text layer — which is why the text extract carries the prose and none of the numbers.",
+  "licence": "public information, cited with attribution",
+  "class": "bill_guide",
+  "affects": [
+    "abu-dhabi"
+  ],
+  "captured_by": "Evgeny Basov",
+  "establishes": [
+    "The enumeration of a residential bill, section by section: customer details, property details, the services highlighted, the bill date, the total to pay by the due date, account activity, the at-a-glance block, the charges for the period, a consumption breakdown for each metered service, adjustments and settlements, the total excluding VAT, customer support, and the municipality service bill. This is what the recurring-charge question needed and what a tariff schedule cannot give.",
+    "The services a residential bill can carry: Electricity, Water, Recycled Water and Municipality as charge lines, with Waste Water and Waste additionally named among the activities an icon can represent.",
+    "That the water service line of the specimen bill is AED 261.75, and that the water consumption section resolves it entirely — a Green band at AED 2.090/m3, a Red band at AED 2.600/m3, a total before VAT and VAT at 5%. No fixed, standing, meter or service charge appears in the water section, in the charges block, or anywhere else in the enumeration.",
+    "That the Green allowance is applied as the daily allowance multiplied by the days in the billing cycle: on a 30-day cycle the specimen puts exactly 21.00 m3 in the Green band and the remaining 79.00 m3 in the Red band. The property type on the specimen is Flat, which is the 0.7 m3/day allowance.",
+    "That VAT is stated at the standard rate of 5% on water consumption charges and computed on the net total of the period.",
+    "That the municipality charge is 5% of the rental contract value, minimum AED 450, collected in twelve monthly instalments — a property charge, not a water charge.",
+    "That a government subsidy is disclosed on the face of the bill as a reduction of the water total, with the unsubsidised amount printed beside it."
+  ],
+  "does_not_establish": [
+    "The benchmark rate. The specimen is a UAE National account at AED 2.090 and 2.600, which is the concessionary class §5.3 excludes. It fixes the format and the arithmetic of a residential water bill; it does not price one for the general class.",
+    "Any wastewater rate. Waste Water is named as a service an icon can represent and no rate is given anywhere, and the specimen carries Recycled Water instead — a separate non-potable supply already excluded here.",
+    "That an unmetered supply carries no charge. The AED 150 a month for an unmetered supply is the tariff booklet's figure and this document neither repeats nor contradicts it."
+  ],
+  "reconciliations_passed": [
+    "21.00 m3 × AED 2.090 = 43.89, as printed.",
+    "79.00 m3 × AED 2.600 = 205.40, as printed.",
+    "43.89 + 205.40 = 249.29, the printed total before VAT at 100.00 m3 over 30 days.",
+    "249.29 × 1.05 = 261.7545, printed as AED 261.75 with VAT of 12.46.",
+    "The Water line in Charges This Period reads 261.75 — the same figure as the consumption section's total including VAT, with no residual. That equality is the enumeration argument in arithmetic: the water service carries consumption and its tax and nothing else.",
+    "71.19 + 261.75 + 892.50 + 235.05 = 1,460.49, the printed total charges for the period."
+  ],
+  "archive_path": "archive/taqa-understand-your-bill-2026-08-18.pdf",
+  "archive_sha256": "sha256:0e4077dd68da9401250f25ddeae102966219c60e7aa7de13aae1adae6953b829",
+  "archive_bytes": 3733543,
+  "archived_at": "2026-08-18",
+  "archive_text_path": "archive/taqa-understand-your-bill-2026-08-18.txt",
+  "archive_text_sha256": "sha256:7db1bb5aa8ab6ec9dca821e428c6ef4582d32b8fe22e9b3e48a22469236f093f",
+  "archive_text_bytes": 13745,
+  "archive_text_note": "The text layer of the same PDF, extracted mechanically with pdftotext and not retyped. On the Japanese captures the font's character map is broken and the kanji extract as mojibake; the digits do not, and the digits are what the verbatim second pass reads. The PDF is the capture; this file is the machine-readable face of it."
+}

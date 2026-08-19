@@ -1,0 +1,21 @@
+{
+  "name": "Thames Water charges scheme jurisdiction",
+  "authority": "Thames Water Utilities Ltd, regulated by Ofwat",
+  "country": "GB",
+  "utilities": [
+    {
+      "id": "thames-water",
+      "name": "Thames Water"
+    }
+  ],
+  "service_areas": [
+    {
+      "id": "thames-london",
+      "name": "Thames Water London supply area"
+    }
+  ],
+  "display_cities": [
+    "london"
+  ],
+  "tariff_jurisdiction_id": "gb-thames"
+}

@@ -1,0 +1,56 @@
+SOURCE CAPTURE — The Water Journal
+==================================
+Publisher : SP Group / SP Services — the billing agent for PUB
+Title     : Tariff Information
+URL       : https://www.spgroup.com.sg/our-services/utilities/tariff-information
+Captured  : 2026-08-17
+Capture   : Text rendering of the page as returned by a direct fetch. Not the
+            publisher's original HTML file; recorded as an extract.
+Purpose   : Currency, not rate establishment. The PUB media release of 27
+            September 2023 announces a revision effective 1 April 2025; it
+            cannot evidence that the rate is still in force in August 2026.
+            This page can, because SP Services bills it.
+
+VERBATIM EXTRACT — the passages relied upon
+-------------------------------------------
+
+"$1.56 or $1.97/m3
+ ---
+ $1.43 or $1.81/m3 (w/o GST)
+ WATER TARIFF
+ (<40m3 or > 40m3)"
+
+Dated context on the same page, establishing that the page is current rather
+than an old capture:
+
+"Q3 2026 Electricity Tariff (before GST)"
+
+"34.78 cents/kWh — 31.91 cents/kWh (w/o GST) — ELECTRICITY TARIFF
+ (wef 1 Jul - 30 Sep 26)"
+
+"25.59 cents/kWh — 23.48 cents/kWh (w/o GST) — GAS TARIFF
+ (wef 1 Jul - 30 Sep 26)"
+
+Also present on the page, noted for a future consumption metric and not used
+here:
+
+"Average Water Consumption (CuM)" — spreadsheet, Nov 24 to Oct 25
+"National Average Household Consumption ($)" — spreadsheet, Nov 24 to Oct 25
+"Note: Average consumption is computed based on total consumption divided by
+ total number of accounts in the respective premises types."
+
+WHAT THIS DOCUMENT ESTABLISHES
+------------------------------
+That the domestic water tariff in force at capture is 1.43 per m³ below 40 m³
+per month and 1.81 above, before GST — the same figures the PUB release set for
+1 April 2025, unchanged as at Q3 2026.
+
+WHAT IT DOES NOT ESTABLISH
+--------------------------
+The Water Conservation Tax and the Waterborne Tax. This page publishes only the
+water tariff line. Those two components rest on the PUB release.
+
+It shows a GST-inclusive figure of 1.56 / 1.97 against 1.43 / 1.81 before GST.
+1.43 × 1.09 = 1.5587, presented as 1.56. Consistent with 9% GST, and evidence
+about presentation rounding on the tariff line only — not about the Water
+Conservation Tax, whose rounding stage remains the open question.
