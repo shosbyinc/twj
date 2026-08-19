@@ -264,8 +264,12 @@ h1,h2,h3{font-weight:300;color:var(--ink);letter-spacing:-.016em;line-height:1.1
    Fixed columns that divide the tile count, and a last-child that stretches to
    fill whatever remainder is left — so a rubric added or retired later cannot
    reopen the hole. */
+/* The block above already closes with a rule, and this grid was drawing its own
+   8px below it — two hairlines with a sliver of paper between, which reads as a
+   printing fault rather than a border. It borrows the neighbour's line and keeps
+   only its own closing edge. */
 .sections{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ice);
-          border-top:1px solid var(--ice);border-bottom:1px solid var(--ice);margin-top:8px}
+          border-bottom:1px solid var(--ice)}
 .sections>:last-child:nth-child(3n+1){grid-column:span 3}
 .sections>:last-child:nth-child(3n+2){grid-column:span 2}
 @media(max-width:620px){
