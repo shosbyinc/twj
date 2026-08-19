@@ -258,8 +258,22 @@ h1,h2,h3{font-weight:300;color:var(--ink);letter-spacing:-.016em;line-height:1.1
 .actions{display:flex;flex-wrap:wrap;gap:clamp(18px,3vw,40px)}
 .gradekey b{color:var(--ink);font-weight:500}
 .gradekey .link{margin-left:6px}
-.sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--ice);
+/* The 1px gaps are the container's background showing through, which is neat
+   until a row is short: auto-fit gave five columns for six tiles on a tablet,
+   and the four empty cells painted as one grey slab beside a lone Earth.
+   Fixed columns that divide the tile count, and a last-child that stretches to
+   fill whatever remainder is left — so a rubric added or retired later cannot
+   reopen the hole. */
+.sections{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ice);
           border-top:1px solid var(--ice);border-bottom:1px solid var(--ice);margin-top:8px}
+.sections>:last-child:nth-child(3n+1){grid-column:span 3}
+.sections>:last-child:nth-child(3n+2){grid-column:span 2}
+@media(max-width:620px){
+  .sections{grid-template-columns:repeat(2,1fr)}
+  .sections>:last-child:nth-child(3n+1),
+  .sections>:last-child:nth-child(3n+2){grid-column:auto}
+  .sections>:last-child:nth-child(2n+1){grid-column:span 2}
+}
 .sections a,.sections .off{background:var(--pure);padding:22px 20px;transition:background .3s;display:block}
 .sections a:hover{background:var(--snow)}
 /* Dimmed means "there is nothing here". An empty rubric earns that; the view
