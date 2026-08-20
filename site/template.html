@@ -352,8 +352,13 @@ h1,h2,h3{font-weight:300;color:var(--ink);letter-spacing:-.016em;line-height:1.1
    8px below it — two hairlines with a sliver of paper between, which reads as a
    printing fault rather than a border. It borrows the neighbour's line and keeps
    only its own closing edge. */
+/* The rubric grid needs air above it. It used to draw its own hairline 8px
+   below the one the block above already ends with — two rules with a sliver of
+   paper between, which reads as a printing fault. Removing that border fixed the
+   fault and left the grid butted against the cards; the space is the separation
+   now, and it matches the space below, before Latest. */
 .sections{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ice);
-          border-bottom:1px solid var(--ice)}
+          margin-top:clamp(46px,6vw,78px);border-bottom:1px solid var(--ice)}
 .sections>:last-child:nth-child(3n+1){grid-column:span 3}
 .sections>:last-child:nth-child(3n+2){grid-column:span 2}
 @media(max-width:620px){
