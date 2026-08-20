@@ -616,8 +616,9 @@ describe('dimensions reserve space without dictating shape', () => {
     /* 160, 512 and 64 on disk, all 1:1. Guessing 34x34 and 120x120 was how this
        started. */
     const markup = TPL.replace(/\/\*[\s\S]*?\*\//g, '');
-    for (const m of markup.match(/<img[^>]*(?:id="(?:logo|footlogo)"|class="navmark")[^>]*>/g)
-      ?? markup.match(/<img[^>]*id="(?:logo|footlogo)"[^>]*>/g) ?? []) {
+    const marks = markup.match(/<img[^>]*id="(?:logo|footlogo)"[^>]*>/g) ?? [];
+    assert.equal(marks.length, 2, 'expected the masthead and footer marks');
+    for (const m of marks) {
       const w = /width="(\d+)"/.exec(m)?.[1];
       const h = /height="(\d+)"/.exec(m)?.[1];
       assert.equal(w, h, `the mark is declared ${w}x${h}, and it is square: ${m.slice(0, 50)}`);

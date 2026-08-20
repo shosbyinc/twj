@@ -136,9 +136,7 @@ nav .wrap{position:relative}
 .navrow a::after{content:"";position:absolute;left:-6px;right:-6px;top:-14px;bottom:-14px}
 .navrow a:hover{color:var(--ink)}
 .navrow a[aria-current]{color:var(--ink);border-bottom-color:var(--edit)}
-.navmark{position:absolute;left:0;top:50%;width:22px;margin-top:-11px;opacity:0;transition:opacity .3s;cursor:pointer}
-.navmark.on{opacity:1}
-@media(max-width:680px){.navmark{display:none}}
+
 /* Cards written into the page before any script runs. Once the router boots
    it repaints the container and these are gone, so they only need to be
    legible, not styled to match. */
@@ -651,7 +649,7 @@ noscript .ns a{color:var(--edit-text)}
   <hr class="hr">
   <div class="kick" id="kick"></div>
 </header>
-<nav aria-label="Sections"><div class="wrap"><div class="navrow" id="nav"><a class="navmark" id="navmark" href="__ROOT__" data-route="/" aria-label="Home"><img alt="" width="160" height="160"></a></div></div></nav>
+<nav aria-label="Sections"><div class="wrap"><div class="navrow" id="nav"></div></div></nav>
 
 <main id="main" tabindex="-1">
   <section class="page on" id="p-home"><div id="homeBody"></div></section>
@@ -878,16 +876,15 @@ function delink(){
   });
 }
 
-const LOGO_EL=[document.getElementById('logo'),document.getElementById('footlogo'),
-               document.querySelector('#navmark img')];
+const LOGO_EL=[document.getElementById('logo'),document.getElementById('footlogo')];
+
 LOGO_EL.forEach(el=>{if(el)el.src=LOGO;});
 if(!document.querySelector('link[rel="icon"]').getAttribute('href'))
   document.querySelector('link[rel="icon"]').href=LOGO;
-const navmark=document.getElementById('navmark'), bar=document.getElementById('progress');
+const bar=document.getElementById('progress');
 const setNav=()=>document.documentElement.style.setProperty('--navh',document.querySelector('nav').offsetHeight+'px');
 setNav(); addEventListener('resize',setNav);
 addEventListener('scroll',function(){
-  navmark.classList.toggle('on',scrollY>150);
   const art=document.getElementById('p-article');
   if(!art.classList.contains('on')){bar.style.width='0';return;}
   const h=art.scrollHeight-innerHeight;
