@@ -4,8 +4,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import vm from 'node:vm';
 import { payload } from '../scripts/site.js';
-import { noscriptFor, prerenderArticle, prerenderHome, prerenderJournal, routes as ROUTES }
-  from '../scripts/render.js';
+import { noscriptFor, prerender, routes as ROUTES } from '../scripts/render.js';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
@@ -282,148 +281,100 @@ describe('unknown is not zero', () => {
  *
  * The prose is already in the payload. These tests hold it on the page.
  */
-describe('the page carries its own text', () => {
-  const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
-  /* The document as it ships, with every script removed — which is what a
-     crawler that does not execute JavaScript is left holding. */
-  const shipped = route => prerenderArticle(TPL, route.article)
+/**
+ * Every page carries its own content.
+ *
+ * Prerendering now runs the site's own renderers at build time instead of a
+ * second set written in Node. That removes the failure this suite was built
+ * around — two versions of a page drifting apart, with the one nobody looks at
+ * being the one every crawler reads — and it removed the twins that would have
+ * been needed for the Water Index, Compare, Methodology and Independence, one
+ * of which would have had to reimplement the tariff table.
+ *
+ * It replaces that risk with a narrower one: a renderer that quietly writes
+ * nothing. So the assertions are on the output, route by route, and the measure
+ * is a word count.
+ */
+describe('every page carries its own content', () => {
+  const strip = html => html
     .replace(/<script[\s\S]*?<\/script>/g, '')
     .replace(/<noscript[\s\S]*?<\/noscript>/g, '');
-  const routeOf = slug => ROUTES.find(r => r.path === `/article/${slug}`);
-  const words = s => s.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+  const words = h => strip(h).replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+  const drawn = path => {
+    const r = prerender(path);
+    assert.ok(r, `no prerenderer for ${path}`);
+    return r.html;
+  };
 
-  test('every article ships its body in the document, not in a noscript', () => {
+  test('every article ships its body', () => {
     for (const a of payload.articles) {
-      const html = shipped(routeOf(a.slug));
-      assert.ok(words(html) > 800,
-        `${a.slug}: ${words(html)} words with scripts stripped — the piece is not on the page`);
+      const html = drawn(`/article/${a.slug}`);
+      assert.ok(words(html) > 800, `${a.slug}: ${words(html)} words`);
       assert.ok(html.includes(a.title), `${a.slug}: no headline`);
-      assert.ok(html.includes(a.published), `${a.slug}: no date`);
-      /* And the section holding it must be the visible one, or a reader
-         without scripts gets a correct page they cannot see. */
-      assert.match(html, /<section class="page on" id="p-article">/);
-      assert.match(html, /<section class="page" id="p-home">/);
     }
   });
 
   test('no two articles ship the same text', () => {
-    /* The failure this replaces was not "too little text" but "the same text
-       everywhere", which is the shape a crawler reads as boilerplate. */
     const seen = new Map();
     for (const a of payload.articles) {
-      const body = shipped(routeOf(a.slug));
-      const prev = seen.get(body);
-      assert.equal(prev, undefined, `${a.slug} and ${prev} ship identical text`);
+      const body = drawn(`/article/${a.slug}`);
+      assert.equal(seen.get(body), undefined, `${a.slug} and ${seen.get(body)} are identical`);
       seen.set(body, a.slug);
     }
   });
 
-  test('the tariff notice appears only where there are tariffs', () => {
-    /* It is a sentence about the Water Index and it was printing on every page,
-       including nine editorial pieces about ice cores and boules. */
-    for (const a of payload.articles) {
-      assert.ok(!noscriptFor(routeOf(a.slug)).includes('stored tariff'),
-        `${a.slug} carries the Water Index notice`);
+  test('the data pages ship their data, not a note about JavaScript', () => {
+    /* The Water Index is the thing this publication has that nobody else has,
+       and it shipped as a heading and an apology. */
+    const idx = drawn('/water-index');
+    for (const c of payload.cities) assert.ok(idx.includes(c.name), `the Index omits ${c.id}`);
+    assert.ok(words(idx) > 300, `the Index ships ${words(idx)} words`);
+    assert.ok(words(drawn('/compare')) > 300);
+  });
+
+  test('the static pages ship their text', () => {
+    for (const path of ['/methodology', '/independence']) {
+      assert.ok(words(drawn(path)) > 300, `${path} ships ${words(drawn(path))} words`);
     }
-    assert.ok(!noscriptFor(ROUTES.find(r => r.path === '/journal')).includes('stored tariff'));
+  });
+
+  test('a city record ships its figures', () => {
+    const paris = drawn('/city/paris');
+    assert.ok(paris.includes('1.87'), 'no price on the Paris record');
+    assert.ok(words(paris) > 150);
+  });
+
+  test('the Journal and its sections list the pieces', () => {
+    const j = drawn('/journal');
+    for (const a of payload.articles) assert.ok(j.includes(a.title), `the Journal omits ${a.slug}`);
+    for (const r of payload.rubrics) {
+      const mine = payload.articles.filter(a => a.rubric === r.id);
+      if (!mine.length) continue;
+      const page = drawn(`/journal/${r.id}`);
+      for (const a of mine) assert.ok(page.includes(a.title), `${r.id} omits ${a.slug}`);
+    }
+  });
+
+  test('the notice about calculated figures appears only where there are figures', () => {
+    for (const a of payload.articles) {
+      const ns = noscriptFor(ROUTES.find(r => r.path === `/article/${a.slug}`));
+      assert.ok(!ns.includes('stored tariff'), `${a.slug} carries the Water Index notice`);
+    }
+    for (const p of ['/journal', '/methodology', '/independence', '/']) {
+      assert.ok(!noscriptFor(ROUTES.find(r => r.path === p)).includes('stored tariff'), `${p} carries it`);
+    }
     assert.ok(noscriptFor(ROUTES.find(r => r.path === '/water-index')).includes('stored tariff'));
   });
 
-  test('the Journal and its sections link to the pieces', () => {
-    const j = noscriptFor(ROUTES.find(r => r.path === '/journal'));
-    for (const a of payload.articles) {
-      assert.ok(j.includes(`article/${a.slug}`), `the Journal does not link ${a.slug}`);
-    }
-    for (const r of payload.rubrics) {
-      const inRubric = payload.articles.filter(a => a.rubric === r.id);
-      if (!inRubric.length) continue;
-      const page = noscriptFor(ROUTES.find(x => x.path === '/journal/' + r.id));
-      for (const a of inRubric) assert.ok(page.includes(`article/${a.slug}`),
-        `${r.id} does not link ${a.slug}`);
-    }
+  test('the fallback no longer repeats the whole site under every page', () => {
+    /* It listed every article, every rubric and every city beneath each page.
+       That inventory was written when the pages themselves were empty. */
+    const ns = noscriptFor(ROUTES.find(r => r.path === '/'));
+    assert.ok(ns.length < 900, `the fallback is ${ns.length} characters`);
+    for (const a of payload.articles) assert.ok(!ns.includes(a.title));
   });
 });
 
-describe('the pages that are not articles carry their own content too', () => {
-  const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
-  const strip = html => html
-    .replace(/<script[\s\S]*?<\/script>/g, '')
-    .replace(/<noscript[\s\S]*?<\/noscript>/g, '');
-  const main = html => {
-    const h = strip(html);
-    return h.slice(h.indexOf('<main'), h.indexOf('</main>'));
-  };
-  const words = s => s.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
-
-  test('the home page ships the Journal and the Index, not just links', () => {
-    const m = main(prerenderHome(TPL));
-    assert.ok(words(m) > 300, `home ships ${words(m)} words without scripts`);
-    for (const a of payload.articles) {
-      assert.ok(m.includes(a.title), `home does not name ${a.slug}`);
-      assert.ok(m.includes(a.standfirst || a.title), `home does not carry the standfirst of ${a.slug}`);
-    }
-    assert.match(m, /<section class="page on" id="p-home">/);
-  });
-
-  test('the Journal ships cards, with standfirsts and dates', () => {
-    const m = main(prerenderJournal(TPL, null));
-    assert.ok(words(m) > 300, `journal ships ${words(m)} words without scripts`);
-    for (const a of payload.articles) {
-      assert.ok(m.includes(a.title));
-      assert.ok(m.includes(`article/${a.slug}`));
-      assert.ok(m.includes(a.published), `no date for ${a.slug}`);
-    }
-    assert.match(m, /<section class="page on" id="p-journal">/);
-  });
-
-  test('a section page ships its own pieces and nobody else\'s', () => {
-    const earth = payload.rubrics.find(r => r.id === 'earth');
-    const m = main(prerenderJournal(TPL, earth));
-    const mine = payload.articles.filter(a => a.rubric === 'earth');
-    for (const a of mine) assert.ok(m.includes(a.title), `earth omits ${a.slug}`);
-    const others = payload.articles.filter(a => a.rubric !== 'earth');
-    for (const a of others) {
-      assert.ok(!m.includes(a.standfirst), `earth carries the standfirst of ${a.slug}`);
-    }
-  });
-
-  test('no page hides the section it just filled', () => {
-    /* Marking a section visible and filling a different one produces a correct
-       document nobody can read. */
-    for (const [html, id] of [[prerenderHome(TPL), 'p-home'],
-                              [prerenderJournal(TPL, null), 'p-journal'],
-                              [prerenderArticle(TPL, payload.articles[0]), 'p-article']]) {
-      const on = [...html.matchAll(/<section class="page on" id="(p-[a-z0-9]+)"/g)].map(m => m[1]);
-      assert.deepEqual(on, [id], `expected only ${id} visible, got ${on.join(', ')}`);
-    }
-  });
-});
-
-/**
- * Editorial rhythm, and the conditions under which it is honest.
- *
- * A lead story over a uniform archive is a hero over a catalogue. A lead, an
- * unequal pair and a full-width interruption is a publication — but only while
- * there is enough behind them that "featured" still means chosen. With four
- * pieces, four featured pieces is an inventory with three type sizes.
- *
- * So the rhythm scales with the archive and the interruption requires a cover
- * it can carry. These tests hold both conditions, because the failure they
- * prevent is not a crash: it is a page that quietly starts lying about how much
- * editing went into it.
- */
-/**
- * Three levels, and an editor decided which piece is on each.
- *
- * The first draft derived the hierarchy from publication dates: newest piece
- * large, next two medium, rest small. That is a sort order in three typefaces.
- * It also meant the lead changed whenever anything was published, which is the
- * opposite of what a lead is for.
- *
- * The choice now lives in content/stories.json with the reason written beside
- * it, the build refuses a slug that does not resolve, and these tests hold the
- * shape the page is built for.
- */
 describe('the Journal has three levels, and an editor set them', () => {
   const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
   const J = payload.stories.journal;
@@ -553,5 +504,87 @@ describe('covers are shown whole', () => {
     /* On an article the cover is shown at its own size inside a frame, not
        stretched to fill one: width auto, bounded by max-width and max-height. */
     assert.match(TPL, /\.poster img\{width:auto;max-width/);
+  });
+});
+
+/**
+ * The home page is a door, not the room.
+ *
+ * It printed the whole archive: nine pieces at uniform size, which is exactly
+ * the catalogue the Journal had just stopped being. A front page is not an index
+ * of everything behind it. Three pieces and a way through.
+ */
+describe('the home page previews the Journal rather than reproducing it', () => {
+  const drawn = path => prerender(path).html;
+
+  test('three pieces, not nine', () => {
+    const html = drawn('/');
+    const linked = new Set([...html.matchAll(/article\/([a-z-]+)/g)].map(m => m[1]));
+    assert.ok(linked.size <= 4, `the home page links ${linked.size} pieces`);
+    assert.ok(linked.size >= 3, `the home page links only ${linked.size}`);
+    assert.match(html, /From the Journal/);
+    assert.match(html, /View the Journal/);
+  });
+
+  test('the featured piece is not shown twice on one screen', () => {
+    const feat = payload.stories.featured?.article;
+    const html = drawn('/');
+    const inPreview = [...html.matchAll(/class="fj-(?:one|two)"[\s\S]*?article\/([a-z-]+)/g)]
+      .map(m => m[1]);
+    assert.ok(!inPreview.includes(feat),
+      `${feat} is both the home feature and inside the preview below it`);
+  });
+
+  test('the Water Index stays a separate section', () => {
+    /* Two products under one masthead. The preview above must not swallow it. */
+    const html = drawn('/');
+    assert.match(html, /Water Index/);
+    assert.match(html, /All cities/);
+  });
+
+  test('no magazine furniture crept in', () => {
+    const html = drawn('/');
+    for (const w of ['Trending', 'Most Read', "Editor's Pick", 'Recommended']) {
+      assert.ok(!html.includes(w), `the home page says "${w}"`);
+    }
+  });
+});
+
+/**
+ * Every image reserves its own space.
+ *
+ * Without width and height the browser lays the page out without the picture and
+ * reflows the moment it arrives — Cumulative Layout Shift, felt as the headline
+ * jumping out from under the reader. With 4:5 covers the jump is a screenful.
+ * The dimensions are read from the files at build time rather than asserted, so
+ * a redrawn cover cannot silently contradict them.
+ */
+describe('images reserve their space', () => {
+  const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
+
+  test('every img tag carries width and height', () => {
+    const imgs = TPL.match(/<img[^>]*>/g) ?? [];
+    assert.ok(imgs.length >= 8);
+    for (const img of imgs) {
+      assert.match(img, /width=/, `no width: ${img.slice(0, 60)}`);
+      assert.match(img, /height=/, `no height: ${img.slice(0, 60)}`);
+    }
+  });
+
+  test('the dimensions are read from the files, not assumed', () => {
+    for (const a of payload.articles) {
+      if (!a.cover) continue;
+      assert.ok(Number.isInteger(a.cover_w) && Number.isInteger(a.cover_h),
+        `${a.slug}: no measured cover size`);
+      assert.ok(a.cover_w > 100 && a.cover_h > 100, `${a.slug}: implausible size`);
+    }
+  });
+
+  test('above the fold is eager, below it is lazy', () => {
+    /* Lazy-loading the hero delays the largest paint, which is the one metric
+       the reader actually feels. */
+    assert.ok(!/fetchpriority="high"[^>]*loading="lazy"/.test(TPL));
+    const lazy = (TPL.match(/loading="lazy"/g) ?? []).length;
+    assert.ok(lazy >= 3, `only ${lazy} images defer`);
   });
 });

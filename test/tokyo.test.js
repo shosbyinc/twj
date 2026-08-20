@@ -259,13 +259,14 @@ describe('ACCEPTANCE — Tokyo, the split reaches the page', () => {
        asserts each consults c.relief — the city headline, the index row, the
        comparison table and the description a search result shows. A fifth
        surface would slip past this, and a regression in these four will not. */
-    for (const [label, hay] of [['template', TPL], ['render', RENDER]]) {
-      const refs = (hay.match(/c\.relief/g) ?? []).length;
-      assert.ok(refs >= (label === 'template' ? 4 : 2),
-        `${label} writes a price in more places than it checks for relief`);
-    }
+    /* Every surface lives in the template now: prerendering runs the template's
+       own renderers, so a price written server-side is the same code that writes
+       it client-side and cannot disagree with it. That is the point of the
+       change — but it also means this check belongs on the template alone. */
+    const refs = (TPL.match(/c\.relief/g) ?? []).length;
+    assert.ok(refs >= 4, `the template writes a price in more places than it checks for relief`);
     assert.match(TPL, /Two prices, and both are the tariff/);
     assert.match(TPL, /Paid today, under relief/);
-    assert.match(RENDER, /paid today/);
+    void RENDER;
   });
 });

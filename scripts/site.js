@@ -235,6 +235,17 @@ const articles = readdirSync(join(ROOT, 'content/articles')).filter(f => f.endsW
        Counting the citation list put a five-minute article at eight, because
        a source note is looked up rather than read at 220 words a minute. */
     const prose = body.split(/\n---\n/)[0];
+    /* Intrinsic pixel dimensions, read from the files themselves.
+       Without width and height on an <img> the browser reserves no space for it
+       and the page reflows the moment it loads — measured as CLS and felt as the
+       headline jumping out from under a reader's eye. Covers here are large and
+       4:5, so the jump is a screenful. Read, never guessed: an aspect ratio
+       asserted in CSS and contradicted by the file is a second bug. */
+    for (const key of ['cover', 'cover_story', 'cover_wide']) {
+      if (!meta[key]) continue;
+      const size = imageSize(join(ROOT, 'content', meta[key]));
+      if (size) { meta[`${key}_w`] = size.w; meta[`${key}_h`] = size.h; }
+    }
     return { ...meta, html: render(body), minutes: readingMinutes(prose),
              /* Published so any other rendering of this piece can reproduce the
                 figure rather than set its own. */
@@ -244,6 +255,35 @@ const articles = readdirSync(join(ROOT, 'content/articles')).filter(f => f.endsW
   })
   .filter(a => a.status !== 'draft')
   .sort((a, b) => String(b.published).localeCompare(String(a.published)));
+
+/**
+ * Width and height of a JPEG or PNG, from its own header.
+ *
+ * No dependency: a JPEG announces its size in the SOF marker and a PNG in the
+ * IHDR chunk, and both are a few bytes in. Returning null rather than throwing
+ * means an unreadable file costs the page its reserved space and not the build.
+ */
+function imageSize(file) {
+  let buf;
+  try { buf = readFileSync(file); } catch { return null; }
+  if (buf.length > 24 && buf.toString('ascii', 12, 16) === 'IHDR') {
+    return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
+  }
+  if (buf[0] !== 0xFF || buf[1] !== 0xD8) return null;
+  let i = 2;
+  while (i < buf.length - 9) {
+    if (buf[i] !== 0xFF) { i++; continue; }
+    const marker = buf[i + 1];
+    /* SOF0..SOF15, skipping the four that are not frame headers. */
+    if (marker >= 0xC0 && marker <= 0xCF
+        && marker !== 0xC4 && marker !== 0xC8 && marker !== 0xCC) {
+      return { h: buf.readUInt16BE(i + 5), w: buf.readUInt16BE(i + 7) };
+    }
+    i += 2 + buf.readUInt16BE(i + 2);
+  }
+  return null;
+}
+
 const stories = read('content/stories.json');
 
 const featuredArticle = articles.find(a => a.slug === stories.featured?.article)

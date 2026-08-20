@@ -185,6 +185,29 @@ nav .wrap{position:relative}
 .latesthead{margin-top:clamp(46px,6vw,78px);padding-bottom:14px;
             font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
 
+
+/* From the Journal, on the home page. One story with its cover, two beside it
+   in text. Deliberately smaller than the Journal's own hero: this is a door,
+   not the room. */
+.fj-one{display:grid;grid-template-columns:1fr;gap:clamp(18px,3vw,30px);margin-top:clamp(20px,3vw,30px)}
+.fj-one .c{display:block;overflow:hidden;background:var(--snow);aspect-ratio:4/5}
+.fj-one .c img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.3,1)}
+.fj-one:hover .c img{transform:scale(1.03)}
+.fj-one .r{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+.fj-one h3{margin-top:10px;font-size:var(--h2);font-weight:300;line-height:1.14;transition:color .25s}
+.fj-one:hover h3{color:var(--prana)}
+.fj-one p{margin-top:12px;font-size:var(--ui);line-height:1.62;color:var(--body);max-width:46ch}
+.fj-two{display:grid;grid-template-columns:1fr;gap:clamp(20px,3vw,30px);
+        margin-top:clamp(26px,3.6vw,38px);padding-top:clamp(22px,3vw,30px);border-top:1px solid var(--ice)}
+.fj-two .r{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+.fj-two h4{margin-top:8px;font-size:var(--h3);font-weight:300;line-height:1.18;transition:color .25s}
+.fj-two a:hover h4{color:var(--prana)}
+.fj-two p{margin-top:8px;font-size:var(--small);line-height:1.6;color:var(--body);max-width:40ch}
+@media(min-width:820px){
+  .fj-one{grid-template-columns:minmax(0,38%) 1fr;align-items:center;
+          gap:clamp(28px,4vw,48px)}
+  .fj-two{grid-template-columns:1fr 1fr;gap:clamp(30px,4vw,50px)}
+}
 .nscard{padding:18px 0;border-bottom:1px solid var(--ice)}
 .nscard .r{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--edit-text)}
 .nscard h3{font-size:var(--h3);margin:8px 0}
@@ -617,12 +640,12 @@ noscript .ns a{color:var(--edit-text)}
 
 <header class="top">
   <a class="brand" href="__ROOT__" data-route="/" aria-label="The Water Journal, home">
-    <img id="logo" alt=""><span>The Water Journal</span>
+    <img id="logo" alt="" width="34" height="34"><span>The Water Journal</span>
   </a>
   <hr class="hr">
   <div class="kick" id="kick"></div>
 </header>
-<nav aria-label="Sections"><div class="wrap"><div class="navrow" id="nav"><a class="navmark" id="navmark" href="__ROOT__" data-route="/" aria-label="Home"><img alt=""></a></div></div></nav>
+<nav aria-label="Sections"><div class="wrap"><div class="navrow" id="nav"><a class="navmark" id="navmark" href="__ROOT__" data-route="/" aria-label="Home"><img alt="" width="120" height="120"></a></div></div></nav>
 
 <main id="main" tabindex="-1">
   <section class="page on" id="p-home"><div id="homeBody"></div></section>
@@ -879,7 +902,8 @@ function secondary(){
   if(two.length<2) return '';
   return `<div class="duostory">${two.map(a=>
     `<a class="ds" href="${href('/article/'+a.slug)}" data-route="/article/${a.slug}">
-      ${a.cover?`<span class="c"><img src="${a.cover}" alt="${a.cover_alt||''}" loading="lazy"></span>`:''}
+      ${a.cover?`<span class="c"><img src="${a.cover}" alt="${a.cover_alt||''}" loading="lazy"
+        width="${a.cover_w||1080}" height="${a.cover_h||1350}"></span>`:''}
       <span class="r">${rubName(a.rubric)} \u00b7 ${a.minutes} min</span>
       <h3>${a.title}</h3>
       ${a.standfirst?`<p>${clamp(a.standfirst,150)}</p>`:''}</a>`).join('')}</div>`;
@@ -899,13 +923,44 @@ function clamp(t,n){
 function list(items,showRubric){
   if(!items.length) return '<p class="note">Nothing published yet.</p>';
   return '<div class="alist">'+items.map(a=>`<a href="${href('/article/'+a.slug)}" data-route="/article/${a.slug}">
-    <span class="th">${a.cover?`<img src="${a.cover}" alt="" loading="lazy">`:''}</span>
+    <span class="th">${a.cover?`<img src="${a.cover}" alt="" loading="lazy" width="${a.cover_w||1080}" height="${a.cover_h||1350}">`:''}</span>
     <span>${showRubric?`<span class="r">${rubName(a.rubric)}</span>`:''}
       <h3>${a.title}</h3>${a.standfirst?`<p>${a.standfirst}</p>`:''}
       <span class="m">${a.minutes} min read</span></span></a>`).join('')+'</div>';
 }
 
 /* home */
+/* The home page's view of the Journal: one current story and two beside it,
+   and then out to the Journal itself.
+   It used to print the whole archive — nine pieces at uniform size, which is
+   the catalogue the Journal has just stopped being. A front page is not an
+   index of everything behind it; it is an argument for going further in.
+   The pieces here are the Journal's own three, minus whatever the home page is
+   already featuring above, so the same story is never shown twice on one
+   screen. */
+function fromJournal(feat){
+  const J=(D.stories&&D.stories.journal)||{};
+  const bySlug=k=>ART.find(a=>a.slug===k);
+  const pool=[J.lead,...(J.secondary||[])].map(bySlug).filter(Boolean)
+    .filter(a=>!feat||a.slug!==feat.slug);
+  const rest=ART.filter(a=>(!feat||a.slug!==feat.slug)&&!pool.includes(a));
+  const picks=[...pool,...rest].slice(0,3);
+  if(!picks.length) return '';
+  const [one,...two]=picks;
+  return `<div class="sect fj"><div class="h"><b>From the Journal</b>
+      <a class="link" href="${href('/journal')}" data-route="/journal">View the Journal ${ARR}</a></div>
+    <a class="fj-one" href="${href('/article/'+one.slug)}" data-route="/article/${one.slug}">
+      ${one.cover?`<span class="c"><img src="${one.cover}" alt="${one.cover_alt||''}"
+        width="${one.cover_w||1080}" height="${one.cover_h||1350}" loading="lazy"></span>`:''}
+      <span class="t"><span class="r">${rubName(one.rubric)} \u00b7 ${one.minutes} min</span>
+        <h3>${one.title}</h3>${one.standfirst?`<p>${one.standfirst}</p>`:''}</span></a>
+    ${two.length?`<div class="fj-two">${two.map(a=>
+      `<a href="${href('/article/'+a.slug)}" data-route="/article/${a.slug}">
+        <span class="r">${rubName(a.rubric)} \u00b7 ${a.minutes} min</span>
+        <h4>${a.title}</h4>${a.standfirst?`<p>${clamp(a.standfirst,110)}</p>`:''}</a>`).join('')}</div>`:''}
+  </div>`;
+}
+
 function home(){
   const S=D.stories, feat=ART.find(a=>a.slug===(S.featured&&S.featured.article));
   const cards=(S.cards||[]).map(k=>ART.find(a=>a.slug===k.slug)).filter(Boolean);
@@ -925,11 +980,11 @@ function home(){
     <h2>${feat.title}</h2>${feat.standfirst?`<p>${feat.standfirst}</p>`:''}
     <a class="link" href="${href('/article/'+feat.slug)}" data-route="/article/${feat.slug}" style="margin-top:22px">Read ${ARR}</a></div>`:''}</div>
   ${feat&&feat.cover?`<a class="posterlink" href="${href('/article/'+feat.slug)}" data-route="/article/${feat.slug}" aria-label="${feat.title}"><figure class="poster">
-    <img src="${feat.cover}" alt="${feat.cover_alt||''}">${
+    <img src="${feat.cover}" alt="${feat.cover_alt||''}"
+    width="${feat.cover_w||1080}" height="${feat.cover_h||1350}" fetchpriority="high">${
       feat.cover_credit?`<figcaption>${feat.cover_credit}</figcaption>`:''}</figure></a>`:''}
   <div class="wrap">
-    <div class="sect"><div class="h"><b>Stories</b>
-      <a class="link" href="${href('/journal')}" data-route="/journal">All sections ${ARR}</a></div>${list(cards,true)}</div>
+    ${fromJournal(feat)}
     <div class="sect"><div class="h"><b>Water Index</b>
       <a class="link" href="${href('/water-index')}" data-route="/water-index">All cities ${ARR}</a></div>
       <p class="note" style="margin-top:14px;max-width:54ch">What a standardized household pays for tap water, calculated
@@ -978,7 +1033,8 @@ function journal(filter){
           <span class="t"><span class="r">${rubName(lead.rubric)}</span>
             <h2>${lead.title}</h2>${lead.standfirst?`<p>${lead.standfirst}</p>`:''}
             <span class="m">${lead.minutes} min read</span></span>
-          ${lead.cover_story||lead.cover?`<span class="c"><img src="${lead.cover_story||lead.cover}" alt="${lead.cover_alt||''}"></span>`:''}</a>`:''}
+          ${lead.cover_story||lead.cover?`<span class="c"><img src="${lead.cover_story||lead.cover}" alt="${lead.cover_alt||''}"
+            width="${lead.cover_w||1080}" height="${lead.cover_h||1350}" fetchpriority="high"></span>`:''}</a>`:''}
        ${secondary()}
        <div class="sections">
         <a href="${href('/journal')}" data-route="/journal" aria-current="page"><span class="nm">All stories</span>
@@ -1009,7 +1065,8 @@ function journal(filter){
 function article(slug){
   const a=ART.find(x=>x.slug===slug); if(!a) return false;
   document.getElementById('articleBody').innerHTML=`
-  ${a.cover||a.cover_story?`<figure class="bleed poster"><img src="${a.cover_story||a.cover}" alt="${a.cover_alt||''}">${
+  ${a.cover||a.cover_story?`<figure class="bleed poster"><img src="${a.cover_story||a.cover}" alt="${a.cover_alt||''}"
+    width="${(a.cover_story&&a.cover_story_w)||a.cover_w||1080}" height="${(a.cover_story&&a.cover_story_h)||a.cover_h||1350}" fetchpriority="high">${
     a.cover_credit?`<figcaption>${a.cover_credit}</figcaption>`:''}</figure>`:''}
   <a class="back link" href="${href('/journal/'+a.rubric)}" data-route="/journal/${a.rubric}">← ${rubName(a.rubric)}</a>
   <h1>${a.title}</h1>

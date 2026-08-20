@@ -264,154 +264,18 @@ const rubricName = id => payload.rubrics.find(r => r.id === id)?.name ?? 'The Wa
  * same container from the payload, which is a no-op a reader never sees. The
  * markup below is the same shape article() builds client-side; if the two drift
  * apart, the page changes under a reader on load, so they are kept together. */
-/* Putting the document's own content into the document.
- *
- * Everything below is prerendered into the shell's containers and the section
- * holding it is marked visible, so a reader — human or machine — who never runs
- * a script still gets the page rather than a list of links. The router repaints
- * the same containers on boot from the payload, which is a no-op nobody sees.
- *
- * These renderers are deliberately plainer than their client-side twins: they
- * carry the words, the links and the dates, not the animation. Two renderers
- * for one page is a real cost and the reason it is paid here is that the
- * alternative was a publication invisible to anything that does not execute
- * JavaScript — which now includes most of what reads the open web. */
-function mount(html, sectionId, containerOpen, content) {
-  return html
-    .replace('<section class="page on" id="p-home">', '<section class="page" id="p-home">')
-    .replace(containerOpen, containerOpen.replace(/>$/, '>') + content)
-    .replace(`<section class="page" id="${sectionId}">`,
-             `<section class="page on" id="${sectionId}">`);
-}
-
-const artCard = a =>
-  `<article class="nscard">
-     <p class="r">${esc(rubricName(a.rubric))}</p>
-     <h3><a href="${BASE}article/${esc(a.slug)}">${esc(a.title)}</a></h3>
-     ${a.standfirst ? `<p>${esc(a.standfirst)}</p>` : ''}
-     <p class="m">${esc(a.author || 'The Water Journal')} &middot;
-       <time datetime="${esc(a.published || '')}">${esc(a.published || '')}</time>
-       &middot; ${a.minutes} min read</p>
-   </article>`;
-
-function prerenderHome(html) {
-  const [lead, ...rest] = payload.articles;
-  const content = `
-    <h1>The world, explained through water.</h1>
-    <p>A publication about a single molecule and everything it touches &mdash; and a
-       dataset that measures what it costs, where it comes from, and what it takes
-       to keep it flowing.</p>
-    <h2>Latest</h2>
-    ${lead ? artCard(lead) : ''}
-    <h2>More from the Journal</h2>
-    ${rest.map(artCard).join('')}
-    <h2>The Water Index</h2>
-    <p>What 15,000 litres a month costs in ${payload.cities.length} cities, each
-       calculated from that city&rsquo;s own published tariff.</p>
-    <ul>${payload.cities.map(c => `<li><a href="${BASE}city/${esc(c.id)}">${esc(c.name)}</a>`
-      + (c.not_priced ? ' &mdash; not priced' : ` &mdash; ${esc(c.symbol)} ${c.price_m3.toFixed(2)} per 1,000 litres`)
-      + `</li>`).join('')}</ul>`;
-  return mount(html, 'p-home', '<div id="homeBody">', content)
-    .replace('<section class="page" id="p-home">', '<section class="page on" id="p-home">');
-}
-
-function prerenderJournal(html, rubric) {
-  /* Same order the reader sees. A crawler served a different sequence from the
-     one the page presents is being told the editor chose nothing. */
-  const J = payload.stories?.journal ?? {};
-  const bySlug = k => payload.articles.find(a => a.slug === k);
-  const curated = [J.lead, ...(J.secondary ?? [])].map(bySlug).filter(Boolean);
-  const list = rubric
-    ? payload.articles.filter(a => a.rubric === rubric.id)
-    : [...curated, ...payload.articles.filter(a => !curated.includes(a))];
-  const content = `
-    <h1>${rubric ? esc(rubric.name) : 'Stories about the systems, science and ideas hidden inside water.'}</h1>
-    ${rubric ? `<p>${esc(rubric.line)}</p>` : ''}
-    ${list.map(artCard).join('')}
-    <h2>Sections</h2>
-    <ul>${payload.rubrics.filter(r => payload.articles.some(a => a.rubric === r.id))
-      .map(r => `<li><a href="${BASE}journal/${esc(r.id)}">${esc(r.name)}</a> &mdash; ${esc(r.line)}</li>`)
-      .join('')}</ul>`;
-  return mount(html, 'p-journal', '<div class="wrap" id="journalBody">', content);
-}
-
-function prerenderArticle(html, a) {
-  /* cover_credit and formula are authored as markup and are rendered as markup
-     client-side; escaping them here would print the tags at a reader. */
-  const fig = (a.cover_story || a.cover)
-    ? `<figure class="bleed poster"><img src="${esc(a.cover_story || a.cover)}" alt="${esc(a.cover_alt || '')}">`
-      + (a.cover_credit ? `<figcaption>${a.cover_credit}</figcaption>` : '') + '</figure>'
-    : '';
-  const body = `${fig}
-  <a class="back link" href="${BASE}journal/${esc(a.rubric)}">&larr; ${esc(rubricName(a.rubric))}</a>
-  <h1>${esc(a.title)}</h1>
-  ${a.standfirst ? `<p class="stand">${esc(a.standfirst)}</p>` : ''}
-  ${a.formula ? `<div class="formula">${a.formula}</div>` : ''}
-  <div class="meta"><span>${esc(a.author || 'The Water Journal')}</span>`
-    + `<span><time datetime="${esc(a.published || '')}">${esc(a.published || '')}</time></span>`
-    + `<span>${a.minutes} min read</span></div>
-  <div class="body">${a.html}</div>
-  <div class="artend">
-    <a class="link" href="${BASE}journal/${esc(a.rubric)}">More in ${esc(rubricName(a.rubric))}</a>
-    <a class="link" href="${BASE}journal">All sections</a></div>`;
-
-  return mount(html, 'p-article', '<div class="col art" id="articleBody">', body);
-}
-
 function noscriptFor(route) {
   const link = (label, path) => `<li><a href="${BASE + path.replace(/^\//, '')}">${esc(label)}</a></li>`;
-  let lead = `<h2>${esc(route.title)}</h2><p>${esc(route.desc)}</p>`;
-
-  /* An article page shipped its title, its standfirst and then a paragraph about
-     JavaScript — the same paragraph on every URL, and none of the piece itself.
-     Google executes JS and saw the text; the crawlers that do not — GPTBot,
-     ClaudeBot, PerplexityBot, CCBot, and Bing on a bad day — saw a stub. A
-     publication whose whole claim is that its working is visible should not be
-     invisible to the readers who never run its scripts.
-     The prose is already rendered into the payload, so it costs nothing to
-     ship it. */
-  /* The body of an article is in the document itself now, so this block is
-     only the way back out of it. */
-  if (route.article) {
-    return `<div class="wrap ns"><p>Sections of The Water Journal</p>
-      <ul>${routes.filter(r => !r.article).map(r => link(r.title.split(' — ')[0], r.path)).join('')}</ul></div>`;
-  }
-
-  /* The Journal and the rubric pages listed nothing at all: a crawler that does
-     not run scripts could not discover one article from either. */
-  const listing = route.path === '/journal'
-    ? payload.articles
-    : payload.rubrics.some(r => route.path === '/journal/' + r.id)
-      ? payload.articles.filter(a => '/journal/' + a.rubric === route.path)
-      : null;
-  if (listing && listing.length) {
-    lead += '<ul>' + listing.map(a =>
-      `<li><a href="${BASE}article/${a.slug}">${esc(a.title)}</a>`
-      + (a.standfirst ? ` &mdash; ${esc(clip(a.standfirst))}` : '') + '</li>').join('') + '</ul>';
-  }
-
-  const city = payload.cities.find(c => route.path === '/city/' + c.id);
-  if (city && !city.not_priced) {
-    /* §5.4 — where relief is live the headline is what the household pays, and
-       the standing tariff is what a comparison uses. A summary that printed one
-       of them would be a lie whichever it printed, and this summary is the only
-       version of the page a reader without JavaScript ever sees. */
-    const price = city.relief
-      ? `<b>${esc(city.symbol)} ${city.relief.payable_m3.toFixed(2)}</b> per 1,000 litres paid today,`
-        + ` against <b>${esc(city.symbol)} ${city.relief.structural_m3.toFixed(2)}</b> on the standing tariff`
-        + ` — temporary relief is live and the comparable figure is the standing one`
-      : `<b>${esc(city.symbol)} ${city.price_m3.toFixed(2)}</b> per 1,000 litres`;
-    lead += `<p>${price} · ${esc(city.utility)} · tariff effective ${esc(city.tariff_effective)}`
-      + ` · Grade ${esc(city.grade)}</p>`;
-  }
-
-  return `<div class="wrap ns">${lead}
-    ${city || route.path === '/water-index' || route.path === '/compare'
-      ? `<p>This page renders its figures with JavaScript. Every one of them is
-         calculated from a stored tariff by the engine in this project’s
-         repository, and the whole dataset is published as JSON.</p>` : ''}
-    <ul>${routes.map(r => link(r.title.split(' — ')[0], r.path)).join('')}</ul>
-    <ul>${link('The full dataset as JSON', 'site.json')}</ul></div>`;
+  const nav = [['The Journal', '/journal'], ['Water Index', '/water-index'],
+               ['Compare', '/compare'], ['Methodology', '/methodology'],
+               ['Editorial independence', '/independence']];
+  const calculated = route.path === '/water-index' || route.path === '/compare'
+    || /^\/city\//.test(route.path);
+  return `<div class="wrap ns">
+    ${calculated ? `<p>The figures above are calculated from stored tariffs by the engine in this
+      project\u2019s repository, and the whole dataset is published as
+      <a href="${BASE}site.json">JSON</a>.</p>` : ''}
+    <ul>${nav.map(([t, pth]) => link(t, pth)).join('')}</ul></div>`;
 }
 
 /* ── fonts ───────────────────────────────────────────────────────────────── */
@@ -450,18 +314,18 @@ function fontBlock() {
 }
 const FONTS = fontBlock();
 
+import { makePrerenderer, mount } from './prerender.js';
+
 /* ── write ───────────────────────────────────────────────────────────────── */
 const tpl = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
 const json = JSON.stringify(payload).replace(/<\/script>/gi, '<\\/script>');
 
+const prerender = makePrerenderer(tpl.replaceAll('__ROOT__', BASE), json);
+
 function build(route) {
   const canon = ORIGIN + (route.path === '/' ? '/' : route.path);
-  const rubric = payload.rubrics.find(r => route.path === '/journal/' + r.id);
-  const shell = route.article ? prerenderArticle(tpl, route.article)
-    : route.path === '/' ? prerenderHome(tpl)
-    : route.path === '/journal' ? prerenderJournal(tpl, null)
-    : rubric ? prerenderJournal(tpl, rubric)
-    : tpl;
+  const drawn = prerender(route.path);
+  const shell = drawn ? mount(tpl, drawn) : tpl;
   return shell
     .replaceAll('__ROOT__', BASE)
     .replace('__FONTS__', FONTS)
@@ -559,4 +423,4 @@ if (missing.length) console.log(`  missing: ${[...new Set(missing)].join(', ')}`
 
 /* Exported for the tests: the crawler-facing text is a published surface and is
    checked from the source that produces it, not from a build artifact. */
-export { noscriptFor, prerenderArticle, prerenderHome, prerenderJournal, routes, ORIGIN, ROBOTS };
+export { noscriptFor, prerender, routes, ORIGIN, ROBOTS };
