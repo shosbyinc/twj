@@ -75,14 +75,42 @@ describe('a clean checkout builds', () => {
   });
 });
 
+/**
+ * Importing the payload must not write anything.
+ *
+ * `scripts/site.js` exports the payload and also writes dist/ when it is run
+ * directly. The guard between those two is one line, and if it ever breaks,
+ * every test that imports the payload starts writing build artifacts as a side
+ * effect — the sort of thing that shows up as an unexplained dirty tree weeks
+ * later.
+ *
+ * The first version of this test compared dist/site.json before and after the
+ * import. It was green locally and red in CI, because it watched a directory
+ * another test file legitimately writes to: deploy-metadata.test.js builds
+ * dist/ when it finds none, node runs test files in parallel, and whichever
+ * finished first decided the result. A test that depends on scheduling is worse
+ * than no test — it teaches people to re-run until it passes.
+ *
+ * So the import happens in its own copy of the tree, in its own process, where
+ * nothing else can write. What is asserted is what the test is named after.
+ */
 describe('importing the payload writes nothing', () => {
-  test('scripts/site.js only writes dist/ when it is run', async () => {
-    const before = existsSync(join(ROOT, 'dist/site.json'))
-      ? readFileSync(join(ROOT, 'dist/site.json'), 'utf8') : null;
-    const { payload } = await import('../scripts/site.js');
-    assert.ok(payload.cities.length > 0);
-    const after = existsSync(join(ROOT, 'dist/site.json'))
-      ? readFileSync(join(ROOT, 'dist/site.json'), 'utf8') : null;
-    assert.equal(after, before, 'importing the payload changed dist/site.json');
+  test('scripts/site.js only writes dist/ when it is run', () => {
+    const tmp = mkdtempSync(join(tmpdir(), 'twj-import-'));
+    cpSync(ROOT, tmp, {
+      recursive: true,
+      filter: src => !src.includes('/dist') && !src.includes('/node_modules') && !src.includes('/.git')
+    });
+    assert.ok(!existsSync(join(tmp, 'dist')), 'the copy must start without a build');
+
+    /* Import it the way a test does — for the export, not as a command. */
+    execFileSync('node', ['--input-type=module', '-e',
+      "const { payload } = await import('./scripts/site.js');"
+      + " if (!payload.cities.length) { console.error('empty payload'); process.exit(1); }"],
+      { cwd: tmp, stdio: 'pipe' });
+
+    assert.ok(!existsSync(join(tmp, 'dist')),
+      'importing scripts/site.js created dist/ — the direct-invocation guard is broken');
+    rmSync(tmp, { recursive: true, force: true });
   });
 });
