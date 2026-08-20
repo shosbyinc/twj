@@ -133,6 +133,14 @@ nav .wrap{position:relative}
 .navmark{position:absolute;left:0;top:50%;width:22px;margin-top:-11px;opacity:0;transition:opacity .3s;cursor:pointer}
 .navmark.on{opacity:1}
 @media(max-width:680px){.navmark{display:none}}
+/* Cards written into the page before any script runs. Once the router boots
+   it repaints the container and these are gone, so they only need to be
+   legible, not styled to match. */
+.nscard{padding:18px 0;border-bottom:1px solid var(--ice)}
+.nscard .r{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--edit-text)}
+.nscard h3{font-size:var(--h3);margin:8px 0}
+.nscard p{color:var(--body);max-width:60ch}
+.nscard .m{font-size:var(--small);color:var(--quiet);margin-top:8px}
 .map .land{fill:var(--snow);stroke:#E3E7E8;stroke-width:.4;stroke-linejoin:round}
 .progress{position:fixed;top:0;left:0;height:2px;background:var(--prana);width:0;z-index:40}
 

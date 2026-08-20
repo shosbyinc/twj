@@ -245,6 +245,72 @@ const rubricName = id => payload.rubrics.find(r => r.id === id)?.name ?? 'The Wa
  * same container from the payload, which is a no-op a reader never sees. The
  * markup below is the same shape article() builds client-side; if the two drift
  * apart, the page changes under a reader on load, so they are kept together. */
+/* Putting the document's own content into the document.
+ *
+ * Everything below is prerendered into the shell's containers and the section
+ * holding it is marked visible, so a reader — human or machine — who never runs
+ * a script still gets the page rather than a list of links. The router repaints
+ * the same containers on boot from the payload, which is a no-op nobody sees.
+ *
+ * These renderers are deliberately plainer than their client-side twins: they
+ * carry the words, the links and the dates, not the animation. Two renderers
+ * for one page is a real cost and the reason it is paid here is that the
+ * alternative was a publication invisible to anything that does not execute
+ * JavaScript — which now includes most of what reads the open web. */
+function mount(html, sectionId, containerOpen, content) {
+  return html
+    .replace('<section class="page on" id="p-home">', '<section class="page" id="p-home">')
+    .replace(containerOpen, containerOpen.replace(/>$/, '>') + content)
+    .replace(`<section class="page" id="${sectionId}">`,
+             `<section class="page on" id="${sectionId}">`);
+}
+
+const artCard = a =>
+  `<article class="nscard">
+     <p class="r">${esc(rubricName(a.rubric))}</p>
+     <h3><a href="${BASE}article/${esc(a.slug)}">${esc(a.title)}</a></h3>
+     ${a.standfirst ? `<p>${esc(a.standfirst)}</p>` : ''}
+     <p class="m">${esc(a.author || 'The Water Journal')} &middot;
+       <time datetime="${esc(a.published || '')}">${esc(a.published || '')}</time>
+       &middot; ${a.minutes} min read</p>
+   </article>`;
+
+function prerenderHome(html) {
+  const [lead, ...rest] = payload.articles;
+  const content = `
+    <h1>The world, explained through water.</h1>
+    <p>A publication about a single molecule and everything it touches &mdash; and a
+       dataset that measures what it costs, where it comes from, and what it takes
+       to keep it flowing.</p>
+    <h2>Latest</h2>
+    ${lead ? artCard(lead) : ''}
+    <h2>More from the Journal</h2>
+    ${rest.map(artCard).join('')}
+    <h2>The Water Index</h2>
+    <p>What 15,000 litres a month costs in ${payload.cities.length} cities, each
+       calculated from that city&rsquo;s own published tariff.</p>
+    <ul>${payload.cities.map(c => `<li><a href="${BASE}city/${esc(c.id)}">${esc(c.name)}</a>`
+      + (c.not_priced ? ' &mdash; not priced' : ` &mdash; ${esc(c.symbol)} ${c.price_m3.toFixed(2)} per 1,000 litres`)
+      + `</li>`).join('')}</ul>`;
+  return mount(html, 'p-home', '<div id="homeBody">', content)
+    .replace('<section class="page" id="p-home">', '<section class="page on" id="p-home">');
+}
+
+function prerenderJournal(html, rubric) {
+  const list = rubric
+    ? payload.articles.filter(a => a.rubric === rubric.id)
+    : payload.articles;
+  const content = `
+    <h1>${rubric ? esc(rubric.name) : 'Stories about the systems, science and ideas hidden inside water.'}</h1>
+    ${rubric ? `<p>${esc(rubric.line)}</p>` : ''}
+    ${list.map(artCard).join('')}
+    <h2>Sections</h2>
+    <ul>${payload.rubrics.filter(r => payload.articles.some(a => a.rubric === r.id))
+      .map(r => `<li><a href="${BASE}journal/${esc(r.id)}">${esc(r.name)}</a> &mdash; ${esc(r.line)}</li>`)
+      .join('')}</ul>`;
+  return mount(html, 'p-journal', '<div class="wrap" id="journalBody">', content);
+}
+
 function prerenderArticle(html, a) {
   /* cover_credit and formula are authored as markup and are rendered as markup
      client-side; escaping them here would print the tags at a reader. */
@@ -265,10 +331,7 @@ function prerenderArticle(html, a) {
     <a class="link" href="${BASE}journal/${esc(a.rubric)}">More in ${esc(rubricName(a.rubric))}</a>
     <a class="link" href="${BASE}journal">All sections</a></div>`;
 
-  return html
-    .replace('<section class="page on" id="p-home">', '<section class="page" id="p-home">')
-    .replace('<section class="page" id="p-article"><div class="col art" id="articleBody"></div></section>',
-             `<section class="page on" id="p-article"><div class="col art" id="articleBody">${body}</div></section>`);
+  return mount(html, 'p-article', '<div class="col art" id="articleBody">', body);
 }
 
 function noscriptFor(route) {
@@ -369,7 +432,12 @@ const json = JSON.stringify(payload).replace(/<\/script>/gi, '<\\/script>');
 
 function build(route) {
   const canon = ORIGIN + (route.path === '/' ? '/' : route.path);
-  const shell = route.article ? prerenderArticle(tpl, route.article) : tpl;
+  const rubric = payload.rubrics.find(r => route.path === '/journal/' + r.id);
+  const shell = route.article ? prerenderArticle(tpl, route.article)
+    : route.path === '/' ? prerenderHome(tpl)
+    : route.path === '/journal' ? prerenderJournal(tpl, null)
+    : rubric ? prerenderJournal(tpl, rubric)
+    : tpl;
   return shell
     .replaceAll('__ROOT__', BASE)
     .replace('__FONTS__', FONTS)
@@ -466,4 +534,4 @@ if (missing.length) console.log(`  missing: ${[...new Set(missing)].join(', ')}`
 
 /* Exported for the tests: the crawler-facing text is a published surface and is
    checked from the source that produces it, not from a build artifact. */
-export { noscriptFor, prerenderArticle, routes };
+export { noscriptFor, prerenderArticle, prerenderHome, prerenderJournal, routes };

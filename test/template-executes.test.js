@@ -4,7 +4,8 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import vm from 'node:vm';
 import { payload } from '../scripts/site.js';
-import { noscriptFor, prerenderArticle, routes as ROUTES } from '../scripts/render.js';
+import { noscriptFor, prerenderArticle, prerenderHome, prerenderJournal, routes as ROUTES }
+  from '../scripts/render.js';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
@@ -339,6 +340,61 @@ describe('the page carries its own text', () => {
       const page = noscriptFor(ROUTES.find(x => x.path === '/journal/' + r.id));
       for (const a of inRubric) assert.ok(page.includes(`article/${a.slug}`),
         `${r.id} does not link ${a.slug}`);
+    }
+  });
+});
+
+describe('the pages that are not articles carry their own content too', () => {
+  const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
+  const strip = html => html
+    .replace(/<script[\s\S]*?<\/script>/g, '')
+    .replace(/<noscript[\s\S]*?<\/noscript>/g, '');
+  const main = html => {
+    const h = strip(html);
+    return h.slice(h.indexOf('<main'), h.indexOf('</main>'));
+  };
+  const words = s => s.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+
+  test('the home page ships the Journal and the Index, not just links', () => {
+    const m = main(prerenderHome(TPL));
+    assert.ok(words(m) > 300, `home ships ${words(m)} words without scripts`);
+    for (const a of payload.articles) {
+      assert.ok(m.includes(a.title), `home does not name ${a.slug}`);
+      assert.ok(m.includes(a.standfirst || a.title), `home does not carry the standfirst of ${a.slug}`);
+    }
+    assert.match(m, /<section class="page on" id="p-home">/);
+  });
+
+  test('the Journal ships cards, with standfirsts and dates', () => {
+    const m = main(prerenderJournal(TPL, null));
+    assert.ok(words(m) > 300, `journal ships ${words(m)} words without scripts`);
+    for (const a of payload.articles) {
+      assert.ok(m.includes(a.title));
+      assert.ok(m.includes(`article/${a.slug}`));
+      assert.ok(m.includes(a.published), `no date for ${a.slug}`);
+    }
+    assert.match(m, /<section class="page on" id="p-journal">/);
+  });
+
+  test('a section page ships its own pieces and nobody else\'s', () => {
+    const earth = payload.rubrics.find(r => r.id === 'earth');
+    const m = main(prerenderJournal(TPL, earth));
+    const mine = payload.articles.filter(a => a.rubric === 'earth');
+    for (const a of mine) assert.ok(m.includes(a.title), `earth omits ${a.slug}`);
+    const others = payload.articles.filter(a => a.rubric !== 'earth');
+    for (const a of others) {
+      assert.ok(!m.includes(a.standfirst), `earth carries the standfirst of ${a.slug}`);
+    }
+  });
+
+  test('no page hides the section it just filled', () => {
+    /* Marking a section visible and filling a different one produces a correct
+       document nobody can read. */
+    for (const [html, id] of [[prerenderHome(TPL), 'p-home'],
+                              [prerenderJournal(TPL, null), 'p-journal'],
+                              [prerenderArticle(TPL, payload.articles[0]), 'p-article']]) {
+      const on = [...html.matchAll(/<section class="page on" id="(p-[a-z0-9]+)"/g)].map(m => m[1]);
+      assert.deepEqual(on, [id], `expected only ${id} visible, got ${on.join(', ')}`);
     }
   });
 });
