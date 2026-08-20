@@ -9,7 +9,7 @@
 <title>__TITLE__</title>
 <meta name="description" content="__DESC__">
 <link rel="canonical" href="__CANON__">
-<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="robots" content="__ROBOTS__">
 <meta property="og:type" content="__OGTYPE__">
 <meta property="og:site_name" content="The Water Journal">
 <meta property="og:title" content="__TITLE__">
@@ -136,6 +136,55 @@ nav .wrap{position:relative}
 /* Cards written into the page before any script runs. Once the router boots
    it repaints the container and these are gone, so they only need to be
    legible, not styled to match. */
+
+/* The Journal's three levels.
+   The hero is not a card: image below the words and running wider than the
+   column they sit in, so the first screen is a story rather than the top of a
+   list. The tier below is two equal columns. The archive keeps the compact
+   rows it always had — the point of the two blocks above is that the archive
+   is allowed to look like an archive. */
+.hero-story{display:grid;grid-template-columns:1fr;gap:clamp(24px,4vw,40px);
+            margin-top:clamp(28px,4vw,44px);align-items:center}
+.hero-story .c{display:block;overflow:hidden;background:var(--snow);aspect-ratio:4/5;order:-1}
+.hero-story .c img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.3,1)}
+.hero-story:hover .c img{transform:scale(1.02)}
+.hero-story .t{display:block;max-width:34ch}
+.hero-story .r{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--edit-text)}
+.hero-story h2{margin-top:14px;font-size:var(--h1);line-height:1.04;font-weight:200;
+               letter-spacing:-.02em;transition:color .3s}
+.hero-story:hover h2{color:var(--prana)}
+.hero-story p{margin-top:18px;font-size:var(--lead);line-height:1.45;font-weight:300;
+              color:var(--body);max-width:42ch}
+.hero-story .m{display:block;margin-top:18px;font-size:var(--micro);letter-spacing:.18em;
+               text-transform:uppercase;color:var(--quiet)}
+@media(min-width:860px){
+  /* The cover takes the larger share and keeps its own proportions. "More
+     dominant" for a poster means bigger, not wider: cropped to a landscape band
+     it loses the masthead at the top and the line at the foot, which is most of
+     what makes it a cover rather than an illustration. */
+  .hero-story{grid-template-columns:minmax(0,52%) 1fr;gap:clamp(34px,4.5vw,64px)}
+  .hero-story h2{font-size:var(--display);line-height:1.02}
+}
+
+.duostory{display:grid;grid-template-columns:1fr;gap:clamp(30px,4vw,46px);
+          margin-top:clamp(46px,6vw,78px);padding-top:clamp(30px,4vw,46px);
+          border-top:1px solid var(--ice)}
+.duostory .ds{display:block}
+/* 4:5, because that is what the artwork is. Every cover here is a designed
+   poster with the masthead set into the top and a line set into the foot; a
+   16:10 crop removes both and leaves an illustration. */
+.duostory .c{display:block;overflow:hidden;background:var(--snow);aspect-ratio:4/5;margin-bottom:18px}
+.duostory .c img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.3,1)}
+.duostory .ds:hover .c img{transform:scale(1.03)}
+.duostory .r{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+.duostory h3{margin-top:10px;font-size:var(--h2);font-weight:300;line-height:1.14;transition:color .25s}
+.duostory .ds:hover h3{color:var(--prana)}
+.duostory p{margin-top:12px;font-size:var(--ui);line-height:1.6;color:var(--body);max-width:44ch}
+@media(min-width:820px){ .duostory{grid-template-columns:1fr 1fr} }
+
+.latesthead{margin-top:clamp(46px,6vw,78px);padding-bottom:14px;
+            font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+
 .nscard{padding:18px 0;border-bottom:1px solid var(--ice)}
 .nscard .r{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--edit-text)}
 .nscard h3{font-size:var(--h3);margin:8px 0}
@@ -816,6 +865,37 @@ addEventListener('scroll',function(){
   bar.style.width=h>0?Math.min(100,(scrollY/h)*100)+'%':'0';
 },{passive:true});
 
+/* Two secondary pieces, side by side and equal.
+   The earlier draft made them unequal, 60/40, on the argument that equal weight
+   is what a catalogue does. That was wrong for this page: the hero already
+   carries the hierarchy, and a second tier that ranks itself internally reads
+   as fussiness rather than as editing. These two are chosen to show the range —
+   fundamental science beside a city — and neither is subordinate to the other.
+   No "Featured", no "Editor's Pick". The rubric above the headline is the
+   hierarchy, and it is already there. */
+function secondary(){
+  const J=(D.stories&&D.stories.journal)||{};
+  const two=(J.secondary||[]).map(k=>ART.find(a=>a.slug===k)).filter(Boolean).slice(0,2);
+  if(two.length<2) return '';
+  return `<div class="duostory">${two.map(a=>
+    `<a class="ds" href="${href('/article/'+a.slug)}" data-route="/article/${a.slug}">
+      ${a.cover?`<span class="c"><img src="${a.cover}" alt="${a.cover_alt||''}" loading="lazy"></span>`:''}
+      <span class="r">${rubName(a.rubric)} \u00b7 ${a.minutes} min</span>
+      <h3>${a.title}</h3>
+      ${a.standfirst?`<p>${clamp(a.standfirst,150)}</p>`:''}</a>`).join('')}</div>`;
+}
+
+/* Excerpts are cut, not shortened by the author. The hero prints its dek in
+   full because it has the room; the tier below gets two or three lines and the
+   archive one or two. Uniform length is what makes nine pieces look like nine
+   rows of a table. Cut at a word, and only where the sentence has not already
+   ended before the limit. */
+function clamp(t,n){
+  if(!t||t.length<=n) return t;
+  const cut=t.slice(0,n);
+  return cut.slice(0,cut.lastIndexOf(' ')).replace(/[,;:\u2014-]$/,'')+'\u2026';
+}
+
 function list(items,showRubric){
   if(!items.length) return '<p class="note">Nothing published yet.</p>';
   return '<div class="alist">'+items.map(a=>`<a href="${href('/article/'+a.slug)}" data-route="/article/${a.slug}">
@@ -876,15 +956,30 @@ function journal(filter){
      by the order the files happened to be read in. The editor's first card
      decides it instead; ART[0] is the fallback when no card is set. */
   const latest=(D.stories&&D.stories.cards||[]).map(k=>ART.find(a=>a.slug===k.slug)).find(Boolean)||ART[0];
+  /* Three levels, and which piece sits on each is an editorial decision read
+     from content/stories.json. Newest-first is a sort order; it is not a lead.
+     If the editor has named nothing, the page falls back to the newest piece
+     and the two after it, so it still works — it just stops claiming anyone
+     chose. */
+  const J=(D.stories&&D.stories.journal)||{};
+  const bySlug=k=>ART.find(a=>a.slug===k);
+  const lead=filter==='all'
+    ? (bySlug(J.lead)||(D.stories&&D.stories.cards||[]).map(k=>bySlug(k.slug)).find(Boolean)||ART[0])
+    : null;
+  const two=filter==='all'
+    ? ((J.secondary||[]).map(bySlug).filter(Boolean).slice(0,2))
+    : [];
+  const shown=new Set([lead&&lead.slug,...two.map(a=>a.slug)].filter(Boolean));
   document.getElementById('journalBody').innerHTML=
    (filter==='all'
     ? `<div class="hero"><div class="eyebrow">The Journal</div>
         <h1>Stories about the systems, science and ideas hidden inside water.</h1></div>
-       ${latest?`<a class="latest" href="${href('/article/'+latest.slug)}" data-route="/article/${latest.slug}">
-          ${latest.cover?`<span class="c"><img src="${latest.cover}" alt="${latest.cover_alt||''}"></span>`:''}
-          <span class="t"><span class="r">Latest \u00b7 ${rubName(latest.rubric)}</span>
-            <h2>${latest.title}</h2>${latest.standfirst?`<p>${latest.standfirst}</p>`:''}
-            <span class="m">${latest.minutes} min read</span></span></a>`:''}
+       ${lead?`<a class="hero-story" href="${href('/article/'+lead.slug)}" data-route="/article/${lead.slug}">
+          <span class="t"><span class="r">${rubName(lead.rubric)}</span>
+            <h2>${lead.title}</h2>${lead.standfirst?`<p>${lead.standfirst}</p>`:''}
+            <span class="m">${lead.minutes} min read</span></span>
+          ${lead.cover_story||lead.cover?`<span class="c"><img src="${lead.cover_story||lead.cover}" alt="${lead.cover_alt||''}"></span>`:''}</a>`:''}
+       ${secondary()}
        <div class="sections">
         <a href="${href('/journal')}" data-route="/journal" aria-current="page"><span class="nm">All stories</span>
           <span class="ln">Everything published, newest first.</span></a>
@@ -899,7 +994,8 @@ function journal(filter){
                   :`<span class="off">${x.name}</span>`}).join('')}
        </div></div>
        <div class="sechead"><h1>${r?r.name:'Stories'}</h1>${r?`<p>${r.line}</p>`:''}</div>`)
-   + list(filter==='all'&&latest?sel.filter(a=>a.slug!==latest.slug):sel, filter==='all');
+   + (filter==='all'?'<div class="latesthead">Latest</div>':'')
+   + list(filter==='all'?sel.filter(a=>!shown.has(a.slug)):sel, filter==='all');
   head(filter==='all'?'The Journal — The Water Journal':`${r.name} — The Water Journal`,
        filter==='all'
         ? 'Stories about the systems, science and ideas hidden inside water.'
@@ -919,7 +1015,7 @@ function article(slug){
   <h1>${a.title}</h1>
   ${a.standfirst?`<p class="stand">${a.standfirst}</p>`:''}
   ${a.formula?`<div class="formula">${a.formula}</div>`:''}
-  <div class="meta"><span>${a.author||'The Water Journal'}</span><span>${a.published||''}</span><span>${a.minutes} min read</span></div>
+  <div class="meta"><span>${a.author||'The Water Journal'}</span><span aria-hidden="true">&middot;</span><span>${a.published||''}</span><span aria-hidden="true">&middot;</span><span>${a.minutes} min read</span></div>
   <div class="body">${a.html}</div>
   <div class="artend">
     <a class="link" href="${href('/journal/'+a.rubric)}" data-route="/journal/${a.rubric}">More in ${rubName(a.rubric)} ${ARR}</a>

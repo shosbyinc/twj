@@ -258,6 +258,24 @@ for (const card of stories.cards ?? []) {
 if (stories.featured?.article && !articles.some(a => a.slug === stories.featured.article))
   throw new Error(`content/stories.json: featured article "${stories.featured.article}" is not published`);
 
+/* The Journal's three levels are an editorial decision and are read from the
+   same file, not derived from publication dates. A lead chosen by date is not a
+   lead; it is a sort order wearing a larger typeface.
+   Everything named has to resolve, and the shape has to be the shape the page
+   is built for: one lead, exactly two beside it. A typo here would otherwise
+   quietly demote a piece to the archive and nobody would notice for a week. */
+const J = stories.journal ?? {};
+for (const [field, slugs] of [['lead', J.lead ? [J.lead] : []], ['secondary', J.secondary ?? []]]) {
+  for (const slug of slugs) {
+    if (!articles.some(a => a.slug === slug))
+      throw new Error(`content/stories.json: journal.${field} names "${slug}", which is not published`);
+  }
+}
+if (J.secondary && J.secondary.length !== 2)
+  throw new Error(`content/stories.json: journal.secondary must name exactly two pieces, found ${J.secondary.length}`);
+if (J.lead && (J.secondary ?? []).includes(J.lead))
+  throw new Error(`content/stories.json: "${J.lead}" is both the lead and a secondary`);
+
 const payload = {
   brand: { mark: 'brand/twj-mark-160.png', mark_large: 'brand/twj-mark-512.png',
            favicon: 'brand/twj-mark-64.png',

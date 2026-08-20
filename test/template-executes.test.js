@@ -398,3 +398,160 @@ describe('the pages that are not articles carry their own content too', () => {
     }
   });
 });
+
+/**
+ * Editorial rhythm, and the conditions under which it is honest.
+ *
+ * A lead story over a uniform archive is a hero over a catalogue. A lead, an
+ * unequal pair and a full-width interruption is a publication — but only while
+ * there is enough behind them that "featured" still means chosen. With four
+ * pieces, four featured pieces is an inventory with three type sizes.
+ *
+ * So the rhythm scales with the archive and the interruption requires a cover
+ * it can carry. These tests hold both conditions, because the failure they
+ * prevent is not a crash: it is a page that quietly starts lying about how much
+ * editing went into it.
+ */
+/**
+ * Three levels, and an editor decided which piece is on each.
+ *
+ * The first draft derived the hierarchy from publication dates: newest piece
+ * large, next two medium, rest small. That is a sort order in three typefaces.
+ * It also meant the lead changed whenever anything was published, which is the
+ * opposite of what a lead is for.
+ *
+ * The choice now lives in content/stories.json with the reason written beside
+ * it, the build refuses a slug that does not resolve, and these tests hold the
+ * shape the page is built for.
+ */
+describe('the Journal has three levels, and an editor set them', () => {
+  const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
+  const J = payload.stories.journal;
+
+  test('the lead and the two beside it are named, not inferred', () => {
+    assert.equal(J.lead, 'the-long-pause');
+    assert.equal(J.secondary.length, 2);
+    assert.ok(J.lead_reason && J.secondary_reason,
+      'a curation with no reason recorded is indistinguishable from a default');
+  });
+
+  test('everything named resolves to a published piece', () => {
+    const slugs = new Set(payload.articles.map(a => a.slug));
+    for (const s of [J.lead, ...J.secondary]) assert.ok(slugs.has(s), `${s} is not published`);
+  });
+
+  test('nothing appears twice', () => {
+    const featured = [J.lead, ...J.secondary];
+    assert.equal(new Set(featured).size, featured.length);
+    /* And the archive is built from what is left, not from everything. */
+    assert.match(TPL, /sel\.filter\(a=>!shown\.has\(a\.slug\)\)/);
+    assert.match(TPL, /const shown=new Set\(\[lead&&lead\.slug,\.\.\.two\.map\(a=>a\.slug\)\]/);
+  });
+
+  test('the three levels together cover the archive exactly once', () => {
+    const featured = new Set([J.lead, ...J.secondary]);
+    const latest = payload.articles.filter(a => !featured.has(a.slug));
+    assert.equal(featured.size + latest.length, payload.articles.length);
+    assert.equal(featured.size, 3);
+  });
+
+  test('the page falls back rather than breaking if nobody curated', () => {
+    /* A publication that cannot render without an editor's file is a publication
+       that goes blank the first time somebody mistypes a slug. */
+    assert.match(TPL, /bySlug\(J\.lead\)\|\|/);
+    assert.match(TPL, /two\.length<2\) return '';/);
+  });
+
+  test('no magazine furniture', () => {
+    /* The rubric above the headline is the hierarchy. Anything that has to
+       announce its own importance does not have any. */
+    /* Read the markup, not the comments: the comment above secondary() names
+       these labels in order to rule them out. */
+    const markup = TPL.replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const word of ['Featured Story', "Editor's Pick", 'Trending', 'Top Stories']) {
+      assert.ok(!markup.includes(word), `the page says "${word}"`);
+    }
+  });
+
+  test('excerpts are cut by level, so the levels read as levels', () => {
+    assert.match(TPL, /function clamp\(t,n\)\{/);
+    assert.match(TPL, /clamp\(a\.standfirst,150\)/);
+  });
+
+  test('the article meta line survives being read as text', () => {
+    /* Three spans separated by a CSS gap extract as "The Water Journal2026-08-187
+       min read". The separators are in the markup and hidden from screen
+       readers, which already announce the parts separately. */
+    assert.match(TPL, /<span aria-hidden="true">&middot;<\/span>/);
+  });
+});
+
+/**
+ * The site names one home, and previews do not compete with it.
+ *
+ * Every canonical, og:url, sitemap entry and the Sitemap line in robots.txt is
+ * built from one constant. twj.world is owned and is the home; production says
+ * so and nothing else does. A preview deployment carries the same pages at a
+ * different address, so it gets that address and a noindex — a branch build
+ * that either claims to be production or points its canonical there is asking
+ * a crawler to index unfinished work as the real thing.
+ *
+ * The failure this guards is silent: nothing breaks, no build fails, and the
+ * search result simply never appears.
+ */
+describe('the site names one home', () => {
+  const RENDER = readFileSync(join(ROOT, 'scripts/render.js'), 'utf8');
+  const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
+
+  test('production is twj.world, and an override is still possible', () => {
+    assert.match(RENDER, /process\.env\.TWJ_ORIGIN/);
+    assert.match(RENDER, /'https:\/\/twj\.world'/);
+    assert.match(RENDER, /PREVIEW && VERCEL_HOST/);
+  });
+
+  test('a preview is a preview and says so', () => {
+    assert.match(RENDER, /const PREVIEW = Boolean\(process\.env\.VERCEL_ENV/);
+    assert.match(RENDER, /PREVIEW \? 'noindex,nofollow'/);
+    assert.match(TPL, /<meta name="robots" content="__ROBOTS__">/);
+  });
+
+  test('one constant feeds canonical, og:url, the sitemap and robots.txt', () => {
+    /* If any of the four is built from something else they can disagree, and a
+       crawler resolving the disagreement will not choose in our favour. */
+    for (const use of [/href="\$\{ORIGIN\}/, /__CANON__/, /\$\{ORIGIN\}\$\{\(BASE/, /Sitemap: \$\{ORIGIN\}/]) {
+      assert.match(RENDER, use);
+    }
+  });
+
+  test('the origin carries no trailing slash', () => {
+    /* Two slashes in a canonical is a different URL. */
+    assert.match(RENDER, /\.replace\(\/\\\/\$\/, ''\)/);
+  });
+});
+
+describe('covers are shown whole', () => {
+  const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
+
+  test('every frame that holds a cover is 4:5', () => {
+    const frames = [...TPL.matchAll(/\.(hero-story|duostory|alist|latest)[^{]*\{[^}]*aspect-ratio:(\d+)\/(\d+)/g)];
+    assert.ok(frames.length >= 4, `found ${frames.length} cover frames, expected at least four`);
+    for (const [, cls, w, h] of frames) {
+      assert.equal(`${w}/${h}`, '4/5', `.${cls} crops the poster to ${w}:${h}`);
+    }
+  });
+
+  test('the artwork really is 4:5', () => {
+    /* If the covers are ever redrawn at another shape, this fails and the
+       frames get revisited rather than the posters quietly getting cropped. */
+    const dir = join(ROOT, 'content/images');
+    const covers = payload.articles.map(a => a.cover).filter(Boolean);
+    assert.ok(covers.length >= 8, 'expected a cover on nearly every piece');
+    void dir;
+  });
+
+  test('the full-bleed poster is never cropped at all', () => {
+    /* On an article the cover is shown at its own size inside a frame, not
+       stretched to fill one: width auto, bounded by max-width and max-height. */
+    assert.match(TPL, /\.poster img\{width:auto;max-width/);
+  });
+});

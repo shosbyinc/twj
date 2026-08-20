@@ -1,5 +1,15 @@
 {
-  "_note": "Home page. Only pieces supplied by the editor appear here.",
+  "_note": "Editorial curation, and the only place it lives. The Journal reads `journal`; the home page reads `featured` and `cards`. Nothing here is inferred from dates: a lead chosen by publication date is not a lead, it is a sort order.",
+  "journal": {
+    "_note": "The Journal's three levels. `lead` is one piece, `secondary` is exactly two, and everything else falls to Latest in the order `cards` gives. A slug named here that does not exist is a build error rather than a silent omission.",
+    "lead": "the-long-pause",
+    "lead_reason": "Planetary scale, a dated instrument reading, and a cover that can carry full width. It opens on the widest thing the Journal does.",
+    "secondary": [
+      "smooth-until-proven-otherwise",
+      "the-closed-loop"
+    ],
+    "secondary_reason": "Earth, then fundamental science, then a city. Three pieces show the range in one screen, so a new reader learns at once that this is not a site about drinking water."
+  },
   "featured": {
     "article": "the-visible-fraction",
     "kicker": "Issue 001"

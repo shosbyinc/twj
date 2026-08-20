@@ -26,7 +26,26 @@ const INLINE = process.env.TWJ_INLINE_IMAGES !== 'false';
    tree's own index.html would otherwise overwrite the self-contained preview,
    and the preview would silently start pointing at assets it does not carry. */
 const OUT = INLINE ? 'dist' : 'dist/site';
-const ORIGIN = (process.env.TWJ_ORIGIN || 'https://twj.world').replace(/\/$/, '');
+/* Every canonical, every og:url, every entry in the sitemap and the line in
+   robots.txt is built from this, so it has to name the address the publication
+   actually lives at. twj.world is owned and is the intended home: production
+   canonicals point there and nowhere else, whatever host happens to serve the
+   build.
+   Preview deployments are the exception. A preview carries the same pages at a
+   different address, and pointing its canonical at production would invite a
+   crawler to index a half-finished branch as the real thing; claiming to *be*
+   production would be worse. A preview gets its own address and is told not to
+   be indexed at all — see PREVIEW below.
+   One consequence worth stating plainly: until twj.world is attached to the
+   project, production canonicals name a domain that does not resolve, and a
+   page that says its real self lives at an address nobody can reach is indexed
+   as nothing. The code cannot fix that. Attaching the domain can. */
+const VERCEL_HOST = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+const PREVIEW = Boolean(process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production');
+const ORIGIN = (process.env.TWJ_ORIGIN
+  || (PREVIEW && VERCEL_HOST ? `https://${VERCEL_HOST}` : 'https://twj.world')).replace(/\/$/, '');
+const ROBOTS = PREVIEW ? 'noindex,nofollow' : 'index,follow,max-image-preview:large';
+
 /* Every asset and address is written from this. It is '/' for a site that owns
    its domain, and something like '/twj/' for a project page on a host that
    serves the tree from a subdirectory — where an absolute '/assets/...' would
@@ -297,9 +316,14 @@ function prerenderHome(html) {
 }
 
 function prerenderJournal(html, rubric) {
+  /* Same order the reader sees. A crawler served a different sequence from the
+     one the page presents is being told the editor chose nothing. */
+  const J = payload.stories?.journal ?? {};
+  const bySlug = k => payload.articles.find(a => a.slug === k);
+  const curated = [J.lead, ...(J.secondary ?? [])].map(bySlug).filter(Boolean);
   const list = rubric
     ? payload.articles.filter(a => a.rubric === rubric.id)
-    : payload.articles;
+    : [...curated, ...payload.articles.filter(a => !curated.includes(a))];
   const content = `
     <h1>${rubric ? esc(rubric.name) : 'Stories about the systems, science and ideas hidden inside water.'}</h1>
     ${rubric ? `<p>${esc(rubric.line)}</p>` : ''}
@@ -449,6 +473,7 @@ function build(route) {
     .replaceAll('__OGTYPE__', route.type)
     .replaceAll('__OGIMAGE__', esc(route.image || OG))
     .replaceAll('__FAVICON__', esc(payload.brand.favicon))
+    .replace('__ROBOTS__', ROBOTS)
     .replace('__PAYLOAD__', json);
 }
 
@@ -534,4 +559,4 @@ if (missing.length) console.log(`  missing: ${[...new Set(missing)].join(', ')}`
 
 /* Exported for the tests: the crawler-facing text is a published surface and is
    checked from the source that produces it, not from a build artifact. */
-export { noscriptFor, prerenderArticle, prerenderHome, prerenderJournal, routes };
+export { noscriptFor, prerenderArticle, prerenderHome, prerenderJournal, routes, ORIGIN, ROBOTS };
