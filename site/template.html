@@ -79,7 +79,13 @@ a{color:inherit;text-decoration:none}
 a[data-route]{cursor:pointer}
 .link[data-route]{display:inline-flex}
 .posterlink{display:block}
-img{max-width:100%;display:block}
+/* height:auto matters as much as max-width here. The width and height
+   attributes on an <img> are presentational hints, so a CSS width overrides the
+   width hint and leaves the height hint standing at its literal pixel value —
+   the mark came out as a tall ellipse, clamped to 22px wide and still 120px
+   high. With height:auto the attributes do only the job they are there for:
+   reserving the right box before the file arrives. */
+img{max-width:100%;height:auto;display:block}
 /* Bright turquoise is for lines, dots, bars and underlines. Anything that
    carries meaning as text or as a state indicator uses --edit-text, which
    clears 4.5:1 on white; PRANA #00B1AE measures 2.66:1 and a focus ring a
@@ -640,12 +646,12 @@ noscript .ns a{color:var(--edit-text)}
 
 <header class="top">
   <a class="brand" href="__ROOT__" data-route="/" aria-label="The Water Journal, home">
-    <img id="logo" alt="" width="34" height="34"><span>The Water Journal</span>
+    <img id="logo" alt="" width="160" height="160"><span>The Water Journal</span>
   </a>
   <hr class="hr">
   <div class="kick" id="kick"></div>
 </header>
-<nav aria-label="Sections"><div class="wrap"><div class="navrow" id="nav"><a class="navmark" id="navmark" href="__ROOT__" data-route="/" aria-label="Home"><img alt="" width="120" height="120"></a></div></div></nav>
+<nav aria-label="Sections"><div class="wrap"><div class="navrow" id="nav"><a class="navmark" id="navmark" href="__ROOT__" data-route="/" aria-label="Home"><img alt="" width="160" height="160"></a></div></div></nav>
 
 <main id="main" tabindex="-1">
   <section class="page on" id="p-home"><div id="homeBody"></div></section>
@@ -666,7 +672,7 @@ noscript .ns a{color:var(--edit-text)}
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="The arithmetic"><div id="drawerBody"></div></aside>
 
 <footer>
-  <img id="footlogo" alt="" width="38" height="38">
+  <img id="footlogo" alt="" width="160" height="160">
   <hr class="hr">
   <div class="footlinks">
     <a class="link" href="__ROOT__methodology" data-route="/methodology">Methodology</a>

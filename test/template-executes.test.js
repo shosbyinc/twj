@@ -563,7 +563,10 @@ describe('images reserve their space', () => {
   const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
 
   test('every img tag carries width and height', () => {
-    const imgs = TPL.match(/<img[^>]*>/g) ?? [];
+    /* Read the markup, not the comments: the rule above img{} explains the
+       presentational-hint trap and mentions <img> while doing so. */
+    const markup = TPL.replace(/\/\*[\s\S]*?\*\//g, '');
+    const imgs = markup.match(/<img[^>]*>/g) ?? [];
     assert.ok(imgs.length >= 8);
     for (const img of imgs) {
       assert.match(img, /width=/, `no width: ${img.slice(0, 60)}`);
@@ -586,5 +589,38 @@ describe('images reserve their space', () => {
     assert.ok(!/fetchpriority="high"[^>]*loading="lazy"/.test(TPL));
     const lazy = (TPL.match(/loading="lazy"/g) ?? []).length;
     assert.ok(lazy >= 3, `only ${lazy} images defer`);
+  });
+});
+
+/**
+ * A width attribute is a hint, not a size.
+ *
+ * The masthead mark appeared as a tall dark ellipse. Cause: `img{max-width:100%}`
+ * clamped its width to the 22 px of its container while the height attribute —
+ * a presentational hint, not overridden by any CSS width — stood at its literal
+ * pixel value. Adding dimensions to prevent layout shift introduced a different
+ * distortion, which is the shape of the mistake worth remembering: the fix and
+ * the bug were the same line.
+ *
+ * `height:auto` is what makes the two work together. Without it, every image
+ * whose width is set in CSS is one attribute away from being stretched.
+ */
+describe('dimensions reserve space without dictating shape', () => {
+  const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
+
+  test('the global image rule releases the height', () => {
+    assert.match(TPL, /img\{[^}]*height:auto/);
+  });
+
+  test('the brand marks are square, and are declared square', () => {
+    /* 160, 512 and 64 on disk, all 1:1. Guessing 34x34 and 120x120 was how this
+       started. */
+    const markup = TPL.replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const m of markup.match(/<img[^>]*(?:id="(?:logo|footlogo)"|class="navmark")[^>]*>/g)
+      ?? markup.match(/<img[^>]*id="(?:logo|footlogo)"[^>]*>/g) ?? []) {
+      const w = /width="(\d+)"/.exec(m)?.[1];
+      const h = /height="(\d+)"/.exec(m)?.[1];
+      assert.equal(w, h, `the mark is declared ${w}x${h}, and it is square: ${m.slice(0, 50)}`);
+    }
   });
 });
