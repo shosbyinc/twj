@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import vm from 'node:vm';
 import { payload } from '../scripts/site.js';
-import { noscriptFor, routes as ROUTES } from '../scripts/render.js';
+import { noscriptFor, prerenderArticle, routes as ROUTES } from '../scripts/render.js';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
@@ -282,20 +282,26 @@ describe('unknown is not zero', () => {
  * The prose is already in the payload. These tests hold it on the page.
  */
 describe('the page carries its own text', () => {
-  const noscriptOf = path => {
-    const route = ROUTES.find(r => r.path === path);
-    assert.ok(route, `no route for ${path}`);
-    return noscriptFor(route);
-  };
+  const TPL = readFileSync(join(ROOT, 'site/template.html'), 'utf8');
+  /* The document as it ships, with every script removed — which is what a
+     crawler that does not execute JavaScript is left holding. */
+  const shipped = route => prerenderArticle(TPL, route.article)
+    .replace(/<script[\s\S]*?<\/script>/g, '')
+    .replace(/<noscript[\s\S]*?<\/noscript>/g, '');
+  const routeOf = slug => ROUTES.find(r => r.path === `/article/${slug}`);
   const words = s => s.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
 
-  test('every article ships its body without scripts', () => {
+  test('every article ships its body in the document, not in a noscript', () => {
     for (const a of payload.articles) {
-      const ns = noscriptOf(`/article/${a.slug}`);
-      assert.ok(words(ns) > 800,
-        `${a.slug}: ${words(ns)} words without scripts — the piece is not on the page`);
-      assert.ok(ns.includes(a.title), `${a.slug}: no headline`);
-      assert.ok(ns.includes(a.published), `${a.slug}: no date`);
+      const html = shipped(routeOf(a.slug));
+      assert.ok(words(html) > 800,
+        `${a.slug}: ${words(html)} words with scripts stripped — the piece is not on the page`);
+      assert.ok(html.includes(a.title), `${a.slug}: no headline`);
+      assert.ok(html.includes(a.published), `${a.slug}: no date`);
+      /* And the section holding it must be the visible one, or a reader
+         without scripts gets a correct page they cannot see. */
+      assert.match(html, /<section class="page on" id="p-article">/);
+      assert.match(html, /<section class="page" id="p-home">/);
     }
   });
 
@@ -304,22 +310,33 @@ describe('the page carries its own text', () => {
        everywhere", which is the shape a crawler reads as boilerplate. */
     const seen = new Map();
     for (const a of payload.articles) {
-      const body = noscriptOf(`/article/${a.slug}`);
+      const body = shipped(routeOf(a.slug));
       const prev = seen.get(body);
       assert.equal(prev, undefined, `${a.slug} and ${prev} ship identical text`);
       seen.set(body, a.slug);
     }
   });
 
+  test('the tariff notice appears only where there are tariffs', () => {
+    /* It is a sentence about the Water Index and it was printing on every page,
+       including nine editorial pieces about ice cores and boules. */
+    for (const a of payload.articles) {
+      assert.ok(!noscriptFor(routeOf(a.slug)).includes('stored tariff'),
+        `${a.slug} carries the Water Index notice`);
+    }
+    assert.ok(!noscriptFor(ROUTES.find(r => r.path === '/journal')).includes('stored tariff'));
+    assert.ok(noscriptFor(ROUTES.find(r => r.path === '/water-index')).includes('stored tariff'));
+  });
+
   test('the Journal and its sections link to the pieces', () => {
-    const j = noscriptOf('/journal');
+    const j = noscriptFor(ROUTES.find(r => r.path === '/journal'));
     for (const a of payload.articles) {
       assert.ok(j.includes(`article/${a.slug}`), `the Journal does not link ${a.slug}`);
     }
     for (const r of payload.rubrics) {
       const inRubric = payload.articles.filter(a => a.rubric === r.id);
       if (!inRubric.length) continue;
-      const page = noscriptOf(`/journal/${r.id}`);
+      const page = noscriptFor(ROUTES.find(x => x.path === '/journal/' + r.id));
       for (const a of inRubric) assert.ok(page.includes(`article/${a.slug}`),
         `${r.id} does not link ${a.slug}`);
     }

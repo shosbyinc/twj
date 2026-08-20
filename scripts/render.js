@@ -230,6 +230,47 @@ function jsonld(route) {
    anything that does not run it. */
 const rubricName = id => payload.rubrics.find(r => r.id === id)?.name ?? 'The Water Journal';
 
+
+/* Prerendering an article into the page it belongs on.
+ *
+ * The first attempt put the prose in <noscript>, which passes the "turn
+ * JavaScript off and read the page" test and is still the wrong place for it.
+ * A crawler that does not run scripts is not a browser with scripts disabled:
+ * some read noscript, some skip it, and Google has spent years treating it as a
+ * cloaking surface. The text belongs in the document, once, where every reader
+ * finds it in the same place.
+ *
+ * So the article is written into #articleBody in the shipped HTML, and the
+ * section carrying it is marked visible. When the router boots it repaints the
+ * same container from the payload, which is a no-op a reader never sees. The
+ * markup below is the same shape article() builds client-side; if the two drift
+ * apart, the page changes under a reader on load, so they are kept together. */
+function prerenderArticle(html, a) {
+  /* cover_credit and formula are authored as markup and are rendered as markup
+     client-side; escaping them here would print the tags at a reader. */
+  const fig = (a.cover_story || a.cover)
+    ? `<figure class="bleed poster"><img src="${esc(a.cover_story || a.cover)}" alt="${esc(a.cover_alt || '')}">`
+      + (a.cover_credit ? `<figcaption>${a.cover_credit}</figcaption>` : '') + '</figure>'
+    : '';
+  const body = `${fig}
+  <a class="back link" href="${BASE}journal/${esc(a.rubric)}">&larr; ${esc(rubricName(a.rubric))}</a>
+  <h1>${esc(a.title)}</h1>
+  ${a.standfirst ? `<p class="stand">${esc(a.standfirst)}</p>` : ''}
+  ${a.formula ? `<div class="formula">${a.formula}</div>` : ''}
+  <div class="meta"><span>${esc(a.author || 'The Water Journal')}</span>`
+    + `<span><time datetime="${esc(a.published || '')}">${esc(a.published || '')}</time></span>`
+    + `<span>${a.minutes} min read</span></div>
+  <div class="body">${a.html}</div>
+  <div class="artend">
+    <a class="link" href="${BASE}journal/${esc(a.rubric)}">More in ${esc(rubricName(a.rubric))}</a>
+    <a class="link" href="${BASE}journal">All sections</a></div>`;
+
+  return html
+    .replace('<section class="page on" id="p-home">', '<section class="page" id="p-home">')
+    .replace('<section class="page" id="p-article"><div class="col art" id="articleBody"></div></section>',
+             `<section class="page on" id="p-article"><div class="col art" id="articleBody">${body}</div></section>`);
+}
+
 function noscriptFor(route) {
   const link = (label, path) => `<li><a href="${BASE + path.replace(/^\//, '')}">${esc(label)}</a></li>`;
   let lead = `<h2>${esc(route.title)}</h2><p>${esc(route.desc)}</p>`;
@@ -242,19 +283,11 @@ function noscriptFor(route) {
      invisible to the readers who never run its scripts.
      The prose is already rendered into the payload, so it costs nothing to
      ship it. */
+  /* The body of an article is in the document itself now, so this block is
+     only the way back out of it. */
   if (route.article) {
-    const a = route.article;
-    return `<div class="wrap ns"><article>
-      <p class="r">${esc(rubricName(a.rubric))}</p>
-      <h1>${esc(a.title)}</h1>
-      ${a.standfirst ? `<p class="sf">${esc(a.standfirst)}</p>` : ''}
-      <p class="m">${esc(a.author || 'The Water Journal')} &middot;
-        <time datetime="${esc(a.published)}">${esc(a.published)}</time>
-        &middot; ${a.minutes} min read</p>
-      ${a.html}
-      </article>
-      <ul>${routes.filter(r => !r.article).map(r => link(r.title.split(' — ')[0], r.path)).join('')}</ul>
-      </div>`;
+    return `<div class="wrap ns"><p>Sections of The Water Journal</p>
+      <ul>${routes.filter(r => !r.article).map(r => link(r.title.split(' — ')[0], r.path)).join('')}</ul></div>`;
   }
 
   /* The Journal and the rubric pages listed nothing at all: a crawler that does
@@ -286,9 +319,10 @@ function noscriptFor(route) {
   }
 
   return `<div class="wrap ns">${lead}
-    <p>This page renders its figures with JavaScript. Every one of them is
-       calculated from a stored tariff by the engine in this project’s
-       repository, and the whole dataset is published as JSON.</p>
+    ${city || route.path === '/water-index' || route.path === '/compare'
+      ? `<p>This page renders its figures with JavaScript. Every one of them is
+         calculated from a stored tariff by the engine in this project’s
+         repository, and the whole dataset is published as JSON.</p>` : ''}
     <ul>${routes.map(r => link(r.title.split(' — ')[0], r.path)).join('')}</ul>
     <ul>${link('The full dataset as JSON', 'site.json')}</ul></div>`;
 }
@@ -335,7 +369,8 @@ const json = JSON.stringify(payload).replace(/<\/script>/gi, '<\\/script>');
 
 function build(route) {
   const canon = ORIGIN + (route.path === '/' ? '/' : route.path);
-  return tpl
+  const shell = route.article ? prerenderArticle(tpl, route.article) : tpl;
+  return shell
     .replaceAll('__ROOT__', BASE)
     .replace('__FONTS__', FONTS)
     .replace('__JSONLD__', jsonld(route))
@@ -431,4 +466,4 @@ if (missing.length) console.log(`  missing: ${[...new Set(missing)].join(', ')}`
 
 /* Exported for the tests: the crawler-facing text is a published surface and is
    checked from the source that produces it, not from a build artifact. */
-export { noscriptFor, routes };
+export { noscriptFor, prerenderArticle, routes };
