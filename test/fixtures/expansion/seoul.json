@@ -1,0 +1,81 @@
+{
+  "scenario": "TWJ-R180-v1.0",
+  "status": "draft",
+  "grade": "B",
+  "blocking": [
+    "no archived primary source — Rule 7.2",
+    "VAT treatment not evidenced: Korean domestic water supply is widely described as VAT-exempt, but the handoff assumed zero silently. Rule 9.1 forbids an unknown component assumed to be zero."
+  ],
+  "draft_note": "Calculation spec from the city-expansion handoff. Not a publishable observation: no source is archived.",
+  "id": "seoul-arisu-2026",
+  "city": "seoul",
+  "utility": "Seoul Arisu",
+  "currency": "KRW",
+  "symbol": "₩",
+  "shape": "monthly_blocks",
+  "meter_size": "15mm",
+  "components": [
+    {
+      "id": "water_usage",
+      "name": "Residential water use",
+      "stream": "water",
+      "kind": "volumetric",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 580
+        }
+      ]
+    },
+    {
+      "id": "meter_basic",
+      "name": "Meter basic charge, 15 mm",
+      "stream": "water",
+      "kind": "fixed",
+      "period": "monthly",
+      "amount": 1080
+    },
+    {
+      "id": "water_use_levy",
+      "name": "Water-use burden levy",
+      "stream": "water",
+      "kind": "surcharge_volumetric",
+      "rate": 170
+    }
+  ],
+  "confirmed_absent": [
+    "VAT — status UNVERIFIED, see blocking"
+  ],
+  "wastewater_note": "₩480/m³ domestic, 2026.",
+  "reference_connection": {
+    "size": "Residential, 15 mm meter",
+    "designation": "Seoul Arisu publishes a basic charge per meter size; 15 mm is the smallest documented residential size.",
+    "source_id": "PENDING — no archived source",
+    "basis": "smallest_documented"
+  },
+  "component_states": [
+    {
+      "component": "water_usage",
+      "status": "observed",
+      "source_id": "PENDING"
+    },
+    {
+      "component": "meter_basic",
+      "status": "observed",
+      "source_id": "PENDING"
+    },
+    {
+      "component": "water_use_levy",
+      "status": "observed",
+      "source_id": "PENDING"
+    },
+    {
+      "component": "vat",
+      "status": "unresolved",
+      "question": "Korean domestic water supply is widely described as VAT-exempt. The handoff computed Seoul with no tax line and said nothing about it. Requires a primary source either way."
+    }
+  ],
+  "superseded_by": "data/tariffs/seoul-arisu-2026.json",
+  "superseded_note": "Source capture completed 17 August 2026 from Arisu's own rate table. The draft's figures were all correct. What it could not know: the sewerage rate carries a published schedule to 2030, the page contradicts itself about progressive banding, and the reference connection is not designated anywhere — so the 15 mm assumption is an open §2.2 question rather than settled scope."
+}

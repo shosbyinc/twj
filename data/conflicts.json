@@ -1,0 +1,66 @@
+{
+  "_note": "Conflicts between official sources are recorded, not quietly resolved. Rule: source precedence decides, and the losing value stays visible.",
+  "conflicts": [
+    {
+      "id": "nyc-combined-rate-2026",
+      "city": "newyork",
+      "issue": "official_source_conflict",
+      "secondary_official_page": {
+        "publisher": "NYC DEP consumer page",
+        "value": 13.5,
+        "unit": "USD per 100 cubic feet"
+      },
+      "canonical": {
+        "publisher": "NYC Water Board Rate Schedule FY2027",
+        "value": 13.86,
+        "unit": "USD per 100 cubic feet"
+      },
+      "resolution": "Rate Schedule governs. The Water Board states it is the definitive basis for billing.",
+      "status": "resolved",
+      "recorded": "2026-08-16"
+    },
+    {
+      "id": "dubai-rate-unit-2026",
+      "city": "dubai",
+      "issue": "presentation_versus_billing_unit",
+      "secondary_official_page": {
+        "publisher": "DEWA slab tariff page",
+        "value": 7.7,
+        "unit": "AED per m³"
+      },
+      "canonical": {
+        "publisher": "Executive Council Resolution 16/2011 and the verified invoice",
+        "value": 0.035,
+        "unit": "AED per imperial gallon"
+      },
+      "resolution": "Settled by primary legislation and the invoice together. Resolution 16/2011 sets 3.5, 4.0 and 4.6 fils per gallon. DEWA prints 7.700, 8.800 and 10.120 per m³ — each exactly the statutory rate times 220, which is the meter multiplication factor on the invoice. The two expressions are the same rate, so the conversion is the utility's own 220 rather than the physical 219.9692, and 15 m³ is 3,300 gallons. The standard bill is AED 143.85.",
+      "status": "settled",
+      "recorded": "2026-08-16",
+      "settled_by": "Executive Council Resolution 16/2011, Schedule 2, sets residential water at 3.5, 4.0 and 4.6 fils per gallon. Converting each at 219.9692 IG/m³ gives 7.6989, 8.7988 and 10.1186, which DEWA prints as 7.700, 8.800 and 10.120. All three published per-m³ rates are rounded conversions of the statutory per-gallon rates. The gallon is the statutory unit and the presentation table is derived from it.",
+      "superseded_position": "An earlier TWJ calculation used the physical constant 219.9692 and produced AED 143.83. That was wrong: it imported a factor the utility does not bill with. Kept here because a corrections log that only records other people's errors is not a corrections log."
+    },
+    {
+      "id": "singapore-wct-rounding-2026",
+      "city": "singapore",
+      "issue": "formula_versus_rounded_presentation",
+      "secondary_official_page": {
+        "publisher": "PUB media release 27 September 2023, Annex A, Water Conservation Tax row",
+        "value": 0.72,
+        "unit": "SGD per m3",
+        "note": "Printed in a row labelled '(% of Tariff)', which is the formula the same annex states in its footnote."
+      },
+      "canonical": {
+        "publisher": "The rule stated in the Annex A footnote: 50% of tariff below 40 m3",
+        "value": 0.715,
+        "unit": "SGD per m3",
+        "derivation": "1.43 x 0.50 = 0.715"
+      },
+      "resolution": "Source precedence: an official formula outranks a rounded presentation table, so 0.715 is stored. This is not a disagreement between two sources — it is one source stating a rule and printing a rounded result of it.",
+      "status": "open_pending_invoice",
+      "consequence": "The unresolved rounding stage is the reason Singapore is Grade B rather than A. 0.715 gives water supply S$ 35.07 and total water services S$ 52.89; 0.72 gives S$ 35.15 and S$ 52.97. U = 0.233%, inside the 1% ceiling, so the city is publishable with the assumption printed.",
+      "closes_when": "A visual read of the Water Conservation Tax rate field in SP's published sample bill (source sp-utilities-bill-guide), which prints rates to four decimal places. The text layer of the capture does not expose that field; the PDF itself may. A private invoice would also close it and is no longer the only route.",
+      "recorded": "2026-08-17",
+      "note_2026_08_17": "Reassessed. SP's published bill guide establishes the billing formula and the rounding order for GST, and reconciles exactly against the engine on two of the three PUB lines at 23.7 m3. What was described as needing a private invoice needs one public field."
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "seoul-arisu-tariff-table",
+  "tier": 1,
+  "publisher": "Seoul Arisu Waterworks Authority",
+  "title": "요금업종별요율표 — Rate table by category",
+  "url": "https://i121.seoul.go.kr/cs/cyber/front/cgcalc/NR_chargeTypeTariffInfo.do",
+  "accessed_at": "2026-08-17",
+  "archive_path": "archive/seoul-arisu-tariff-table-2026-08-17.txt",
+  "archive_sha256": "sha256:f944c9171e1676a836955bf225eb41b71fd02f9b34af08265261cda2b6f7fac1",
+  "archive_bytes": 5895,
+  "archived_at": "2026-08-17",
+  "archive_kind": "extract",
+  "archive_note": "Text of the page. All rate tables machine-readable in the source. Statutory bases named on the page: Article 23 of the Seoul Water Supply Ordinance and Article 23 of the Seoul Sewerage Use Ordinance.",
+  "licence": "public information, cited with attribution",
+  "class": "tariff_schedule",
+  "affects": [
+    "seoul"
+  ],
+  "captured_by": "The Water Journal",
+  "establishes": [
+    "Basic charge by meter bore: 1,080 won a month at 15 mm, 3,000 at 20 mm, 5,200 at 25 mm",
+    "Domestic water usage: 580 won per m3, a single rate with no bands, under Article 23 of the Seoul Water Supply Ordinance",
+    "Domestic sewerage for 2026: 480 won per m3, single rate, with a published schedule rising to 560, 630, 700 and 770 through 2030",
+    "The water-use burden levy: 170 won per m3, universal across categories, in force since 1 January 2011 — mandatory and volumetric",
+    "The complete set of what Arisu bills a domestic customer: basic charge, usage charge, sewerage charge and levy"
+  ],
+  "does_not_establish": [
+    "The tax treatment. No tax line appears in the table, and that is not evidence of exemption — Tokyo's rate table carries no tax line either while its calculation formula multiplies by 1.10. Needs Arisu's calculation page or the Value Added Tax Act exemption provision.",
+    "The reference connection. The table prices eight bores from 15 mm up and does not say which is ordinary for a single dwelling. §2.5 bars Grade A until a primary designation is found.",
+    "Whether the reference account is separately metered. Arisu's moving-settlement page shows apartments on shared meters with the basic charge apportioned, which is a different reference customer."
+  ],
+  "internal_inconsistency_noted": "The prose beneath the water table says all four categories use a three-band progressive structure; the table shows domestic as a single rate and dates itself to 1 July 2021. The prose describes the superseded structure. The table governs."
+}

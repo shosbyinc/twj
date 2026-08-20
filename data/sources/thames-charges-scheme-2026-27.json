@@ -1,0 +1,33 @@
+{
+  "id": "thames-charges-scheme-2026-27",
+  "tier": 1,
+  "publisher": "Thames Water Utilities Limited",
+  "title": "Household Charges Scheme 2026-27, version 2.0",
+  "url": "https://www.thameswater.co.uk/media-library/toecnx2l/charges-scheme-2026-27.pdf",
+  "published_at": "2026-05-29",
+  "effective_from": "2026-04-01",
+  "accessed_at": "2026-08-14",
+  "archive_path": "archive/thames-charges-scheme-2026-27-2026-08-16.txt",
+  "archive_sha256": "sha256:ca6d6e536519d066e3d00660554b4147739a6635c5e4a2a9926066d0c2ebe531",
+  "extracted": {
+    "table_2_volumetric": {
+      "water_p_per_m3": 273.46,
+      "wastewater_p_per_m3": 147.21
+    },
+    "table_1_fixed_single_household": {
+      "water": 66.87,
+      "wastewater_full": 128.13,
+      "wastewater_abated": 80.43
+    },
+    "clause_6_1_3": "Same volume billed for wastewater as for water supplied; wastewater rate assumes up to 10% is not returned"
+  },
+  "affects": [
+    "london"
+  ],
+  "class": "tariff_schedule",
+  "archived_at": "2026-08-16",
+  "archive_bytes": 993,
+  "archive_kind": "extract",
+  "archive_note": "Text extract of the components used, taken from a direct fetch of the original PDF.",
+  "captured_by": "The Water Journal"
+}

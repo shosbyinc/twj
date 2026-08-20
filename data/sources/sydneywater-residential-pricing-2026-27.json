@@ -1,0 +1,33 @@
+{
+  "id": "sydneywater-residential-pricing-2026-27",
+  "tier": 1,
+  "publisher": "Sydney Water Corporation",
+  "title": "Residential pricing, 1 July 2026 to 30 June 2027",
+  "url": "https://www.sydneywater.com.au/accounts-billing/paying-your-bill/our-prices/residential-pricing.html",
+  "published_at": "2026-07-01",
+  "effective_from": "2026-07-01",
+  "effective_to": "2027-06-30",
+  "accessed_at": "2026-08-17",
+  "archive_path": "archive/sydneywater-residential-pricing-2026-27.txt",
+  "archive_sha256": "sha256:b531297cde26138090dcf97c7149408c8eaaa667f77b659fb2ecfd480c3d9608",
+  "archive_bytes": 5367,
+  "archived_at": "2026-08-17",
+  "archive_kind": "extract",
+  "archive_note": "Text of the page with all panels expanded. Rate tables machine-readable in the source.",
+  "licence": "public information, cited with attribution",
+  "class": "tariff_schedule",
+  "affects": ["sydney"],
+  "captured_by": "The Water Journal",
+  "establishes": [
+    "2026-27 residential water usage 3.41/kL and drought usage 3.84/kL, with the 60/70 storage trigger stated",
+    "Metered water service charge 26.65 per quarter, accrued daily over a 90, 91 or 92 day quarter",
+    "Wastewater service charge 189.88 per quarter, a fixed charge already containing a deemed usage component — so Sydney's total water services does not rest on a property valuation",
+    "A published reconciliation: 26.65 + 50 x 3.41 + 189.88 = 387.03, the publisher's own typical quarterly bill",
+    "That stormwater is not part of the publisher's typical residential bundle"
+  ],
+  "does_not_establish": [
+    "Which usage rate is in force. The page gives both rates and links to a storage figure it does not reproduce. The difference is 12.6% of the usage charge.",
+    "The retail trigger mechanics. WaterNSW's bulk pricing documents a 31-day lag under Part 7 Clause 25 of that determination; this retail page states the trigger without one. The two determinations must not be conflated.",
+    "The GST treatment: Commonwealth statute, see antsa-gst-act-38-285."
+  ]
+}

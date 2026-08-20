@@ -1,0 +1,20 @@
+NEW YORK CITY WATER BOARD — WATER AND WASTEWATER RATE SCHEDULE
+Effective 1 July 2026 (Fiscal Year 2027)
+Source: https://www.nyc.gov/assets/nycwaterboard/downloads/pdf/rates/fy2027_rates.pdf
+Captured by The Water Journal, 14 August 2026, by direct fetch of the PDF.
+Extract limited to the components used in the TWJ scenario.
+
+PART II, SECTION 1.A — METERED WATER
+  USD 5.35 per one hundred cubic feet.
+  One hundred cubic feet is approximately 748.052 gallons.
+
+PART II, SECTION 1.B — MINIMUM CHARGE
+  USD 0.49 per day per water meter.
+
+PART III, SECTION 2 — WASTEWATER
+  The wastewater charge is 159 percent of the charges for water supplied.
+
+NOTE RECORDED AT CAPTURE
+  The Water Board states that the Rate Schedule is the definitive basis for
+  billing. A separate NYC DEP page showed a combined figure inconsistent with
+  this schedule; the schedule governs.

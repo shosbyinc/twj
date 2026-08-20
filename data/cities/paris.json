@@ -1,0 +1,39 @@
+{
+  "id": "paris",
+  "name": "Paris",
+  "country": "FR",
+  "coordinates": [
+    48.8566,
+    2.3522
+  ],
+  "utility": "Eau de Paris",
+  "tariff_id": "paris-eaudeparis-2026-01-01",
+  "status": "published",
+  "publication_status": "published",
+  "sources": [
+    "eaudeparis-catalogue-2026"
+  ],
+  "supply": {
+    "categories": [
+      "groundwater",
+      "surface_water"
+    ],
+    "shares_published": false,
+    "note": "Paris draws roughly half its drinking water from springs up to 150 km away, carried by the Vanne, Loing, Voulzie and Avre aqueducts, and roughly half from the Seine and the Marne. No production figure with a year attached has been captured, so the shares are named and not quantified."
+  },
+  "freshness": "current",
+  "verified_at": "2026-08-19",
+  "verified_by": [
+    "collector"
+  ],
+  "awaiting": "Nothing that holds a figure. A designation of the ordinary household meter diameter would lift the supply metric to Grade A; a statement of how a collectively metered building is billed would let the record model the arrangement most Parisians actually live under.",
+  "open_items": [
+    "A designation of the ordinary residential meter diameter. Fourteen are priced in the ABONNEMENT schedule and none is named; 15 mm is used as the smallest priced. Same §2.5 gap as Seoul and Tokyo, and it holds Grade A rather than a number.",
+    "How a household in a collectively metered building is billed, and how the abonnement is shared among lots. The catalogue prices individualisation as a service, which implies the collective meter is the common case in Paris. Published as a scope disclosure rather than guessed at."
+  ],
+  "grade_note": "Grade B, and every rate is read from the deliberative annex (the annexe à la délibération) that sets it. The blocker was never a missing document in the ordinary sense: Paris published its price loudly and published it as one number, and one number cannot be a supply price when it contains wastewater. The catalogue takes it apart, and the arithmetic closes to the last centime.",
+  "freshness_note": "The Catalogue des tarifs 2026 was adopted in December 2025 and applies from 1 January 2026. Eau de Paris revises it annually by délibération.",
+  "resolution_note": "Closed by decomposition rather than by a second source. The published 4,23 EUR/m3 was quotable only as what it was — a total variable price including wastewater and levies, excluding the subscription. The catalogue prices all ten volumetric lines separately with the VAT rate against each, and they sum to 4,2300 exactly. What makes the split evidence rather than allocation is that the tax rate does the sorting: French law charges drinking water at 5.5% and collective sanitation at 10%, so each line declares which side it belongs to before anyone reads its name.",
+  "why_this_city_matters": "Paris is the clearest case in the Index of a city whose price is public, precise, widely quoted and not the thing people take it for. 4,23 EUR a cubic metre is real, and it is the water, the sewer, six levies and two rates of VAT. The supply side is 1,73 of it. Six of the seven drinking-water lines are levies rather than the supply rate itself — a third of what a Parisian pays for water is not paid to the utility that supplies it, and no summary figure can show that.",
+  "tariff_jurisdiction_id": "fr-paris-eaudeparis"
+}

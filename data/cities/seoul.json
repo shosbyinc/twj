@@ -1,0 +1,36 @@
+{
+  "id": "seoul",
+  "name": "Seoul",
+  "country": "KR",
+  "coordinates": [
+    37.5665,
+    126.978
+  ],
+  "utility": "Seoul Arisu Waterworks Authority",
+  "tariff_id": "seoul-arisu-2026",
+  "status": "published",
+  "sources": [
+    "seoul-arisu-tariff-table",
+    "kr-vat-act-26-water"
+  ],
+  "supply": {
+    "categories": [
+      "surface_water"
+    ],
+    "shares_published": false,
+    "note": "Seoul draws on the Han River through six treatment plants. No annual production figure with a year attached has been captured."
+  },
+  "freshness": "current",
+  "freshness_note": "The water table has applied since 1 July 2021; the sewerage table since 1 January 2026, with a published schedule to 2030.",
+  "verified_at": "2026-08-17",
+  "verified_by": [
+    "collector"
+  ],
+  "open_items": [
+    "The treatment of 하수도 사용료 under Korean tax law, which holds the total water services figure and not the supply figure.",
+    "A primary designation of the ordinary residential connection size, which would lift the supply metric from Grade B to Grade A."
+  ],
+  "grade_note": "Grade B, and not for a missing rate. Seoul is the cleanest tariff structure captured so far — three flat volumetric rates and one fixed charge, all under named ordinances. It is held on the two questions a rate table cannot answer: what tax sits on top, and which connection the reference household has.",
+  "publication_status": "published",
+  "resolution_note": "The VAT question that withheld Seoul is closed on the supply side by statute rather than by the silence of a rate table: art. 26(1)2 of the Value-Added Tax Act exempts tap water, and Basic Ruling 26-0-1 attaches that to a supplier under the Water Supply Act. The sewerage side is a different question and stays open, so total water services is not published."
+}

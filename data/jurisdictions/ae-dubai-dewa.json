@@ -1,0 +1,21 @@
+{
+  "name": "Dubai Electricity and Water Authority tariff jurisdiction",
+  "authority": "DEWA, under Executive Council Resolution 16/2011",
+  "country": "AE",
+  "utilities": [
+    {
+      "id": "dewa",
+      "name": "DEWA"
+    }
+  ],
+  "service_areas": [
+    {
+      "id": "dubai-territory",
+      "name": "Dubai service territory"
+    }
+  ],
+  "display_cities": [
+    "dubai"
+  ],
+  "tariff_jurisdiction_id": "ae-dubai-dewa"
+}

@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
+<meta name="theme-color" content="#F8F8F5">
+<title>__TITLE__</title>
+<meta name="description" content="__DESC__">
+<link rel="canonical" href="__CANON__">
+<meta name="robots" content="__ROBOTS__">
+<meta property="og:type" content="__OGTYPE__">
+<meta property="og:site_name" content="The Water Journal">
+<meta property="og:title" content="__TITLE__">
+<meta property="og:description" content="__DESC__">
+<meta property="og:url" content="__CANON__">
+<meta property="og:image" content="__OGIMAGE__">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="__TITLE__">
+<meta name="twitter:description" content="__DESC__">
+<meta name="twitter:image" content="__OGIMAGE__">
+<link rel="icon" href="__FAVICON__">
+<link rel="alternate" type="application/rss+xml" title="The Water Journal" href="__ROOT__feed.xml">
+<!-- Fonts. Self-hosted when the files are in the repository, from Google when
+     they are not; render.js decides and writes the block. Either way the
+     fallback stack below is a real stack, not a placeholder: the page is
+     legible before the fonts land. -->
+__FONTS__
+__JSONLD__
+<style>
+/* ═══════════════════════════════════════════════════════════
+   THE WATER JOURNAL — written from scratch.
+   Two rules held throughout:
+     1. Every figure comes from the engine. None is typed here.
+     2. Every word of editorial prose is the editor's. The site
+        supplies structure, labels and arithmetic — nothing else.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  color-scheme:light only;
+  --pure:#F8F8F5; --snow:#F2F4F2; --ice:#E6EAE8; --rule:#D8DDDC;
+  --ink:#2F3438; --body:#3F4449; --quiet:#6E757B; --faint:#A0A6AB;
+  --prana:#00B1AE; --edit:#19B7C4; --paper:#FFFFFF;
+  /* The published accent is a rule-and-bar colour, not a text colour. On white
+     #19B7C4 measures 2.44:1 and #00B1AE 2.66:1, where AA wants 4.5 for small
+     text and 3.0 for large — so both fail at every size. This is the same hue
+     taken down until it passes on white (5.29) and on Snow White (4.78). It is
+     used wherever the accent carries words; the published values keep every
+     rule, bar, dot and border, which carry no text and are held to nothing. */
+  --edit-text:#107780; --arctic:#8FD5DF; --glacier:#C7EAF2;
+
+  --micro:12.5px;
+  --small:clamp(15px,3.9vw,16px);
+  --ui:clamp(16.5px,4.3vw,17.5px);
+  --read:clamp(19px,5vw,20px);
+  --lead:clamp(21px,5.6vw,25px);
+  --h3:clamp(22px,5.8vw,27px);
+  --h2:clamp(26px,7vw,36px);
+  --h1:clamp(33px,9vw,58px);
+  --display:clamp(38px,11vw,72px);
+
+  /* Brand book §06: Outfit is the official face and the only one. Poppins is a
+     technical fallback, not part of the identity, and a second editorial serif
+     is forbidden — the site was set in the fallback plus the forbidden serif. */
+  --sans:'Outfit','Poppins',-apple-system,system-ui,sans-serif;
+  --serif:'Outfit','Poppins',-apple-system,system-ui,sans-serif;
+  --navh:52px;
+}
+@media (prefers-color-scheme:dark){html,body{background:#F8F8F5!important;color:#3F4449!important}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--pure);-webkit-text-size-adjust:100%;overflow-x:hidden}
+body{background:var(--pure);color:var(--body);font-family:var(--sans);font-weight:400;
+     line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font:inherit;color:inherit;background:transparent;border:0;cursor:pointer;text-align:left}
+a{color:inherit;text-decoration:none}
+/* Every destination on this site is a link with a real href, so it can be
+   copied, opened in a tab, cited and crawled. Nothing navigates by script
+   alone. */
+a[data-route]{cursor:pointer}
+.link[data-route]{display:inline-flex}
+.posterlink{display:block}
+/* height:auto matters as much as max-width here. The width and height
+   attributes on an <img> are presentational hints, so a CSS width overrides the
+   width hint and leaves the height hint standing at its literal pixel value —
+   the mark came out as a tall ellipse, clamped to 22px wide and still 120px
+   high. With height:auto the attributes do only the job they are there for:
+   reserving the right box before the file arrives. */
+img{max-width:100%;height:auto;display:block}
+/* Bright turquoise is for lines, dots, bars and underlines. Anything that
+   carries meaning as text or as a state indicator uses --edit-text, which
+   clears 4.5:1 on white; PRANA #00B1AE measures 2.66:1 and a focus ring a
+   keyboard user cannot see is not a focus ring. */
+:focus-visible{outline:2px solid var(--edit-text);outline-offset:3px}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(22px,4vw,32px)}
+.col{max-width:680px;margin:0 auto;padding:0 clamp(22px,4vw,32px)}
+.bleed{width:100vw;max-width:100vw;margin-left:calc(50% - 50vw)}
+
+.top{padding:clamp(24px,3.6vw,40px) 0 0;text-align:center}
+.brand{display:inline-flex;flex-direction:column;align-items:center;gap:13px}
+.brand img{width:clamp(38px,4.4vw,50px)}
+.brand span{font-size:clamp(12px,1.7vw,15px);letter-spacing:.4em;text-indent:.4em;
+            text-transform:uppercase;color:var(--ink)}
+.hr{width:38px;height:2px;background:var(--rule);border:0;margin:18px auto 12px}
+.kick{font-size:var(--micro);letter-spacing:.26em;text-indent:.26em;text-transform:uppercase;
+       color:var(--edit-text)}
+@media(max-width:430px){.kick{letter-spacing:.16em;text-indent:.16em}}
+nav{margin-top:clamp(22px,3.4vw,36px);border-top:1px solid var(--ice);border-bottom:1px solid var(--ice);
+    position:sticky;top:0;background:var(--pure);z-index:30}
+nav .wrap{position:relative}
+.navrow{display:flex;justify-content:center;gap:clamp(14px,4vw,46px);padding:16px 0;
+         overflow-x:auto;scrollbar-width:none}
+@media(max-width:430px){
+  .navrow{gap:13px}
+  .navrow a{letter-spacing:.09em;font-size:11.5px}
+}
+/* On the narrowest phones the row fits the screen but not the page gutters,
+   so it steps outside them and pads itself instead. Three items should never
+   scroll: a hidden scrollbar cutting METHODOLOGY mid-word tells the reader
+   the word is METHODOLO. */
+@media(max-width:374px){
+  .navrow{gap:7px;margin-inline:calc(-1*clamp(22px,4vw,32px));padding-inline:6px}
+  .navrow a{letter-spacing:0;font-size:10.5px}
+}
+/* iPhone SE, first generation, and anything narrower. The last seven pixels
+   come from the row's own padding: at this width there is nothing beside it
+   to be flush with. */
+@media(max-width:330px){.navrow{gap:6px;padding-inline:0}}
+.navrow::-webkit-scrollbar{display:none}
+.navrow a{flex:0 0 auto;font-size:var(--micro);letter-spacing:.22em;text-transform:uppercase;
+               color:var(--quiet);padding:4px 0;border-bottom:1px solid transparent;white-space:nowrap;transition:color .3s}
+/* The word is 12px tall and the underline has to stay tight to it, so the
+   hit area is grown rather than the box: an invisible ::after inset takes the
+   tap to about 44px without moving a pixel of the rule. */
+.navrow a{position:relative}
+.navrow a::after{content:"";position:absolute;left:-6px;right:-6px;top:-14px;bottom:-14px}
+.navrow a:hover{color:var(--ink)}
+.navrow a[aria-current]{color:var(--ink);border-bottom-color:var(--edit)}
+
+/* Cards written into the page before any script runs. Once the router boots
+   it repaints the container and these are gone, so they only need to be
+   legible, not styled to match. */
+
+/* The Journal's three levels.
+   The hero is not a card: image below the words and running wider than the
+   column they sit in, so the first screen is a story rather than the top of a
+   list. The tier below is two equal columns. The archive keeps the compact
+   rows it always had — the point of the two blocks above is that the archive
+   is allowed to look like an archive. */
+.hero-story{display:grid;grid-template-columns:1fr;gap:clamp(24px,4vw,40px);
+            margin-top:clamp(28px,4vw,44px);align-items:center}
+.hero-story .c{display:block;overflow:hidden;background:var(--snow);aspect-ratio:4/5;order:-1}
+.hero-story .c img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.3,1)}
+.hero-story:hover .c img{transform:scale(1.02)}
+.hero-story .t{display:block;max-width:34ch}
+.hero-story .r{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--edit-text)}
+.hero-story h2{margin-top:14px;font-size:var(--h1);line-height:1.04;font-weight:200;
+               letter-spacing:-.02em;transition:color .3s}
+.hero-story:hover h2{color:var(--prana)}
+.hero-story p{margin-top:18px;font-size:var(--lead);line-height:1.45;font-weight:300;
+              color:var(--body);max-width:42ch}
+.hero-story .m{display:block;margin-top:18px;font-size:var(--micro);letter-spacing:.18em;
+               text-transform:uppercase;color:var(--quiet)}
+@media(min-width:860px){
+  /* The cover takes the larger share and keeps its own proportions. "More
+     dominant" for a poster means bigger, not wider: cropped to a landscape band
+     it loses the masthead at the top and the line at the foot, which is most of
+     what makes it a cover rather than an illustration. */
+  .hero-story{grid-template-columns:minmax(0,52%) 1fr;gap:clamp(34px,4.5vw,64px)}
+  .hero-story h2{font-size:var(--display);line-height:1.02}
+}
+
+.duostory{display:grid;grid-template-columns:1fr;gap:clamp(30px,4vw,46px);
+          margin-top:clamp(46px,6vw,78px);padding-top:clamp(30px,4vw,46px);
+          border-top:1px solid var(--ice)}
+.duostory .ds{display:block}
+/* 4:5, because that is what the artwork is. Every cover here is a designed
+   poster with the masthead set into the top and a line set into the foot; a
+   16:10 crop removes both and leaves an illustration. */
+.duostory .c{display:block;overflow:hidden;background:var(--snow);aspect-ratio:4/5;margin-bottom:18px}
+.duostory .c img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.3,1)}
+.duostory .ds:hover .c img{transform:scale(1.03)}
+.duostory .r{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+.duostory h3{margin-top:10px;font-size:var(--h2);font-weight:300;line-height:1.14;transition:color .25s}
+.duostory .ds:hover h3{color:var(--prana)}
+.duostory p{margin-top:12px;font-size:var(--ui);line-height:1.6;color:var(--body);max-width:44ch}
+@media(min-width:820px){ .duostory{grid-template-columns:1fr 1fr} }
+
+.latesthead{margin-top:clamp(46px,6vw,78px);padding-bottom:14px;
+            font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+
+
+/* From the Journal, on the home page. One story with its cover, two beside it
+   in text. Deliberately smaller than the Journal's own hero: this is a door,
+   not the room. */
+.fj-one{display:grid;grid-template-columns:1fr;gap:clamp(18px,3vw,30px);margin-top:clamp(20px,3vw,30px)}
+.fj-one .c{display:block;overflow:hidden;background:var(--snow);aspect-ratio:4/5}
+.fj-one .c img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.3,1)}
+.fj-one:hover .c img{transform:scale(1.03)}
+.fj-one .r{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+.fj-one h3{margin-top:10px;font-size:var(--h2);font-weight:300;line-height:1.14;transition:color .25s}
+.fj-one:hover h3{color:var(--prana)}
+.fj-one p{margin-top:12px;font-size:var(--ui);line-height:1.62;color:var(--body);max-width:46ch}
+.fj-two{display:grid;grid-template-columns:1fr;gap:clamp(20px,3vw,30px);
+        margin-top:clamp(26px,3.6vw,38px);padding-top:clamp(22px,3vw,30px);border-top:1px solid var(--ice)}
+.fj-two .r{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+.fj-two h4{margin-top:8px;font-size:var(--h3);font-weight:300;line-height:1.18;transition:color .25s}
+.fj-two a:hover h4{color:var(--prana)}
+.fj-two p{margin-top:8px;font-size:var(--small);line-height:1.6;color:var(--body);max-width:40ch}
+@media(min-width:820px){
+  .fj-one{grid-template-columns:minmax(0,38%) 1fr;align-items:center;
+          gap:clamp(28px,4vw,48px)}
+  .fj-two{grid-template-columns:1fr 1fr;gap:clamp(30px,4vw,50px)}
+}
+.nscard{padding:18px 0;border-bottom:1px solid var(--ice)}
+.nscard .r{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--edit-text)}
+.nscard h3{font-size:var(--h3);margin:8px 0}
+.nscard p{color:var(--body);max-width:60ch}
+.nscard .m{font-size:var(--small);color:var(--quiet);margin-top:8px}
+.map .land{fill:var(--snow);stroke:#E3E7E8;stroke-width:.4;stroke-linejoin:round}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--prana);width:0;z-index:40}
+
+.page{display:none;padding-bottom:clamp(72px,10vw,110px)}
+.page.on{display:block;animation:in .4s cubic-bezier(.2,.7,.3,1) both}
+@keyframes in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+h1,h2,h3{font-weight:300;color:var(--ink);letter-spacing:-.016em;line-height:1.16}
+.eyebrow{font-size:var(--micro);letter-spacing:.28em;text-transform:uppercase;color:var(--quiet)}
+.link{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--edit-text);
+      display:inline-flex;align-items:center;gap:9px;min-height:36px}
+.link .a{transition:transform .3s cubic-bezier(.2,.7,.3,1)}
+.link:hover .a{transform:translateX(4px)}
+.hist{display:block;margin-top:10px;color:var(--quiet);font-size:var(--micro);letter-spacing:0;text-transform:none}
+.note{margin-top:20px;font-size:var(--small);line-height:1.8;color:var(--quiet);max-width:62ch}
+.note b{font-weight:500;color:var(--ink)}
+.hero{padding:clamp(40px,6.5vw,86px) 0 clamp(24px,3.6vw,44px)}
+.hero h1{margin-top:20px;font-size:var(--h1);max-width:18ch}
+/* The colour lands on the subject of the publication, not on the sentence.
+   The covers already work this way — Seven Point Four sets its second line in
+   turquoise and its first in graphite — so this is the brand's own practice
+   brought to the front door rather than a new idea.
+   It is --edit-text and not PRANA #00B1AE, which measures 2.66:1 on white and
+   fails even the 3.0 that display type is allowed. */
+.statement h1 em{font-style:normal;color:var(--edit-text)}
+.hero p{margin-top:20px;font-size:var(--ui);line-height:1.75;max-width:50ch}
+.tag{display:inline-flex;align-items:center;gap:7px;font-size:var(--micro);letter-spacing:.18em;
+     text-transform:uppercase;color:var(--quiet)}
+.tag i{width:6px;height:6px;border-radius:50%;background:var(--rule);flex:none;display:block}
+.tag.a{color:var(--edit-text)} .tag.a i{background:var(--prana)}
+.tag.b i{background:var(--arctic)}
+.tag.c i{background:transparent;border:1px solid var(--faint)}
+.na{font-family:var(--serif);font-style:italic;color:var(--faint)}
+.blk{padding:clamp(32px,5vw,60px) 0 0}
+.blk h4{font-size:var(--micro);letter-spacing:.26em;text-transform:uppercase;color:var(--quiet);
+        margin-bottom:20px;font-weight:400}
+.rows{border-top:1px solid var(--ice)}
+.rows>div{display:grid;grid-template-columns:minmax(140px,32%) 1fr;gap:18px;padding:15px 0;
+          border-bottom:1px solid var(--ice);font-size:var(--ui);align-items:baseline}
+.rows .a{font-size:var(--micro);letter-spacing:.18em;text-transform:uppercase;color:var(--quiet)}
+@media(max-width:680px){.rows>div{grid-template-columns:1fr;gap:5px}}
+
+.statement{padding:clamp(46px,8vw,104px) 0 clamp(32px,5vw,60px);border-bottom:1px solid var(--ice)}
+.statement h1{font-size:var(--display);line-height:1.1;max-width:14ch}
+.statement p{margin-top:24px;font-size:var(--ui);line-height:1.75;max-width:46ch}
+.lead{padding:clamp(28px,4.5vw,54px) 0 0}
+.lead .k{font-size:var(--micro);letter-spacing:.22em;text-transform:uppercase;color:var(--quiet)}
+.lead h2{margin-top:16px;font-size:var(--h2);max-width:18ch}
+.lead p{margin-top:16px;font-family:var(--serif);font-size:var(--lead);line-height:1.5;max-width:34ch;color:var(--body)}
+/* Column, not row. As a flex row the caption became the image's neighbour
+   rather than its caption — a credit line reading down a narrow gutter beside
+   the photograph it belongs to. */
+.poster{background:var(--snow);border-top:1px solid var(--ice);border-bottom:1px solid var(--ice);
+        display:flex;flex-direction:column;align-items:center;
+        padding:clamp(20px,3.5vw,42px) 0;margin-top:clamp(26px,4vw,44px)}
+.poster img{width:auto;max-width:min(520px,84vw);max-height:74svh;box-shadow:0 18px 44px -30px rgba(47,52,56,.4)}
+/* An image whose provenance is stated is held to the same standard as a figure.
+   A satellite photograph is somebody's data, taken over a real place, and both
+   belong under it — quietly. A credit competing with the headline is a caption
+   that has forgotten what it is for. */
+/* Deliberately narrower than the image's own ceiling of min(520px,84vw), so
+   the caption always sits inside the picture's edges instead of overhanging
+   them by a few pixels — which reads as a mistake rather than a margin. */
+.poster figcaption{width:min(492px,79vw);margin-top:14px;font-size:12.5px;line-height:1.6;color:var(--quiet);
+                   letter-spacing:.01em;text-align:left;text-wrap:pretty}
+.poster figcaption b{color:var(--ink);font-weight:500;letter-spacing:.04em}
+@media(max-width:680px){.poster img{max-width:min(430px,82vw);max-height:68svh}}
+.sect{border-top:1px solid var(--ice);padding:clamp(30px,4.5vw,54px) 0 0;margin-top:clamp(30px,4.5vw,54px)}
+.sect .h{display:flex;justify-content:space-between;align-items:baseline;gap:18px;flex-wrap:wrap}
+.sect .h b{font-size:var(--h3);font-weight:300;color:var(--ink)}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--ice);
+       border-top:1px solid var(--ice);border-bottom:1px solid var(--ice);margin-top:22px}
+.strip a{display:block;background:var(--pure);padding:clamp(18px,2.4vw,26px);transition:background .25s}
+.strip a:hover{background:var(--snow)}
+.strip .c{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+.strip .v{margin-top:12px;font-size:clamp(21px,5.2vw,28px);color:var(--ink);font-weight:300;letter-spacing:-.02em}
+.strip .u{margin-top:8px;font-size:var(--micro);color:var(--quiet)}
+@media(max-width:760px){.strip{grid-template-columns:1fr 1fr}}
+
+.alist{border-top:1px solid var(--ice);margin-top:20px}
+.alist a{display:grid;grid-template-columns:118px 1fr;gap:clamp(18px,3.4vw,28px);width:100%;
+              padding:clamp(22px,4.4vw,30px) 0;border-bottom:1px solid var(--ice);align-items:start;transition:background .25s}
+.alist a:hover{background:var(--snow)}
+.alist a:hover h3{color:var(--prana)}
+.alist .th{aspect-ratio:4/5;background:var(--snow);overflow:hidden}
+.alist .th img{width:100%;height:100%;object-fit:cover}
+.alist .r{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+.alist h3{margin-top:11px;font-size:var(--h3);font-weight:400;transition:color .25s}
+.alist p{margin-top:10px;font-size:var(--small);line-height:1.65;color:var(--body);max-width:50ch}
+.alist .m{display:block;margin-top:13px;font-size:var(--micro);letter-spacing:.18em;
+          text-transform:uppercase;color:var(--quiet)}
+@media(max-width:680px){.alist a{grid-template-columns:92px 1fr}}
+
+/* The Journal's opening: the newest piece at the size its cover was made for.
+   Below it the archive stays compact — discovery, then filing. */
+.latest{display:grid;grid-template-columns:1fr;gap:clamp(20px,3vw,34px);margin-top:clamp(20px,3vw,30px);
+        padding-bottom:clamp(28px,4.5vw,44px);border-bottom:1px solid var(--ice)}
+.latest .c{display:block;background:var(--snow);overflow:hidden;aspect-ratio:4/5;max-height:62svh}
+.latest .c img{width:100%;height:100%;object-fit:cover;display:block}
+.latest .r{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+.latest h2{margin-top:14px;font-size:var(--h2);font-weight:400;letter-spacing:-.02em;transition:color .25s}
+.latest:hover h2{color:var(--prana)}
+.latest p{margin-top:14px;font-size:var(--lead);line-height:1.5;color:var(--body);max-width:36ch;font-weight:300}
+.latest .m{display:block;margin-top:16px;font-size:var(--micro);letter-spacing:.18em;
+           text-transform:uppercase;color:var(--quiet)}
+@media(min-width:820px){
+  .latest{grid-template-columns:minmax(0,42%) 1fr;align-items:center;gap:clamp(30px,4vw,54px)}
+  .latest .t{padding-right:clamp(10px,2vw,30px)}
+}
+
+/* The rubric bar scrolls and its scrollbar is hidden, so on a narrow screen
+   nothing said there was more to the right. A fade is the smallest thing that
+   can say it — no arrows, no carousel. */
+.secwrap{position:relative}
+.secwrap:after{content:'';position:absolute;top:0;bottom:1px;right:0;width:46px;pointer-events:none;
+               background:linear-gradient(90deg,rgba(248,248,245,0) 0%,var(--pure) 82%)}
+@media(min-width:820px){.secwrap:after{display:none}}
+
+@media(max-width:420px){
+  .secbar a,.secbar .off,.alist .r,.alist .m,.latest .r,.latest .m,.strip .c,.eyebrow{letter-spacing:.14em}
+  .body .notes h4,.body .notes h5,.body h4{letter-spacing:.16em}
+}
+.gradekey{margin-top:14px;max-width:58ch}
+.actions{display:flex;flex-wrap:wrap;gap:clamp(18px,3vw,40px)}
+.gradekey b{color:var(--ink);font-weight:500}
+.gradekey .link{margin-left:6px}
+/* The 1px gaps are the container's background showing through, which is neat
+   until a row is short: auto-fit gave five columns for six tiles on a tablet,
+   and the four empty cells painted as one grey slab beside a lone Earth.
+   Fixed columns that divide the tile count, and a last-child that stretches to
+   fill whatever remainder is left — so a rubric added or retired later cannot
+   reopen the hole. */
+/* The block above already closes with a rule, and this grid was drawing its own
+   8px below it — two hairlines with a sliver of paper between, which reads as a
+   printing fault rather than a border. It borrows the neighbour's line and keeps
+   only its own closing edge. */
+.sections{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ice);
+          border-bottom:1px solid var(--ice)}
+.sections>:last-child:nth-child(3n+1){grid-column:span 3}
+.sections>:last-child:nth-child(3n+2){grid-column:span 2}
+@media(max-width:620px){
+  .sections{grid-template-columns:repeat(2,1fr)}
+  .sections>:last-child:nth-child(3n+1),
+  .sections>:last-child:nth-child(3n+2){grid-column:auto}
+  .sections>:last-child:nth-child(2n+1){grid-column:span 2}
+}
+.sections a,.sections .off{background:var(--pure);padding:22px 20px;transition:background .3s;display:block}
+.sections a:hover{background:var(--snow)}
+/* Dimmed means "there is nothing here". An empty rubric earns that; the view
+   the reader is currently in does not, and styling both the same made the
+   whole-journal link look broken. */
+.sections .off{opacity:.4;cursor:default}
+.sections a[aria-current]{background:var(--snow);box-shadow:inset 2px 0 0 var(--prana)}
+.sections .nm{font-size:var(--h3);color:var(--ink);letter-spacing:-.01em}
+
+.sections .ln{display:block;margin-top:10px;font-size:var(--small);line-height:1.6;color:var(--body);max-width:32ch}
+.secbar{display:flex;flex-wrap:nowrap;border-bottom:1px solid var(--ice);overflow-x:auto;scrollbar-width:none;
+        position:sticky;top:var(--navh);background:var(--pure);z-index:20}
+.secbar::-webkit-scrollbar{display:none}
+.secbar a,.secbar .off{flex:0 0 auto;padding:16px 24px 15px 0;font-size:var(--micro);letter-spacing:.18em;
+               text-transform:uppercase;color:var(--quiet);white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px}
+/* The word takes the readable tone; the underline keeps the published one. */
+.secbar a.on{color:var(--edit-text);border-bottom-color:var(--prana)}
+.secbar .off{opacity:.35}
+.secbar .ct{margin-left:8px;color:var(--faint)}
+.secbar .all{padding-right:28px;margin-right:8px;border-right:1px solid var(--ice)}
+.sechead{padding:clamp(32px,7vw,60px) 0 clamp(20px,3.4vw,30px);border-bottom:1px solid var(--ink)}
+.sechead h1{font-size:var(--display);line-height:1.04}
+.sechead p{margin-top:16px;font-size:var(--lead);line-height:1.45;max-width:36ch;color:var(--body);font-weight:300}
+.sechead .ct{margin-top:20px;font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+
+/* ═══ THE ARTICLE PAGE ═════════════════════════════════════════════════════
+   White ground, one family, and a hierarchy a reader can navigate by eye.
+
+   The article ran on the site's warm Pure White with body copy in a serif the
+   brand book forbids. Both are corrected here. Reading pages are paper white;
+   the rest of the site keeps Pure White, so the article reads as the page and
+   the index reads as the instrument.
+
+   Where emphasis is carried by colour it is PRANA Turquoise for the brand's own
+   marks and Editorial Turquoise for editorial ones — never on running copy,
+   which the brand book rules out, and always on something short: a number, a
+   label, a rule, the first words of a pull quote. */
+.art{background:var(--paper)}
+#p-article.on{background:var(--paper)}
+/* The poster is Snow White on the home and journal pages, where it sits inside
+   a listing. On an article it is the first thing on the reading page, and a
+   seam between the image band and the text below would say the two are
+   different objects when they are one. */
+.art .poster{background:var(--paper);border-top:0}
+.art .poster figcaption b{color:var(--ink)}
+.art .back{padding:clamp(24px,4vw,42px) 0 0}
+.art h1{margin-top:14px;font-size:var(--h1);font-weight:500;letter-spacing:-.028em;color:var(--ink)}
+.art .stand{margin-top:20px;font-size:var(--lead);line-height:1.42;color:var(--ink);font-weight:300;max-width:30ch}
+.art .formula{margin-top:16px;font-size:clamp(21px,5.4vw,28px);color:var(--ink);font-weight:300}
+.art .meta{margin-top:26px;padding:15px 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);
+           display:flex;flex-wrap:wrap;gap:20px;font-size:var(--micro);letter-spacing:.18em;
+           font-weight:500;text-transform:uppercase;color:var(--quiet)}
+
+.body{font-family:var(--sans);color:#3A4045;margin-top:clamp(30px,5vw,50px)}
+.body p{font-size:var(--read);line-height:1.74;margin-top:1.1em;max-width:33em;font-weight:300}
+
+/* The standfirst is the deck; this is the piece opening its own case. */
+.body>p:first-of-type{font-size:calc(var(--read)*1.14);line-height:1.55;color:var(--ink);
+                      font-weight:400;margin-top:0;max-width:30em}
+
+/* Section heads carry weight because they are the only navigation a long piece
+   has. `##` in the markdown renders as h3. The bar beneath is PRANA Turquoise:
+   the brand's own mark on its own structure. */
+.body h3{margin-top:clamp(52px,10vw,82px);font-size:var(--h2);font-weight:600;color:var(--ink);
+         letter-spacing:-.022em;line-height:1.14}
+.body h3:after{content:'';display:block;width:46px;height:3px;background:var(--prana);margin-top:18px}
+.body h3+p{margin-top:26px}
+
+.body ul{margin-top:22px;list-style:none;max-width:33em}
+.body li{font-size:var(--read);line-height:1.62;padding:14px 0 14px 26px;border-bottom:1px solid var(--ice);
+         position:relative;font-weight:300}
+.body li:before{content:'';position:absolute;left:0;top:25px;width:13px;height:2px;background:var(--prana)}
+
+/* Pull quote. The rule is turquoise and heavy; the words stay graphite, because
+   the brand book keeps colour off running copy and a quote at this size is
+   copy. Bold inside a quote — the Myth / Reality labels — takes the colour. */
+.body blockquote{margin:clamp(44px,8vw,74px) 0;padding:clamp(24px,4vw,32px) 0 clamp(24px,4vw,32px) clamp(22px,4vw,30px);
+                 border-left:4px solid var(--prana);font-size:clamp(22px,6vw,31px);
+                 line-height:1.34;color:var(--ink);font-weight:300;letter-spacing:-.018em;max-width:22ch}
+.body blockquote b{display:block;font-size:var(--micro);letter-spacing:.24em;text-transform:uppercase;
+                   font-weight:600;color:var(--edit-text);margin-top:18px}
+.body blockquote b:first-child{margin-top:0}
+
+.body hr{border:0;border-top:1px solid var(--ice);margin:clamp(34px,6vw,54px) 0}
+.body a{color:var(--edit-text);text-decoration:none;border-bottom:1px solid var(--arctic)}
+
+.body .fig{margin:clamp(34px,6vw,54px) 0;padding:clamp(22px,4vw,30px) 0;border-top:2px solid var(--ink);
+           border-bottom:1px solid var(--ice);text-align:center}
+.body .fig .v{font-size:clamp(30px,7.4vw,46px);font-weight:300;color:var(--edit-text);line-height:1.12}
+.body .fig .u{margin-top:12px;font-size:var(--micro);letter-spacing:.2em;font-weight:500;
+              text-transform:uppercase;color:var(--quiet)}
+.body .fig figcaption{margin-top:10px;font-size:var(--micro);letter-spacing:.14em;font-weight:400;
+                      text-transform:uppercase;color:var(--quiet)}
+
+.body .img{margin:clamp(34px,6vw,56px) 0}
+.body .img img{display:block;width:100%;height:auto}
+.body .img figcaption{margin-top:12px;padding-left:14px;border-left:2px solid var(--edit);
+                      font-size:var(--small);line-height:1.6;color:var(--quiet);font-weight:300;max-width:46em}
+
+/* Facts. Short, numeric, and the one place a figure may carry the brand colour
+   outright — this is what the reader is meant to leave with. */
+.body .numbers{margin:clamp(44px,8vw,72px) 0;padding:clamp(24px,4vw,30px) 0 clamp(24px,4vw,30px) 34px;
+               border-top:2px solid var(--ink);border-bottom:1px solid var(--ice);position:relative}
+.body .numbers:before{content:'';position:absolute;left:7px;top:clamp(24px,4vw,30px);bottom:clamp(24px,4vw,30px);
+                      width:2px;background:var(--glacier)}
+.body .numbers .n{padding:20px 0;position:relative}
+.body .numbers .n+.n{border-top:1px solid #EEF1EF}
+.body .numbers .dot{position:absolute;left:-31px;top:28px;width:10px;height:10px;border-radius:50%;
+                    background:var(--prana);box-shadow:0 0 0 4px var(--paper)}
+.body .numbers .amount{font-size:clamp(28px,7.4vw,40px);font-weight:400;color:var(--edit-text);
+                       line-height:1.05;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.body .numbers .cap{margin-top:10px;font-size:var(--small);line-height:1.62;font-weight:300;
+                    color:var(--body);max-width:42ch}
+.body .numbers .src{margin-top:20px;padding-top:15px;border-top:1px solid #EEF1EF;
+                    font-size:var(--micro);letter-spacing:.14em;text-transform:uppercase;font-weight:500;
+                    color:var(--quiet);line-height:1.7}
+
+/* Sources and notes. Everything after the rule is apparatus rather than prose:
+   its own ground, smaller and tighter, so a reader can see where the article
+   stops and its evidence begins. */
+.body .notes{margin-top:clamp(40px,7vw,66px);background:var(--snow);
+             padding:clamp(26px,5vw,42px) clamp(20px,4.4vw,36px)}
+.body .notes h4{margin-top:0;font-size:var(--micro);letter-spacing:.26em;text-transform:uppercase;
+                color:var(--ink);font-weight:600;line-height:1.5}
+.body .notes h4:before{content:'';display:block;width:26px;height:2px;background:var(--ink);margin-bottom:14px}
+/* Brand book §06A sets the rubric label as wide-tracked Editorial Turquoise.
+   These are the same object one level down: 01, 02, the note on evidence. */
+.body .notes h5{margin-top:clamp(30px,5vw,42px);font-size:var(--micro);letter-spacing:.22em;
+                text-transform:uppercase;color:var(--edit-text);font-weight:600;line-height:1.5}
+.body .notes p{font-size:var(--small);line-height:1.68;margin-top:.85em;max-width:44em;
+               color:#616870;font-weight:300}
+.body .notes b{color:var(--ink);font-weight:500}
+.body .notes i{color:var(--body);font-style:normal;font-weight:400}
+
+.artend{margin-top:clamp(40px,7vw,66px);border-top:1px solid var(--ice);padding-top:clamp(26px,4vw,42px);
+        display:flex;flex-wrap:wrap;gap:24px}
+
+.map{margin-top:24px;background:#FBFBF9;border:1px solid var(--ice);padding:clamp(10px,1.8vw,20px)}
+.map svg{width:100%;height:auto;overflow:visible}
+.map .g{stroke:var(--ice);stroke-width:.4;fill:none}
+.map .eq{stroke:var(--rule);stroke-width:.6}
+.map .dot{fill:var(--prana);cursor:pointer;stroke:var(--pure);stroke-width:.7}
+.map .lead{stroke:var(--prana);stroke-width:.35;opacity:.55}
+.map a:focus-visible .dot{stroke:var(--ink);stroke-width:1.4}
+.mapcap{margin-top:10px;font-size:var(--micro);line-height:1.6;color:var(--quiet);max-width:62ch}
+.mapcap b{color:var(--body);font-weight:500}
+.warn{margin:18px 0 4px;padding:14px 16px;background:var(--snow);border-left:2px solid var(--edit);
+      font-size:var(--small);line-height:1.65;color:var(--body)}
+.cur{font-style:normal;font-size:var(--micro);letter-spacing:.14em;color:var(--quiet);margin-left:4px}
+.map .lb{font-size:4.6px;letter-spacing:.4px;fill:var(--quiet);text-transform:uppercase}
+.thead,.trow{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr .7fr;gap:16px}
+.thead{padding:14px 0;border-bottom:1px solid var(--ice);font-size:var(--micro);
+       letter-spacing:.2em;text-transform:uppercase;color:var(--quiet);margin-top:26px}
+.trow{padding:20px 0;border-bottom:1px solid var(--ice);align-items:baseline;width:100%;transition:background .25s}
+.trow:hover{background:var(--snow)}
+.trow:hover .nm{color:var(--prana)}
+.trow .nm{font-size:var(--h3);color:var(--ink);transition:color .25s}
+.trow .nm small{display:block;font-size:var(--small);color:var(--quiet);margin-top:5px}
+.trow .v{font-size:var(--ui);color:var(--ink);white-space:nowrap}
+.trow .v small{display:block;font-size:var(--micro);color:var(--faint);margin-top:5px;white-space:normal}
+.trow .lbl{display:none}
+@media(max-width:680px){
+  .thead{display:none}
+  .trow{grid-template-columns:1fr 1fr;gap:12px 16px}
+  .trow .nm{grid-column:1/-1}
+  .trow .lbl{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:5px}
+  .trow .gw{grid-column:1/-1}
+}
+
+.chd{padding:22px 0 clamp(22px,3.4vw,38px)}
+.chd h1{font-size:var(--display);line-height:1.02}
+.chd .s{margin-top:14px;font-size:var(--micro);letter-spacing:.22em;text-transform:uppercase;color:var(--quiet)}
+.chd .b{margin-top:16px;display:flex;gap:18px;flex-wrap:wrap}
+.headline{border-top:1px solid var(--ink);border-bottom:1px solid var(--ice);padding:clamp(26px,4vw,44px) 0}
+.headline .l{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+.headline .v{margin-top:14px;font-size:clamp(44px,12vw,84px);font-weight:300;letter-spacing:-.032em;line-height:1;color:var(--ink)}
+.headline .v.sm{font-size:var(--lead);font-family:var(--serif);font-style:italic;color:var(--faint);letter-spacing:0}
+.headline .u{margin-top:14px;font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ice);border-bottom:1px solid var(--ice)}
+.duo>div{background:var(--pure);padding:clamp(20px,3vw,30px)}
+.duo .l{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+.duo .v{margin-top:12px;font-size:clamp(22px,5.4vw,30px);color:var(--ink);font-weight:300}
+.duo .v.sm{font-size:var(--ui);font-family:var(--serif);font-style:italic;color:var(--faint)}
+.duo .u{margin-top:9px;font-size:var(--micro);color:var(--faint);line-height:1.6}
+@media(max-width:680px){.duo{grid-template-columns:1fr}}
+.mix{display:flex;height:22px;background:var(--snow)}
+.mix i{height:100%;display:block}
+.key{display:flex;flex-wrap:wrap;gap:18px;padding:13px 0 0}
+.key span{font-size:var(--micro);letter-spacing:.18em;text-transform:uppercase;color:var(--quiet);
+          display:flex;align-items:center;gap:8px}
+.key b{width:18px;height:6px;display:block}
+.cb{border-top:1px solid var(--ice)}
+.cb>div{display:grid;grid-template-columns:minmax(90px,20%) 1fr auto;gap:16px;padding:14px 0;
+        border-bottom:1px solid var(--ice);align-items:center;font-size:var(--ui)}
+.cb .n{color:var(--quiet)} .cb .n.me{color:var(--ink)}
+.cb .bar{height:6px;background:var(--snow)}
+.cb .bar i{display:block;height:100%;background:var(--glacier)}
+.cb .bar i.me{background:var(--prana)}
+.cb .p{font-size:var(--small);color:var(--faint);min-width:46px;text-align:right}
+.cb .p.me{color:var(--ink)}
+.curve svg{width:100%;height:auto;overflow:visible;max-width:520px}
+.curve .ax{font-size:10px;letter-spacing:.12em;fill:var(--faint);text-transform:uppercase}
+.curve .pub{stroke:var(--rule);stroke-width:1;stroke-dasharray:3 3}
+details{margin-top:clamp(30px,5vw,52px);border-top:1px solid var(--ice);padding-top:20px}
+summary{list-style:none;cursor:pointer;font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--edit-text)}
+summary::-webkit-details-marker{display:none}
+
+.scrim{position:fixed;inset:0;background:rgba(47,52,56,.3);opacity:0;pointer-events:none;transition:opacity .3s;z-index:50}
+.scrim.on{opacity:1;pointer-events:auto}
+/* Closed, the drawer leaves the accessibility tree entirely. A panel that is
+   merely translated off screen is still read aloud and still holds focus. */
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(560px,100%);background:var(--pure);
+        border-left:1px solid var(--rule);transform:translateX(100%);visibility:hidden;
+        transition:transform .34s cubic-bezier(.2,.7,.3,1),visibility 0s linear .34s;
+        z-index:51;overflow-y:auto;padding:32px 28px 56px}
+.drawer.on{transform:none;visibility:visible;transition:transform .34s cubic-bezier(.2,.7,.3,1),visibility 0s}
+.drawer .x{float:right;font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+.drawer h3{clear:both;margin:18px 0 5px;font-size:var(--h3);font-weight:400}
+.drawer .ds{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--quiet)}
+.cl{border-top:1px solid var(--ice);margin-top:22px}
+.cl .ln{padding:13px 0;border-bottom:1px solid var(--ice)}
+.cl .t{display:grid;grid-template-columns:1fr auto;gap:14px;font-size:var(--ui);align-items:baseline}
+.cl .amt{color:var(--ink);white-space:nowrap;text-align:right;min-width:82px}
+.cl .rt{margin-top:6px;font-size:var(--small);color:var(--quiet)}
+.cl .sum{border-bottom:0;border-top:1px solid var(--ink);padding-top:15px}
+.cl .sum .t{font-size:var(--h3);color:var(--ink)}
+.mt{border-top:1px solid var(--ice);margin-top:26px}
+.mt>div{display:grid;grid-template-columns:minmax(120px,40%) 1fr;gap:14px;padding:11px 0;
+        border-bottom:1px solid var(--ice);font-size:var(--small)}
+.mt .a{font-size:var(--micro);letter-spacing:.18em;text-transform:uppercase;color:var(--quiet)}
+@media(max-width:680px){
+  .drawer{width:100%;height:88%;top:auto;bottom:0;border-left:0;border-top:1px solid var(--rule);
+          transform:translateY(100%);padding:20px 22px 44px}
+  .drawer.on{transform:none}
+  .mt>div{grid-template-columns:1fr;gap:4px}
+}
+
+.cw{overflow-x:auto;margin-top:6px}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{text-align:left;padding:16px 14px 16px 0;border-bottom:1px solid var(--ice);font-size:var(--ui);vertical-align:baseline}
+th{font-size:var(--micro);letter-spacing:.18em;text-transform:uppercase;color:var(--quiet);font-weight:400}
+th.c{font-size:var(--h3);font-weight:400;color:var(--ink);letter-spacing:-.01em;text-transform:none}
+td.b{color:var(--ink);white-space:nowrap}
+tr td:first-child{font-size:var(--micro);letter-spacing:.18em;text-transform:uppercase;color:var(--quiet)}
+.cmpcards{display:none}
+@media(max-width:680px){.cw{display:none}.cmpcards{display:block}}
+
+.pre{background:var(--snow);border:1px solid var(--ice);padding:clamp(18px,3vw,26px);margin-top:22px;
+     font-family:ui-monospace,Menlo,monospace;font-size:var(--small);line-height:2;color:var(--ink);
+     overflow-x:auto;white-space:pre}
+footer{border-top:1px solid var(--ice);padding:44px 0 66px;text-align:center}
+footer img{width:38px;margin:0 auto 18px}
+.footlinks{display:flex;justify-content:center;flex-wrap:wrap;gap:28px;margin-bottom:24px}
+footer .txt{font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase;color:var(--faint);line-height:2.6}
+footer .txt b{font-weight:400;color:var(--quiet)}
+/* The footer sets everything in tracked capitals, which is right for a label
+   and wrong for an address: EDITORIAL@TWJ.WORLD reads as a design element
+   rather than as the literal string somebody has to type. */
+footer .mail{color:var(--edit-text);border-bottom:1px solid var(--arctic);
+             text-transform:none;letter-spacing:.02em;font-size:13px}
+footer .mail:hover{color:var(--ink)}
+.gone{padding:clamp(60px,10vw,120px) 0}
+.gone h1{font-size:var(--h1);max-width:16ch}
+.gone p{margin-top:20px;font-size:var(--ui);line-height:1.75;max-width:48ch;color:var(--body)}
+.gone .rows{margin-top:clamp(30px,5vw,50px)}
+.skip{position:absolute;left:-9999px;top:0;z-index:60;background:var(--ink);color:var(--pure);
+      padding:12px 18px;font-size:var(--micro);letter-spacing:.2em;text-transform:uppercase}
+.skip:focus{left:8px;top:8px}
+main:focus{outline:none}
+noscript .ns{padding:clamp(30px,5vw,60px) 0;border-top:1px solid var(--ice)}
+noscript .ns h2{font-size:var(--h3);margin-bottom:14px}
+noscript .ns li{padding:7px 0;font-size:var(--ui)}
+noscript .ns a{color:var(--edit-text)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <a class="brand" href="__ROOT__" data-route="/" aria-label="The Water Journal, home">
+    <img id="logo" alt="" width="160" height="160"><span>The Water Journal</span>
+  </a>
+  <hr class="hr">
+  <div class="kick" id="kick"></div>
+</header>
+<nav aria-label="Sections"><div class="wrap"><div class="navrow" id="nav"></div></div></nav>
+
+<main id="main" tabindex="-1">
+  <section class="page on" id="p-home"><div id="homeBody"></div></section>
+  <section class="page" id="p-journal"><div class="wrap" id="journalBody"></div></section>
+  <section class="page" id="p-article"><div class="col art" id="articleBody"></div></section>
+  <section class="page" id="p-index"><div class="wrap" id="indexBody"></div></section>
+  <section class="page" id="p-city"><div class="wrap" id="cityBody"></div></section>
+  <section class="page" id="p-compare"><div class="wrap" id="compareBody"></div></section>
+  <section class="page" id="p-method"><div class="col" id="methodBody"></div></section>
+  <section class="page" id="p-about"><div class="col" id="aboutBody"></div></section>
+  <section class="page" id="p-404"><div class="col" id="goneBody"></div></section>
+</main>
+
+<noscript>__NOSCRIPT__</noscript>
+
+<div class="progress" id="progress"></div>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="The arithmetic"><div id="drawerBody"></div></aside>
+
+<footer>
+  <img id="footlogo" alt="" width="160" height="160">
+  <hr class="hr">
+  <div class="footlinks">
+    <a class="link" href="__ROOT__methodology" data-route="/methodology">Methodology</a>
+    <a class="link" href="__ROOT__independence" data-route="/independence">Editorial independence</a>
+    <a class="link" href="__ROOT__water-index" data-route="/water-index">Water Index</a>
+    <a class="link" href="mailto:editorial@twj.world">Contact</a>
+  </div>
+  <!-- A publication that runs a public corrections log has to be reachable by
+       someone who has found something wrong in it. The address is written out
+       rather than hidden behind the word, so it can be copied from a phone. -->
+  <div class="txt"><b>The Water Journal</b><br>
+    <a class="mail" href="mailto:editorial@twj.world">editorial@twj.world</a><br>
+    Corrections, press and data questions<br>
+    twj.world · Established by Prana Spring</div>
+</footer>
+
+<script id="payload" type="application/json">__PAYLOAD__</script>
+<script>
+const D=JSON.parse(document.getElementById('payload').textContent);
+const CITIES=D.cities, ART=D.articles, RUB=Object.fromEntries(D.rubrics.map(r=>[r.id,r]));
+const byId=id=>CITIES.find(c=>c.id===id);
+const rubName=id=>RUB[id]?RUB[id].name:id;
+const LOGO=D.brand&&D.brand.mark?D.brand.mark:'';
+const MIX={surface_water:'#8FD5DF',groundwater:'#C7EAF2',desalination:'#00B1AE',reuse:'#0CA7B8',
+           imported_water:'#D8DDDC',local_catchment:'#8FD5DF',reclaimed_water_newater:'#0CA7B8'};
+const MIXL={surface_water:'Surface',groundwater:'Groundwater',desalination:'Desalination',reuse:'Reuse',
+            imported_water:'Imported',local_catchment:'Catchment',reclaimed_water_newater:'NEWater'};
+const tag=c=>`<span class="tag ${c.grade.toLowerCase()}"><i></i>Grade ${c.grade}</span>`;
+/* A letter with no key is a letter. Wording is Rule 5.2's, unshortened: the
+   grade measures the uncertainty in the figure, not the quality of the city. */
+const GRADEL={
+  A:'no material assumption \u2014 the figure may be sorted, ranked and compared',
+  B:'one disclosed assumption, under 1% of the bill \u2014 comparable, with the assumption printed',
+  C:'over 1%, or a tariff that cannot be standardized \u2014 shown as context or a range, never ranked'};
+const gradeNote=c=>`<p class="note gradekey"><b>Grade ${c.grade}</b> \u2014 ${GRADEL[c.grade]||''}.
+  <a class="link" href="${href('/methodology')}" data-route="/methodology">How the grade is set ${ARR}</a></p>`;
+const ARR='<span class="a">→</span>';
+
+/* ── Routing ────────────────────────────────────────────────────────────────
+   Every view has an address. The build writes one static file per address, so
+   /city/dubai is a page a reader can bookmark, a colleague can be sent, and a
+   crawler can fetch — not a state this script happens to be in.
+
+   Opened from disk there is no server to resolve those paths, so the same
+   routes run off the hash instead. One route table, three transports — and the
+   third one is the reason this comment is longer than it was.
+
+   The single preview file gets opened in places that are neither a server nor
+   a filesystem: a sandboxed iframe, a data: URL, an in-app document viewer.
+   In a srcdoc frame `location.pathname` reads "srcdoc", which resolved to no
+   route and rendered a 404, and `history.pushState` throws on an opaque
+   origin, which killed every click. Detecting `file:` and assuming everything
+   else was a server was the bug.
+
+   So the transport is not guessed from the protocol. It is tested:
+
+     push    a real server, and pushState is actually permitted
+     hash    no server, but the address bar can hold a fragment
+     memory  neither — the route lives in a variable and the page still works
+
+   Degrading to memory costs the back button. Guessing wrong costs the site. */
+const ROOT=D.site&&D.site.base_path?D.site.base_path:'/';
+const ORIGIN=D.site&&D.site.origin?D.site.origin:'';
+
+let MODE=(function(){
+  try{
+    if(/^https?:$/.test(location.protocol)){
+      /* Permission is not implied by the scheme. Ask. */
+      history.replaceState(history.state,'',location.href);
+      return 'push';
+    }
+    if(location.protocol==='file:') return 'hash';
+  }catch(e){}
+  return 'memory';
+})();
+
+const href=r=>MODE==='push'?((ROOT.replace(/\/$/,'')+r)||'/'):('#'+r);
+const canonical=r=>ORIGIN?ORIGIN+((ROOT.replace(/\/$/,'')+r)||'/'):'';
+
+const PAGES=[['/journal','Journal'],['/water-index','Water Index'],['/methodology','Methodology']];
+const KICK={home:'The world, explained through water',journal:'Stories',article:'',
+            index:'What water costs, and why',city:'City record',compare:'Compare',
+            method:'How we measure water',about:'Ownership and independence',
+            '404':'Not found'};
+const nav=document.getElementById('nav');
+PAGES.forEach(function(p){const a=document.createElement('a');a.textContent=p[1];
+  a.href=href(p[0]);a.dataset.route=p[0];nav.appendChild(a);});
+
+let CURRENT='/';
+function show(id,route){
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('on',p.id==='p-'+id));
+  nav.querySelectorAll('a').forEach(a=>route&&(a.dataset.route===route
+    ||(a.dataset.route!=='/'&&route.indexOf(a.dataset.route+'/')===0))
+    ?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));
+  document.getElementById('kick').textContent=KICK[id]||'';
+}
+
+/* The head is part of the page, so it changes when the page does. */
+function head(title,desc,image,type){
+  document.title=title;
+  const set=(sel,attr,val)=>{const el=document.querySelector(sel);if(el&&val!=null)el.setAttribute(attr,val);};
+  set('meta[name="description"]','content',desc);
+  set('meta[property="og:title"]','content',title);
+  set('meta[name="twitter:title"]','content',title);
+  set('meta[property="og:description"]','content',desc);
+  set('meta[name="twitter:description"]','content',desc);
+  set('meta[property="og:type"]','content',type||'website');
+  if(image){set('meta[property="og:image"]','content',image);set('meta[name="twitter:image"]','content',image);}
+  const c=canonical(CURRENT);
+  if(c){set('link[rel="canonical"]','href',c);set('meta[property="og:url"]','content',c);}
+}
+
+function navigate(route,opts){
+  opts=opts||{};
+  if(route===CURRENT&&!opts.force) return;
+  if(MODE==='push'&&!opts.silent){
+    try{ history[opts.replace?'replaceState':'pushState']({},'',href(route)); }
+    /* A transport that fails once will fail again. Drop to memory and keep
+       the site usable rather than throwing on every subsequent click. */
+    catch(e){ MODE='memory'; }
+  } else if(MODE==='hash'){
+    if(location.hash.slice(1)!==route){
+      try{ location.hash=route; return; }catch(e){ MODE='memory'; }
+    }
+  }
+  paint(route,opts);
+}
+
+function readRoute(){
+  if(MODE==='memory') return '/';
+  if(MODE==='hash') return location.hash.slice(1)||'/';
+  let p=location.pathname;
+  if(ROOT!=='/'&&p.indexOf(ROOT)===0) p=p.slice(ROOT.length-1);
+  p=p.replace(/index\.html$/,'').replace(/\/+$/,'');
+  return p||'/';
+}
+
+function paint(route,opts){
+  try{ return paintRoute(route,opts); }
+  catch(e){
+    /* A view that throws must not leave a blank page with no way out. */
+    console.error(e);
+    gone(route);
+  }
+}
+
+function paintRoute(route,opts){
+  opts=opts||{};
+  CURRENT=route;
+  const seg=route.split('/').filter(Boolean);
+  let ok=true;
+  if(!seg.length) home();
+  else if(seg[0]==='journal') ok=journal(seg[1]||'all');
+  else if(seg[0]==='article') ok=article(seg[1]);
+  else if(seg[0]==='city') ok=city(seg[1]);
+  else if(seg[0]==='water-index') indexPage();
+  else if(seg[0]==='compare') comparePage();
+  else if(seg[0]==='methodology') methodPage();
+  else if(seg[0]==='independence') aboutPage();
+  else ok=false;
+  if(!ok) gone(route);
+  delink();
+  if(!opts.keepScroll) window.scrollTo({top:0,behavior:'instant'});
+  /* A screen reader is told the page changed; a sighted reader sees it. */
+  if(!opts.initial) document.getElementById('main').focus({preventScroll:true});
+}
+
+addEventListener('popstate',()=>paint(readRoute(),{silent:true}));
+addEventListener('hashchange',()=>{if(MODE==='hash')paint(readRoute());});
+
+/* Capture phase, and the event stops here. In an embedded viewer the host page
+   also listens for taps on anchors and offers to open them externally; a route
+   that never leaves this document must not reach that listener at all. */
+document.addEventListener('click',function(e){
+  if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+  const t=e.target.closest('[data-trace]');
+  if(t){e.preventDefault();e.stopPropagation();drawer(t.dataset.trace,t);return;}
+  const a=e.target.closest('[data-route]');
+  if(!a||a.target==='_blank') return;
+  e.preventDefault(); e.stopPropagation();
+  navigate(a.dataset.route);
+},true);
+
+/* Without an href an anchor is no longer keyboard-operable, so the keyboard
+   contract is restored explicitly rather than lost with the attribute. */
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Enter'&&e.key!==' ') return;
+  const a=e.target.closest&&e.target.closest('[data-route]:not([href])');
+  if(!a) return;
+  e.preventDefault();
+  navigate(a.dataset.route);
+});
+
+/* Where a path cannot be navigated to, the href is removed rather than left
+   pointing somewhere misleading. A real address is only advertised as one when
+   the address really resolves — which is exactly when MODE is push. */
+function delink(){
+  if(MODE==='push') return;
+  document.querySelectorAll('a[data-route][href]').forEach(function(a){
+    a.removeAttribute('href');
+    a.setAttribute('role','link');
+    a.tabIndex=0;
+  });
+}
+
+const LOGO_EL=[document.getElementById('logo'),document.getElementById('footlogo')];
+
+LOGO_EL.forEach(el=>{if(el)el.src=LOGO;});
+if(!document.querySelector('link[rel="icon"]').getAttribute('href'))
+  document.querySelector('link[rel="icon"]').href=LOGO;
+const bar=document.getElementById('progress');
+const setNav=()=>document.documentElement.style.setProperty('--navh',document.querySelector('nav').offsetHeight+'px');
+setNav(); addEventListener('resize',setNav);
+addEventListener('scroll',function(){
+  const art=document.getElementById('p-article');
+  if(!art.classList.contains('on')){bar.style.width='0';return;}
+  const h=art.scrollHeight-innerHeight;
+  bar.style.width=h>0?Math.min(100,(scrollY/h)*100)+'%':'0';
+},{passive:true});
+
+/* Two secondary pieces, side by side and equal.
+   The earlier draft made them unequal, 60/40, on the argument that equal weight
+   is what a catalogue does. That was wrong for this page: the hero already
+   carries the hierarchy, and a second tier that ranks itself internally reads
+   as fussiness rather than as editing. These two are chosen to show the range —
+   fundamental science beside a city — and neither is subordinate to the other.
+   No "Featured", no "Editor's Pick". The rubric above the headline is the
+   hierarchy, and it is already there. */
+function secondary(){
+  const J=(D.stories&&D.stories.journal)||{};
+  const two=(J.secondary||[]).map(k=>ART.find(a=>a.slug===k)).filter(Boolean).slice(0,2);
+  if(two.length<2) return '';
+  return `<div class="duostory">${two.map(a=>
+    `<a class="ds" href="${href('/article/'+a.slug)}" data-route="/article/${a.slug}">
+      ${a.cover?`<span class="c"><img src="${a.cover}" alt="${a.cover_alt||''}" loading="lazy"
+        width="${a.cover_w||1080}" height="${a.cover_h||1350}"></span>`:''}
+      <span class="r">${rubName(a.rubric)} \u00b7 ${a.minutes} min</span>
+      <h3>${a.title}</h3>
+      ${a.standfirst?`<p>${clamp(a.standfirst,150)}</p>`:''}</a>`).join('')}</div>`;
+}
+
+/* Excerpts are cut, not shortened by the author. The hero prints its dek in
+   full because it has the room; the tier below gets two or three lines and the
+   archive one or two. Uniform length is what makes nine pieces look like nine
+   rows of a table. Cut at a word, and only where the sentence has not already
+   ended before the limit. */
+function clamp(t,n){
+  if(!t||t.length<=n) return t;
+  const cut=t.slice(0,n);
+  return cut.slice(0,cut.lastIndexOf(' ')).replace(/[,;:\u2014-]$/,'')+'\u2026';
+}
+
+function list(items,showRubric){
+  if(!items.length) return '<p class="note">Nothing published yet.</p>';
+  return '<div class="alist">'+items.map(a=>`<a href="${href('/article/'+a.slug)}" data-route="/article/${a.slug}">
+    <span class="th">${a.cover?`<img src="${a.cover}" alt="" loading="lazy" width="${a.cover_w||1080}" height="${a.cover_h||1350}">`:''}</span>
+    <span>${showRubric?`<span class="r">${rubName(a.rubric)}</span>`:''}
+      <h3>${a.title}</h3>${a.standfirst?`<p>${a.standfirst}</p>`:''}
+      <span class="m">${a.minutes} min read</span></span></a>`).join('')+'</div>';
+}
+
+/* home */
+/* The home page's view of the Journal: one current story and two beside it,
+   and then out to the Journal itself.
+   It used to print the whole archive — nine pieces at uniform size, which is
+   the catalogue the Journal has just stopped being. A front page is not an
+   index of everything behind it; it is an argument for going further in.
+   The pieces here are the Journal's own three, minus whatever the home page is
+   already featuring above, so the same story is never shown twice on one
+   screen. */
+function fromJournal(feat){
+  const J=(D.stories&&D.stories.journal)||{};
+  const bySlug=k=>ART.find(a=>a.slug===k);
+  const pool=[J.lead,...(J.secondary||[])].map(bySlug).filter(Boolean)
+    .filter(a=>!feat||a.slug!==feat.slug);
+  const rest=ART.filter(a=>(!feat||a.slug!==feat.slug)&&!pool.includes(a));
+  const picks=[...pool,...rest].slice(0,3);
+  if(!picks.length) return '';
+  const [one,...two]=picks;
+  return `<div class="sect fj"><div class="h"><b>From the Journal</b>
+      <a class="link" href="${href('/journal')}" data-route="/journal">View the Journal ${ARR}</a></div>
+    <a class="fj-one" href="${href('/article/'+one.slug)}" data-route="/article/${one.slug}">
+      ${one.cover?`<span class="c"><img src="${one.cover}" alt="${one.cover_alt||''}"
+        width="${one.cover_w||1080}" height="${one.cover_h||1350}" loading="lazy"></span>`:''}
+      <span class="t"><span class="r">${rubName(one.rubric)} \u00b7 ${one.minutes} min</span>
+        <h3>${one.title}</h3>${one.standfirst?`<p>${one.standfirst}</p>`:''}</span></a>
+    ${two.length?`<div class="fj-two">${two.map(a=>
+      `<a href="${href('/article/'+a.slug)}" data-route="/article/${a.slug}">
+        <span class="r">${rubName(a.rubric)} \u00b7 ${a.minutes} min</span>
+        <h4>${a.title}</h4>${a.standfirst?`<p>${clamp(a.standfirst,110)}</p>`:''}</a>`).join('')}</div>`:''}
+  </div>`;
+}
+
+function home(){
+  const S=D.stories, feat=ART.find(a=>a.slug===(S.featured&&S.featured.article));
+  const cards=(S.cards||[]).map(k=>ART.find(a=>a.slug===k.slug)).filter(Boolean);
+  /* The title and description described the Water Index and left a reader with
+     the impression that the Index is the whole publication. It is one part of
+     it. "What water costs, and why" now belongs to the Index, where it is true. */
+  head('The Water Journal — Water, explained differently',
+       'An editorial and data publication exploring the world through water \u2014 science, cities, Earth, human performance, myth, and the systems that shape how we live.',
+       feat&&feat.cover_absolute||null,'website');
+  show('home','/');
+  document.getElementById('homeBody').innerHTML=`
+  <div class="wrap"><div class="statement">
+    <h1>The world, explained through <em>water</em>.</h1>
+    <p>A publication about a single molecule and everything it touches — and a dataset that measures what it costs, where it comes from, and what it takes to keep it flowing.</p>
+  </div>
+  ${feat?`<div class="lead"><div class="k">${S.featured.kicker} · ${rubName(feat.rubric)}</div>
+    <h2>${feat.title}</h2>${feat.standfirst?`<p>${feat.standfirst}</p>`:''}
+    <a class="link" href="${href('/article/'+feat.slug)}" data-route="/article/${feat.slug}" style="margin-top:22px">Read ${ARR}</a></div>`:''}</div>
+  ${feat&&feat.cover?`<a class="posterlink" href="${href('/article/'+feat.slug)}" data-route="/article/${feat.slug}" aria-label="${feat.title}"><figure class="poster">
+    <img src="${feat.cover}" alt="${feat.cover_alt||''}"
+    width="${feat.cover_w||1080}" height="${feat.cover_h||1350}" fetchpriority="high">${
+      feat.cover_credit?`<figcaption>${feat.cover_credit}</figcaption>`:''}</figure></a>`:''}
+  <div class="wrap">
+    ${fromJournal(feat)}
+    <div class="sect"><div class="h"><b>Water Index</b>
+      <a class="link" href="${href('/water-index')}" data-route="/water-index">All cities ${ARR}</a></div>
+      <p class="note" style="margin-top:14px;max-width:54ch">What a standardized household pays for tap water, calculated
+        from each city's own published tariff and shown with its arithmetic and its sources.</p></div>
+    <div class="strip">${CITIES.map(c=>`<a href="${href('/city/'+c.id)}" data-route="/city/${c.id}"><div class="c">${c.name}</div>
+      ${c.not_priced?`<div class="v na" style="font-size:var(--ui)">${c.public_headline||'Not yet priced'}</div><div class="u">${c.withholding_reason_public||'source not readable'}</div>`
+        :c.relief?`<div class="v num">${c.symbol} ${c.relief.payable_m3.toFixed(2)}</div>
+          <div class="u">paid today · standing tariff ${c.symbol} ${c.relief.structural_m3.toFixed(2)}</div>`
+        :`<div class="v num">${c.symbol} ${c.price_m3.toFixed(2)}</div><div class="u">per 1,000 litres</div>`}</a>`).join('')}</div>
+    <p class="note">The cost of 1,000 litres for one standardized household, in each city's own currency. <b>These ${CITIES.filter(c=>!c.not_priced).length} figures are not compared with one another</b> &mdash; that needs an exchange rate fixed to a named month, and none is set.</p>
+  </div>`;
+}
+
+/* journal */
+function journal(filter){
+  filter=filter||'all';
+  if(filter!=='all'&&!RUB[filter]) return false;
+  const sel=filter==='all'?ART:ART.filter(a=>a.rubric===filter), r=RUB[filter];
+  /* The Journal opens with the newest piece at cover size, then the archive.
+     A publication with strong covers that shows them at 118 px is filing, not
+     publishing. Counts are not printed: with a small archive "Science 1" says
+     more about the age of the title than about the section. */
+  /* Two pieces published on one day tie on date, and the tie was being broken
+     by the order the files happened to be read in. The editor's first card
+     decides it instead; ART[0] is the fallback when no card is set. */
+  const latest=(D.stories&&D.stories.cards||[]).map(k=>ART.find(a=>a.slug===k.slug)).find(Boolean)||ART[0];
+  /* Three levels, and which piece sits on each is an editorial decision read
+     from content/stories.json. Newest-first is a sort order; it is not a lead.
+     If the editor has named nothing, the page falls back to the newest piece
+     and the two after it, so it still works — it just stops claiming anyone
+     chose. */
+  const J=(D.stories&&D.stories.journal)||{};
+  const bySlug=k=>ART.find(a=>a.slug===k);
+  const lead=filter==='all'
+    ? (bySlug(J.lead)||(D.stories&&D.stories.cards||[]).map(k=>bySlug(k.slug)).find(Boolean)||ART[0])
+    : null;
+  const two=filter==='all'
+    ? ((J.secondary||[]).map(bySlug).filter(Boolean).slice(0,2))
+    : [];
+  const shown=new Set([lead&&lead.slug,...two.map(a=>a.slug)].filter(Boolean));
+  document.getElementById('journalBody').innerHTML=
+   (filter==='all'
+    ? `<div class="hero"><div class="eyebrow">The Journal</div>
+        <h1>Stories about the systems, science and ideas hidden inside water.</h1></div>
+       ${lead?`<a class="hero-story" href="${href('/article/'+lead.slug)}" data-route="/article/${lead.slug}">
+          <span class="t"><span class="r">${rubName(lead.rubric)}</span>
+            <h2>${lead.title}</h2>${lead.standfirst?`<p>${lead.standfirst}</p>`:''}
+            <span class="m">${lead.minutes} min read</span></span>
+          ${lead.cover_story||lead.cover?`<span class="c"><img src="${lead.cover_story||lead.cover}" alt="${lead.cover_alt||''}"
+            width="${lead.cover_w||1080}" height="${lead.cover_h||1350}" fetchpriority="high"></span>`:''}</a>`:''}
+       ${secondary()}
+       <div class="sections">
+        <a href="${href('/journal')}" data-route="/journal" aria-current="page"><span class="nm">All stories</span>
+          <span class="ln">Everything published, newest first.</span></a>
+        ${D.rubrics.map(x=>{const n=ART.filter(a=>a.rubric===x.id).length;
+          const inner=`<span class="nm">${x.name}</span><span class="ln">${x.line}</span>`;
+          return n?`<a href="${href('/journal/'+x.id)}" data-route="/journal/${x.id}">${inner}</a>`
+                  :`<span class="off">${inner}</span>`}).join('')}
+       </div>`
+    : `<div class="secwrap"><div class="secbar"><a href="${href('/journal')}" data-route="/journal" class="all">← All stories</a>
+        ${D.rubrics.map(x=>{const n=ART.filter(a=>a.rubric===x.id).length;
+          return n?`<a href="${href('/journal/'+x.id)}" data-route="/journal/${x.id}" class="${filter===x.id?'on':''}">${x.name}</a>`
+                  :`<span class="off">${x.name}</span>`}).join('')}
+       </div></div>
+       <div class="sechead"><h1>${r?r.name:'Stories'}</h1>${r?`<p>${r.line}</p>`:''}</div>`)
+   + (filter==='all'?'<div class="latesthead">Latest</div>':'')
+   + list(filter==='all'?sel.filter(a=>!shown.has(a.slug)):sel, filter==='all');
+  head(filter==='all'?'The Journal — The Water Journal':`${r.name} — The Water Journal`,
+       filter==='all'
+        ? 'Stories about the systems, science and ideas hidden inside water.'
+        : r.line,
+       null,'website');
+  show('journal',filter==='all'?'/journal':'/journal/'+filter);
+  return true;
+}
+
+/* article */
+function article(slug){
+  const a=ART.find(x=>x.slug===slug); if(!a) return false;
+  document.getElementById('articleBody').innerHTML=`
+  ${a.cover||a.cover_story?`<figure class="bleed poster"><img src="${a.cover_story||a.cover}" alt="${a.cover_alt||''}"
+    width="${(a.cover_story&&a.cover_story_w)||a.cover_w||1080}" height="${(a.cover_story&&a.cover_story_h)||a.cover_h||1350}" fetchpriority="high">${
+    a.cover_credit?`<figcaption>${a.cover_credit}</figcaption>`:''}</figure>`:''}
+  <a class="back link" href="${href('/journal/'+a.rubric)}" data-route="/journal/${a.rubric}">← ${rubName(a.rubric)}</a>
+  <h1>${a.title}</h1>
+  ${a.standfirst?`<p class="stand">${a.standfirst}</p>`:''}
+  ${a.formula?`<div class="formula">${a.formula}</div>`:''}
+  <div class="meta"><span>${a.author||'The Water Journal'}</span><span aria-hidden="true">&middot;</span><span>${a.published||''}</span><span aria-hidden="true">&middot;</span><span>${a.minutes} min read</span></div>
+  <div class="body">${a.html}</div>
+  <div class="artend">
+    <a class="link" href="${href('/journal/'+a.rubric)}" data-route="/journal/${a.rubric}">More in ${rubName(a.rubric)} ${ARR}</a>
+    <a class="link" href="${href('/journal')}" data-route="/journal">All sections ${ARR}</a></div>`;
+  head(`${a.title} — The Water Journal`,
+       a.standfirst||`${rubName(a.rubric)} · The Water Journal`,
+       a.cover_absolute||null,'article');
+  show('article','/journal');
+  document.getElementById('kick').textContent=rubName(a.rubric);
+  return true;
+}
+
+/* water index */
+/* A schematic world outline in the map's own projection: x = lon + 180,
+   y = 90 - lat, which is what the dots use, so a dot lands on its own coast.
+   Deliberately coarse — fjords, deltas and small islands are not drawn, and the
+   caption already says the map is geography rather than price. Its whole job is
+   to give the dots a referent: a grid of latitude lines makes eleven cities look
+   like a scatter plot of nothing.
+   No borders, no names, no fills that compete with the dots. */
+const LAND='M174,54 171,51 171,47 178,46.5 179,44 175.3,42 180,40.5 184,38 188,36 190,33 192,34 199,35 204,33 208,30.5 201,27 205,24 201,20 208,19 220,22 225,24 235,21 240,19 250,17 258,16 270,14 285,13 295,16 310,18 320,17 330,20 340,20 350,21 360,24 360,28 343,30 343,33 337,38 335,40 330,44 323,45 321,41 315,46 311,47 310,51 306,52 305,50 302,51 300,54 302,59 300,65 294,68 290,69 288,75 286,80 284,80 281,77 280,83 283,89 278,82 277,74 274,69 270,68 267,69 261,74 260,77 257,82 256,79 254,74 253,70 250,68 248,66 241,65 237,65 236,67 238,73 232,75 225,77 223,77.5 219,73 215,62 214,59 216,54 211,54 208,54 206,52 203,52 200,50 196,49 192,46 188,46 183,47 174,54ZM192,44 194,45 196,48 198,50 196,52 193,49 191,47 189,46 192,44ZM201,49 204,49 204,53 202,53 200,51 201,49ZM174,54 175,54.1 171,58 167,65 164,70 163,75.3 167,82 172,85.5 178,85 183,83.6 189,86 189.5,90 192,96 192,108 195,117 198,124 205,124 212,119 215,114 220,106 220,100 222,92 228,85 231,78 223,77.5 218,72 214,62 212,59 200,58 191,56 183,54 174,54ZM12,24 17,19 30,20 45,21 60,20 75,21 85,20 95,20 100,17 107,22 102,28 100,34 88,33 92,38 100,38 101,46 109,43 116,30 124,37 121,43 114,45 110,48 106,50 104,55 99,59 100,65 96,60 90,61 83,64 83,70 88,72 92,69 92,74 97,81 101,81 97,77 93,77 88,75 83,74 75,70 70,66 66,59 63,57 58,53 56,47 56,42 49,35 40,30 30,31 20,34 15,30 12,24ZM101,81 105,79 109,78 118,80 128,85 130,90 136,92 142,95 145,98 141,106 137,113 132,115 127,124 123,128 118,130 115,135 112,140 112,145 106,142 105,135 107,127 109,120 110,110 104,104 99,96 100,90 102,88 101,81ZM309,104 313,101 317,102 321,102 325,105 329,111 333,117 331,124 328,128 321,128 316,125 309,122 302,124 295,124 294,112 302,108 309,104ZM135,30 128,22 125,18 118,13 135,7 155,8 160,14 150,20 138,27 135,30ZM175,40 177,36 174,32 178,32 181,37 181,39 175,40ZM170,38 172,35 174,35 174,38 170,38ZM310,58 312,56 316,55 320,54 321,49 325,46 321,45 319,52 316,53 313,55 309,57 310,58ZM275,85 279,87 286,96 283,96 276,88 275,85ZM285,96 294,98 294,99 285,97 285,96ZM289,88 297,86 299,91 296,94 290,93 289,88ZM299,89 305,89 303,95 300,95 299,89ZM311,91 321,93 330,99 327,100 317,98 311,94 311,91ZM300,72 304,72 306,80 306,84 302,83 300,77 300,72ZM229,102 230,106 228,115 224,112 223,106 229,102ZM353,125 358,128 354,131 352,134 348,137 346,135 351,131 353,125ZM260,80 262,82 261,84 260,82 260,80ZM301,65 302,67 300,68 300,65 301,65ZM156,25 166,24 166,26 158,27 156,25ZM191,10 200,10 200,13 193,13 191,10ZM96,68 103,67 106,70 100,68 96,68ZM325,131 328,131 328,133 325,133 325,131Z';
+function indexPage(){
+  let g='';
+  for(let lon=-180;lon<=180;lon+=30) g+=`<line class="g" x1="${lon+180}" y1="0" x2="${lon+180}" y2="180"/>`;
+  for(let lat=-90;lat<=90;lat+=30) g+=`<line class="g ${lat===0?'eq':''}" x1="0" y1="${90-lat}" x2="360" y2="${90-lat}"/>`;
+  /* Dots stay where the coordinates put them; only labels move.
+     Abu Dhabi sat one pixel from Dubai and was invisible on the map while being
+     present in the table and having its own page — the first reading of "the
+     city is not displayed". Toronto and New York are five pixels apart, Hong
+     Kong and Singapore nine, and every city added makes this worse.
+
+     Moving a dot would be a lie about geography, so the dodge is applied to the
+     label alone: a colliding label is pushed down a line at a time and a hairline
+     leader connects it to its own dot. Deterministic — sorted west to east, so
+     the same set always renders the same way. */
+  /* One line step in SVG units. The map renders at about 0.9 px per unit and a
+     label is 5 px tall, so a step of 4.6 left Dubai and Abu Dhabi overlapping by
+     a pixel — measured, not guessed. 7 clears it. */
+  const LH=7;
+  const placed=[];
+  const dots=[...CITIES]
+    .map(c=>({c,x:c.lon+180,y:90-c.lat}))
+    .sort((a,b)=>a.x-b.x||a.y-b.y)
+    .map(({c,x,y})=>{
+      let ly=y+1.5, side=1, tries=0;
+      while(placed.some(p=>Math.abs(p.x-x)<30&&Math.abs(p.ly-ly)<LH*0.85)&&tries<8){
+        ly+=LH*side; side=-side; tries++;
+      }
+      /* Where the label has been pushed off its dot, say which dot it belongs
+         to rather than leaving the reader to guess. */
+      const leader=Math.abs(ly-(y+1.5))>0.5
+        ? `<line class="lead" x1="${x+3.4}" y1="${y}" x2="${x+4.2}" y2="${ly-1.2}"/>` : '';
+      placed.push({x,ly});
+      return `<a href="${href('/city/'+c.id)}" data-route="/city/${c.id}"><circle class="dot" cx="${x}" cy="${y}" r="2.6"><title>${c.name}</title></circle>
+            ${leader}<text class="lb" x="${x+4.8}" y="${ly}">${c.name}</text></a>`;
+    }).join('');
+  document.getElementById('indexBody').innerHTML=`
+  <div class="hero"><div class="eyebrow">TWJ Water Index</div>
+    <h1>What does water cost here — and why?</h1>
+    <p>One household in every city: 15,000 litres a month, on a meter, ordinary domestic account. The same sum, done the same way, from each city's own published tariff.</p></div>
+  <p class="warn"><b>Read down a row, not down the price column.</b> Each price is in that city's own
+   currency, so these figures sit in ${new Set(CITIES.filter(c=>!c.not_priced).map(c=>c.currency)).size}
+   different units and none is larger or smaller than another. Converting them needs an exchange rate fixed
+   to a named month, and none is set. The two proportion columns do compare directly.</p>
+  <p class="note gradekey" style="margin-top:22px"><b>The grade measures the figure, not the city.</b>
+   <b>A</b> \u2014 no material assumption; may be sorted and compared.
+   <b>B</b> \u2014 one disclosed assumption, under 1% of the bill.
+   <b>C</b> \u2014 over 1%, or a tariff that cannot be standardized; shown as context, never ranked.</p>
+  <div class="thead"><span>City</span><span>1,000 litres &middot; local currency</span><span>Wastewater share</span><span>Cost by volume</span><span>Data</span></div>
+  ${CITIES.map(c=>`<a class="trow" href="${href('/city/'+c.id)}" data-route="/city/${c.id}">
+    <span class="nm">${c.name}<small>${c.utility}</small></span>
+    ${c.not_priced
+      ? `<span style="grid-column:2/5"><span class="na">${c.public_headline||'Not yet priced'}${
+          c.withholding_reason_public?` — ${c.withholding_reason_public}`:` — ${c.blocked_by}`}</span></span>`
+      : `<span><span class="lbl">1,000 litres</span><span class="v num">${c.symbol} ${c.price_m3.toFixed(2)} ${c.symbol.trim()===c.currency?'':`<em class="cur">${c.currency}</em>`}<small>${c.relief?`standing tariff · ${c.symbol} ${c.relief.payable_m3.toFixed(2)} paid today`:`volumetric rate ${c.symbol} ${c.published_m3.toFixed(2)}`}</small></span></span>
+         <span><span class="lbl">Wastewater share</span><span class="v num">${c.services_publishable===false||c.ww_share==null?'<span class="na">held</span>':Math.round(c.ww_share)+'%'}<small>of the full bill</small></span></span>
+         <span><span class="lbl">Cost by volume</span><span class="v num">${c.curve.ratio>1.01?'+'+Math.round((c.curve.ratio-1)*100)+'%':'flat'}<small>${c.curve.ratio>1.01?'per litre for small households':'same at any volume'}</small></span></span>`}
+    <span class="gw">${tag(c)}</span></a>`).join('')}
+  <p class="note"><b>No ranking is published.</b> A subsidised tariff makes a bill small without making water cheap to produce.</p>
+  <div class="map"><svg viewBox="0 0 360 180" role="img" aria-label="Schematic world map of the cities in the Index; position is latitude and longitude, not price"><path class="land" d="${LAND}"/>${g}${dots}</svg>
+    <p class="mapcap"><b>Geography, not price.</b> A dot sits at the city&rsquo;s latitude and longitude. Vertical position is how far north a city is and says nothing about what water costs there &mdash; New York is above Dubai because it is further north. The
+      coastline is drawn coarsely and is there to give the dots a place to sit.</p></div>
+
+  ${CITIES.some(c=>c.relief)?`<p class="note"><b>Two prices where relief is live.</b> This table compares standing tariffs, because a city
+    under a temporary waiver measured against a city without one measures a budget decision rather than water. Where the two differ,
+    what the household actually pays today is printed beneath the tariff and leads that city\u2019s own page.</p>`:''}
+  <div class="blk actions">
+    <a class="link" href="${href('/compare')}" data-route="/compare">Compare cities side by side ${ARR}</a>
+    <a class="link" href="${href('/methodology')}" data-route="/methodology">How every figure is calculated ${ARR}</a>
+  </div>`;
+  head('Water Index — what a standardized household pays',
+       `What 15,000 litres a month costs in ${CITIES.length} cities, each calculated from that city\u2019s own published tariff and shown with its arithmetic, its sources and its comparability grade.`,
+       null,'website');
+  show('index','/water-index');
+}
+
+/* city */
+function curve(cv){
+  const W=520,H=180,P=36, ys=cv.points.map(p=>p[1]);
+  const lo=Math.min(cv.published,...ys)*.97, hi=Math.max(...ys)*1.03;
+  const X=v=>P+((v-5)/20)*(W-P-14), Y=v=>H-P-((v-lo)/(hi-lo||1))*(H-P-16);
+  return `<div class="curve"><svg viewBox="0 0 ${W} ${H}">
+   <line class="pub" x1="${P}" y1="${Y(cv.published).toFixed(1)}" x2="${W-14}" y2="${Y(cv.published).toFixed(1)}"/>
+   <text class="ax" x="${W-14}" y="${(Y(cv.published)-7).toFixed(1)}" text-anchor="end">Volumetric rate ${cv.published.toFixed(2)}</text>
+   <path d="${cv.points.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join(' ')}" fill="none" stroke="#00B1AE" stroke-width="1.8"/>
+   ${cv.points.map(p=>`<circle cx="${X(p[0]).toFixed(1)}" cy="${Y(p[1]).toFixed(1)}" r="${p[0]===15?3.4:2.2}" fill="${p[0]===15?'#2F3438':'#00B1AE'}"/>`).join('')}
+   ${cv.points.map(p=>`<text class="ax" x="${X(p[0]).toFixed(1)}" y="${H-12}" text-anchor="middle">${p[0]}</text>`).join('')}
+   <text class="ax" x="${P}" y="${H-1}">m³ per month</text></svg></div>`;
+}
+/* A row with no value is not a row with a value of zero. Nulls are dropped
+   from the chart and counted underneath it, because a bar of length nothing
+   labelled 0% is a claim, and it is the wrong one. */
+function cbar(key,me,label,fmt){
+  const all=D.comparables[key]; if(!all||!all.length) return '';
+  const rows=all.filter(r=>r.value!=null&&isFinite(r.value)); if(!rows.length) return '';
+  const held=all.length-rows.length;
+  const max=Math.max.apply(null,rows.map(r=>r.value));
+  return `<div class="blk"><h4>${label}</h4><div class="cb">${rows.map(r=>{const m=r.id===me;
+    return `<div><span class="n ${m?'me':''}">${byId(r.id).name}</span>
+      <span class="bar"><i class="${m?'me':''}" style="width:${(r.value/max)*100}%"></i></span>
+      <span class="p ${m?'me':''} num">${fmt(r.value)}</span></div>`}).join('')}</div>
+    ${held?`<p class="note">${held} ${held===1?'city is':'cities are'} not shown: the first block is free or
+      included, so there is no volumetric rate for the rest of the bill to sit outside of.</p>`:''}</div>`;
+}
+/* §5.4 — a city under temporary relief has two prices and both are real.
+   The page leads with what the household is billed and prints the standing
+   tariff beside it, because one figure would be a lie whichever was chosen:
+   the payable price answers what water costs a household this month, and the
+   structural price is the only one that can be compared with a city that has
+   no waiver. The basket takes the structural one and says so. */
+function relief(c){
+  const r=c.relief, p=r.policies[0]||{};
+  return `<div class="blk relief">
+    <h4>Two prices, and both are the tariff</h4>
+    <div class="duo">
+      <div><div class="l">Paid today</div><div class="v num">${c.symbol} ${r.payable_m3.toFixed(2)}</div>
+        <div class="u">${c.symbol} ${r.payable_month.toFixed(0)} a month · the headline</div></div>
+      <div><div class="l">Standing tariff</div><div class="v num">${c.symbol} ${r.structural_m3.toFixed(2)}</div>
+        <div class="u">${c.symbol} ${r.structural_month.toFixed(0)} a month · used for comparison</div></div>
+    </div>
+    <p class="note">The standing tariff charges ${r.factor.toFixed(2)} times what the household is billed while
+    the relief runs${p.from?`, from ${p.from} to ${p.to}`:''}. Nothing was repealed to produce the lower figure:
+    ${p.rule?p.rule+'. ':''}${p.funded_by?'It is funded by '+p.funded_by.split('.')[0].toLowerCase()+'. ':''}
+    ${p.application_required===false?'No application is required, so it is a feature of the charge rather than a discount somebody claims. ':''}</p>
+    ${p.period_note?`<p class="note">${p.period_note}</p>`:''}
+    ${p.issuer_characterisation?`<p class="note">The issuer calls it ${p.issuer_characterisation}.${p.repetition_note?' '+p.repetition_note:''}</p>`:''}
+    <p class="note"><b>Out of the index basket.</b> ${r.basket_reason.charAt(0).toUpperCase()+r.basket_reason.slice(1)}.
+    A frozen base must not embed a policy that will expire while the base does not.</p>
+  </div>`;
+}
+function city(id){
+  const c=byId(id); if(!c) return false;
+  document.getElementById('cityBody').innerHTML=`
+  <a class="back link" href="${href('/water-index')}" data-route="/water-index" style="padding-top:clamp(24px,4vw,44px)">← Water Index</a>
+  <div class="chd"><h1>${c.name}</h1><div class="s">${c.country} · ${c.utility}</div><div class="b">${tag(c)}</div>
+    ${gradeNote(c)}</div>
+  ${c.not_priced
+   ? `<div class="headline"><div class="l">Standardized cost</div><div class="v sm">${c.public_headline||'Not yet priced'}</div>
+        <div class="u" style="text-transform:none;letter-spacing:0;font-size:var(--ui);color:var(--body);margin-top:18px;max-width:52ch">${c.blocked_by}</div></div>
+      ${c.services_publishable&&c.services_month!=null
+        ? `<div class="blk"><h4>What is published</h4>
+             <div class="duo">
+               <div><div class="l">A month, water and wastewater</div>
+                 <div class="v num">${c.symbol} ${c.services_month.toFixed(2)}</div>
+                 <div class="u">${c.symbol} ${c.services_year.toFixed(0)} a year${c.services_grade?` · Grade ${c.services_grade}`:''}</div></div>
+               <div><div class="l">A month, water alone</div>
+                 <div class="v sm">Does not exist</div>
+                 <div class="u">the instrument does not divide</div></div>
+             </div>
+             ${c.services_note?`<p class="note">${c.services_note}</p>`:''}
+             <p class="note">Two metrics, two different kinds of blank. One figure is proved and published; the
+             other is not withheld but absent, because no arithmetic can split a rate the by-law sets whole.</p>
+           </div>`
+        : ''}`
+   : `<div class="headline"><div class="l">${c.relief?'Cost of 1,000 litres, paid today':'Cost of 1,000 litres'}</div>
+        <div class="v num">${c.symbol} ${(c.relief?c.relief.payable_m3:c.price_m3).toFixed(2)}</div>
+        <div class="u">standardized household · 15 m³ a month${c.relief?' · under temporary relief':''}</div>
+        <button class="link" data-trace="${c.id}" aria-haspopup="dialog" style="margin-top:24px">See the arithmetic ${ARR}</button></div>
+      ${c.relief?relief(c):''}
+      <div class="duo">
+        <div><div class="l">${c.relief?'A month, water · standing tariff':'A month, water'}</div><div class="v num">${c.symbol} ${c.bill_month.toFixed(2)}</div>
+          <div class="u">${c.symbol} ${c.bill_year.toFixed(0)} a year</div></div>
+        <div><div class="l">A month, with wastewater</div>
+          ${c.services_publishable===false||c.services_month==null
+            ? `<div class="v sm">Held</div><div class="u">${c.services_blocked_by||'Not published.'}</div>`
+            : `<div class="v num">${c.symbol} ${c.services_month.toFixed(2)}</div><div class="u">${c.ww_share==null?'wastewater share not computed':`wastewater ${Math.round(c.ww_share)}% of the bill`}</div>`}</div>
+      </div>
+      ${cbar('ww_share',id,'How much of the bill is wastewater',v=>Math.round(v)+'%')}
+      ${cbar('gap_percent',id,'How much of the bill sits outside the volumetric rate',v=>Math.round(v)+'%')}
+      <p class="note">Both comparisons are proportions, so they hold across currencies. The bills themselves do not, and are not compared.</p>
+      <div class="blk"><h4>Cost by volume</h4>${curve(c.curve)}
+        <p class="note">${c.curve.ratio>1.01
+          ? `A household on 5,000 litres a month pays about ${Math.round((c.curve.ratio-1)*100)}% more per litre than one on 25,000, because the fixed charges spread over less water.`
+          : `No fixed charge to spread, so the price per litre is the same at any volume.`}</p></div>`}
+  <div class="blk"><h4>Where the water comes from</h4>
+    <div class="mix">${c.mix.map(m=>`<i style="width:${100/c.mix.length}%;background:${MIX[m]||'#C7EAF2'}"></i>`).join('')}</div>
+    <div class="key">${c.mix.map(m=>`<span><b style="background:${MIX[m]||'#C7EAF2'}"></b>${MIXL[m]||m}</span>`).join('')}</div>
+    ${c.mix_note?`<p class="note">${c.mix_note}</p>`:''}</div>
+  <details><summary>Sources, assumptions and data quality</summary>
+    <div class="rows" style="margin-top:16px">
+      <div><span class="a">Comparability</span><span>${tag(c)}</span></div>
+      <div><span class="a">Tariff effective</span><span>${c.tariff_effective||'—'}</span></div>
+      <div><span class="a">Reconciled</span><span>${c.reconciled?'Against a verified invoice, held privately':'Not against an invoice'}</span></div>
+      ${c.public_statement?`<div><span class="a">Why no number</span><span>${c.public_statement}</span></div>
+      <div><span class="a">UWTI eligibility</span><span>No — ${c.withholding_reason_public}</span></div>
+      <div><span class="a">Evidence status</span><span>${c.evidence_status}. The reason for withholding is
+        itself established; it is a property of the tariff record and not of our work on it.</span></div>`:''}
+      ${c.reference_connection?`<div><span class="a">Reference connection</span><span>${
+        c.reference_connection.size}${c.reference_connection.basis==='size_independent'
+          ?' — the residential tariff carries no connection-size parameter':''}. ${
+        c.reference_connection.designation||''}</span></div>`:''}
+      ${c.validation?`<div><span class="a">Validation</span><span>${
+        [['Source verified',c.validation.source_verified],
+         ['Calculation verified',c.validation.calculation_verified],
+         ['Public reconciliation',c.validation.reconciled]]
+        .map(v=>`${v[0]} ${v[1]?'✓':'—'}`).join(' · ')}${
+        c.validation.reconciled?'':'. A utility publishes a tariff, not a worked example of this benchmark; an absent reconciliation is reported, not treated as a defect in the figure.'}</span></div>`:''}
+      ${pubRows(c)}
+      ${(c.scope||[]).map(s=>`<div><span class="a">Scope</span><span>${s}</span></div>`).join('')}
+      ${Object.keys(c.transparency||{}).map(k=>`<div><span class="a">${k.replace(/_/g,' ')}</span><span>${c.transparency[k]}</span></div>`).join('')}
+      ${(c.sources||[]).map(s=>`<div><span class="a">Source</span><span>${s.publisher} — ${s.title}</span></div>`).join('')}
+    </div></details>`;
+  head(`${c.name} — what water costs · The Water Journal`,
+       c.not_priced
+        ? (c.withheld_by_gate
+            ? `${c.name} is calculated but withheld. ${c.blocked_by}`
+            : `${c.name} is described but not priced. ${c.blocked_by}`)
+        : c.relief
+          ? `A standardized household in ${c.name} pays ${c.symbol} ${c.relief.payable_m3.toFixed(2)} per 1,000 litres while temporary relief runs, against ${c.symbol} ${c.relief.structural_m3.toFixed(2)} on the standing ${c.utility} tariff. Grade ${c.grade}, with both figures, the arithmetic and the sources shown.`
+          : `A standardized household in ${c.name} pays ${c.symbol} ${c.price_m3.toFixed(2)} per 1,000 litres on the ${c.utility} tariff. Grade ${c.grade}, with the arithmetic and sources shown.`,
+       null,'website');
+  show('city','/water-index');
+  return true;
+}
+
+/* Provenance is reported one metric at a time, because it is held one metric
+   at a time. A document behind the sewerage rate does not withhold the water
+   supply figure, and the page must not say that it does. */
+function pubRows(c){
+  const st=c.archive_status&&c.archive_status.by_metric;
+  /* The gate outranks provenance in this row. Complete provenance and a
+     refused city is exactly Singapore's state, and printing "Published"
+     against it would contradict the figure withheld above. */
+  if(c.gate_problems&&c.gate_problems.length)
+    return `<div><span class="a">Publication</span><span>Withheld by the acceptance gate — ${
+      c.gate_problems.join('; ')}. Provenance for the figure is complete; what is outstanding is listed here.</span></div>`;
+  if(!st) return `<div><span class="a">Publication</span><span>${c.archived?'Published':'Withheld — source snapshot not yet archived and hashed'}</span></div>`;
+  const miss=m=>(c.archive_status.sources_missing[m]||[]).join(', ');
+  const line=(label,m,held)=>`<div><span class="a">${label}</span><span>${
+    st[m]?(held?`Held — ${held}`:'Published'):`Withheld — not yet archived and hashed: ${miss(m)}`}</span></div>`;
+  return line('Publication · water supply','water_supply',null)
+       + (c.not_priced?'':line('Publication · total water services','total_water_services',
+            c.services_publishable===false?c.services_blocked_by:null));
+}
+
+/* the arithmetic — a modal, and treated as one:
+   focus enters it, stays inside it, and returns to the control that opened it.
+   Closed, it is inert and out of the accessibility tree. */
+const scrim=document.getElementById('scrim'), dr=document.getElementById('drawer');
+let lastTrigger=null;
+function drawer(id,trigger){
+  const c=byId(id); if(!c||c.not_priced) return;
+  lastTrigger=trigger||document.activeElement;
+  const w=c.components.filter(x=>x.stream==='water'), ww=c.components.filter(x=>x.stream==='wastewater');
+  document.getElementById('drawerBody').innerHTML=`
+   <button class="x" id="closeD">Close ✕</button>
+   <div class="ds">The arithmetic</div><h3>${c.name} · one month</h3>
+   <div class="ds">15,000 litres · ordinary metered household</div>
+   <div class="cl">${w.map(x=>`<div class="ln"><div class="t"><span>${x.name}</span>
+      <span class="amt num">${x.monthly.toFixed(2)}</span></div>${x.rate?`<div class="rt">${x.rate}</div>`:''}</div>`).join('')}
+     <div class="ln sum"><div class="t"><span>Water</span><span class="amt num">${c.symbol} ${c.bill_month.toFixed(2)}</span></div></div></div>
+   ${ww.length&&c.services_publishable!==false?`<div class="cl">${ww.map(x=>`<div class="ln"><div class="t"><span>${x.name}</span>
+      <span class="amt num">${x.monthly.toFixed(2)}</span></div>${x.rate?`<div class="rt">${x.rate}</div>`:''}</div>`).join('')}
+     <div class="ln sum"><div class="t"><span>Water and wastewater</span><span class="amt num">${c.symbol} ${c.services_month.toFixed(2)}</span></div></div></div>`:''}
+   <div class="mt">
+     <div><span class="a">Divided by</span><span>15 m³ → ${c.symbol} ${c.price_m3.toFixed(3)} per 1,000 litres</span></div>
+     <div><span class="a">Scenario</span><span>${D.scenario}</span></div>
+     <div><span class="a">Tariff effective</span><span>${c.tariff_effective}</span></div>
+     <div><span class="a">Comparability</span><span>Grade ${c.grade}</span></div>
+     ${(c.sources||[]).map(s=>`<div><span class="a">Source</span><span>${s.publisher} — ${s.title}</span></div>`).join('')}
+   </div>
+   ${c.grade_reason?`<p class="note">${c.grade_reason}</p>`:''}`;
+  scrim.classList.add('on'); dr.classList.add('on');
+  dr.removeAttribute('inert'); dr.removeAttribute('aria-hidden');
+  document.getElementById('closeD').onclick=closeDrawer;
+  document.getElementById('closeD').focus();
+}
+function closeDrawer(){
+  if(!dr.classList.contains('on')) return;
+  scrim.classList.remove('on'); dr.classList.remove('on');
+  dr.setAttribute('inert',''); dr.setAttribute('aria-hidden','true');
+  if(lastTrigger&&document.contains(lastTrigger)) lastTrigger.focus();
+  lastTrigger=null;
+}
+dr.setAttribute('inert',''); dr.setAttribute('aria-hidden','true');
+scrim.onclick=closeDrawer;
+addEventListener('keydown',function(e){
+  if(e.key==='Escape'){closeDrawer();return;}
+  if(e.key!=='Tab'||!dr.classList.contains('on')) return;
+  const f=[...dr.querySelectorAll('button,a[href],[tabindex]:not([tabindex="-1"])')]
+    .filter(el=>el.offsetParent!==null);
+  if(!f.length) return;
+  const first=f[0], last=f[f.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+});
+
+/* compare */
+function comparePage(){
+  const NP='<span class="na">withheld</span>';
+  /* The comparison is of standing tariffs — see the note under the table. The
+     payable row appears only when some city in the set carries relief, so the
+     column is never a row of dashes explaining a rule nobody is subject to. */
+  const anyRelief=CITIES.some(c=>c.relief);
+  const R=[['Cost of 1,000 litres',c=>c.not_priced?NP:`${c.symbol} ${c.price_m3.toFixed(2)}`],
+    ...(anyRelief?[['Paid today, under relief',c=>c.not_priced?NP:(c.relief?`${c.symbol} ${c.relief.payable_m3.toFixed(2)}`:'<span class="na">no relief</span>')]]:[]),
+    ['Published volumetric rate',c=>c.not_priced?NP:`${c.symbol} ${c.published_m3.toFixed(2)}`],
+    ['Charges beyond the rate',c=>c.not_priced||c.gap_percent==null||!isFinite(c.gap_percent)?NP:Math.round(c.gap_percent)+'%'],
+    ['A month, water',c=>c.not_priced?NP:`${c.symbol} ${c.bill_month.toFixed(2)}`],
+    ['A month, all in',c=>c.not_priced||c.services_publishable===false||c.services_month==null?NP:`${c.symbol} ${c.services_month.toFixed(2)}`],
+    ['A year, water',c=>c.not_priced?NP:`${c.symbol} ${c.bill_year.toFixed(0)}`],
+    ['Wastewater share',c=>c.not_priced||c.services_publishable===false||c.ww_share==null?NP:Math.round(c.ww_share)+'%'],
+    ['Cost by volume',c=>c.not_priced?NP:(c.curve.ratio>1.01?'+'+Math.round((c.curve.ratio-1)*100)+'% for small households':'flat')],
+    ['Where it comes from',c=>c.mix.map(m=>MIXL[m]||m).join(' · ')],
+    ['Comparability',c=>tag(c)]];
+  document.getElementById('compareBody').innerHTML=`
+  <a class="back link" href="${href('/water-index')}" data-route="/water-index" style="padding-top:clamp(24px,4vw,44px)">← Water Index</a>
+  <div class="hero"><div class="eyebrow">Compare</div><h1>${CITIES.length} cities, one household.</h1>
+    <p>The same sum in every column: 15,000 litres a month, on a meter, at the utility serving most of the city.</p></div>
+  <div class="cw"><table><tr><th></th>${CITIES.map(c=>`<th class="c"><a href="${href('/city/'+c.id)}" data-route="/city/${c.id}">${c.name}</a></th>`).join('')}</tr>
+   ${R.map((row,i)=>`<tr><td>${row[0]}</td>${CITIES.map(c=>`<td class="${i<8?'b num':''}">${row[1](c)}</td>`).join('')}</tr>`).join('')}</table></div>
+  <div class="cmpcards">${CITIES.map(c=>`<div style="border-top:1px solid var(--ice);padding:22px 0">
+    <div style="font-size:var(--h3);color:var(--ink)">${c.name}</div>
+    ${R.map(row=>`<div style="display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--ice);font-size:var(--small)">
+      <span style="font-size:var(--micro);letter-spacing:.18em;text-transform:uppercase;color:var(--quiet)">${row[0]}</span>
+      <span class="num" style="color:var(--ink);text-align:right">${row[1](c)}</span></div>`).join('')}</div>`).join('')}</div>
+  <p class="note">The prices are in ${new Set(CITIES.map(c=>c.currency)).size} currencies and are not read against one another. The percentages are.</p>`;
+  head('Compare — one household, every city in the Index',
+       'The same standardized household across every city in the Index. The prices sit in their own currencies and are not ranked; the proportions compare directly.',
+       null,'website');
+  show('compare','/water-index');
+}
+
+/* method */
+function methodPage(){
+document.getElementById('methodBody').innerHTML=`
+<div class="hero"><div class="eyebrow">Methodology</div><h1>How we measure water.</h1>
+ <p style="font-family:var(--serif);font-size:var(--lead);line-height:1.5;max-width:34ch;color:var(--ink)">Water has no single global price. A household bill, a desalination tariff and a water right are different things. We measure them separately.</p></div>
+<div class="rows">
+ ${[['What we measure','What one household pays for 15,000 litres of tap water in a month, and separately what it pays once wastewater is added.'],
+    ['Why 15,000 litres','A yardstick, not a claim about an average home. It is the point at which each published tariff is measured.'],
+    ['What is counted','The volumetric charge, standing and meter charges, surcharges, and tax. Everything a household must pay to receive water.'],
+    ['What is not','Connection fees, deposits, penalties, means-tested discounts, and property charges such as housing fees.'],
+    ['Why wastewater is separate','In New York it is 61% of the bill; in Dubai 31%. Folding it in would hide the difference.'],
+    ['Currencies','Local currency only. A converted figure needs an exchange rate fixed to a named month; until that is set we publish none.'],
+    ['How we check',`A primary document, an archived copy stored under a hash, and a publication checklist of
+      ${D.methodology_checklist.length} conditions every one of which is checked by code on every build \u2014 among them that
+      each stored rate appears verbatim in its own archived capture. The two-person review this page
+      once described was withdrawn in v1.3: the system contained one reviewer, so it held fully
+      evidenced cities indefinitely and caught nothing. What replaced it runs every time and never forgets.`],
+    ['What we do not say','A utility publishes its rate; a bill also carries surcharges and taxes, published too. Our figure is larger because it answers a different question, not because anything was concealed.']]
+  .map(r=>`<div><span class="a">${r[0]}</span><span>${r[1]}</span></div>`).join('')}
+</div>
+<div class="blk"><h4>The sum</h4>
+ <div class="pre">cost per 1,000 litres  =  the month's bill ÷ 15
+
+the month's bill  =  volumetric charge through the published blocks
+                   +  standing and meter charges
+                   +  surcharges
+                   +  tax
+                   −  universal automatic rebates</div>
+ <p class="note">The same sum is measured at 5, 10, 15, 20 and 25 m³, because two cities can cost the same at one volume and behave differently either side of it.</p></div>
+<div class="blk"><h4>Comparability</h4><div class="rows">
+ ${[['A','Reproducible from the current official tariff with no material assumption. May be ranked.'],
+    ['B','One disclosed assumption, and the bill could be more than one number by up to 1%. Shown with notice.'],
+    ['C','A system that cannot be standardized, or ambiguity above 1% of the bill. Shown as context, never ranked.']]
+  .map(r=>`<div><span class="a">Grade ${r[0]}</span><span>${r[1]}</span></div>`).join('')}</div>
+ <p class="note"><b>A grade measures uncertainty, not scope.</b> Where a figure describes a
+  defined subset of households — a metered account in a partly metered city — that is printed
+  beside the figure as a disclosure. It is not an error, and it does not lower the grade.</p></div>
+<div class="blk"><h4>The index</h4><div class="rows">
+ <div><span class="a">Name</span><span>${D.index.name} (${D.index.abbreviation}) measures the structural level of
+   residential tariff liability for a standard household service bundle. It records what a household is liable to
+   pay under the published tariff, not the utility&rsquo;s cost of producing water.
+   <small class="hist">Earlier versions used the name ${D.index.renamed_from.replace(/^TWJ /,'')}. It was renamed
+   because the measure concerns tariff liability, not production cost.</small></span></div>
+ <div><span class="a">Headline number</span><span>${D.index.headline_metric}, in local currency per m³</span></div>
+ <div><span class="a">Basket reading</span><span>The ${D.index.basket_reading} price. Where a city carries explicitly temporary relief, the page leads with what a household pays today and the basket uses the standing tariff — a base period must not embed a policy that will expire while the base does not.</span></div>
+ </div></div>
+<div class="blk"><h4>Version</h4><div class="rows">
+ <div><span class="a">Methodology</span><span>${D.methodology.version}, frozen ${D.methodology.frozen_on}${
+   D.methodology.supersedes?` · supersedes ${D.methodology.supersedes}, which is retained unaltered`:''}</span></div>
+ <div><span class="a">Scenario</span><span>${D.scenario}</span></div>
+ <div><span class="a">Base period</span><span>${D.base_period.id} · month not set. ${D.base_period.blocked_by}</span></div>
+ </div></div>`;
+head('Methodology — how The Water Journal measures water',
+     'Scenario TWJ-R180-v1.0: what one household pays for 15,000 litres a month, calculated the same way in every city, in local currency, with the comparability grade printed beside it.',
+     null,'website');
+show('method','/methodology');
+}
+
+/* disclosure */
+function aboutPage(){
+document.getElementById('aboutBody').innerHTML=`
+<div class="hero"><div class="eyebrow">Editorial independence</div><h1>Who publishes this.</h1>
+ <p>The Water Journal is an editorial and data initiative established by Prana Spring, a bottled water brand sold in the United Arab Emirates.</p></div>
+<div class="rows">
+ ${[['No bottled water index','We publish none, and no ranking of brands.'],
+    ['Corrections','Published in a log, never made silently. We have already corrected ourselves once, on Dubai.'],
+    ['No claim of being first','Global tariff datasets and city price comparisons exist. What does not exist is one that shows its arithmetic.'],
+    ['Append only','A superseded figure is closed with a date and kept. No historical value is recalculated under a later methodology.']]
+  .map(r=>`<div><span class="a">${r[0]}</span><span>${r[1]}</span></div>`).join('')}
+</div>
+<div class="blk"><h4>The corrections log</h4><div class="rows">
+ ${(D.corrections||[]).map(c=>`<div><span class="a">${c.recorded}${
+   c.kind==='re_stamp'?' · re-stamp':''}${c.article?' · article':''}</span><span>${
+   c.article?`<b>${c.article}</b> — `:c.city?`<b>${c.city}</b> · `:''}${
+   c.figures_changed===false&&!c.article?'<b>No figure moved.</b> ':''}${
+   c.old_value?`“${c.old_value}” → “${c.new_value}”. `:''}${c.reason}${
+   c.figures_changed===false&&c.article?' No figure in the article changed.':''}</span></div>`).join('')}
+ </div>
+ <p class="note">A restatement that leaves every figure unchanged is logged as a
+  <b>re-stamp</b> rather than a correction, so the correction count stays a measure of
+  wrong figures rather than of wrong descriptions. Both are published. An article whose
+  claim went further than its source is a correction even when no number moved — the
+  overreach is the error.</p></div>`;
+head('Editorial independence — who publishes The Water Journal',
+     'The Water Journal is an editorial and data initiative established by Prana Spring. It publishes no bottled water index and no ranking of brands, and corrects itself in a public log.',
+     null,'website');
+show('about','/independence');
+}
+
+/* not found — an address that resolves to nothing says so, and offers the
+   addresses that do resolve rather than bouncing the reader to the home page. */
+function gone(route){
+  document.getElementById('goneBody').innerHTML=`
+  <div class="gone"><div class="eyebrow">404</div>
+    <h1>There is no page at this address.</h1>
+    <p>The address <b>${route.replace(/[<>&]/g,'')}</b> does not resolve. Nothing has been removed — an address that once worked still works, because published figures are closed with a date rather than deleted.</p>
+    <div class="rows">
+      ${[['Home','/'],['The Journal','/journal'],['Water Index','/water-index'],
+         ['Compare','/compare'],['Methodology','/methodology'],['Editorial independence','/independence']]
+        .map(r=>`<div><span class="a">${r[0]}</span><span><a class="link" href="${href(r[1])}" data-route="${r[1]}">${r[1]} ${ARR}</a></span></div>`).join('')}
+    </div></div>`;
+  head('Not found — The Water Journal','This address does not resolve.',null,'website');
+  show('404',null);
+}
+
+/* boot */
+paint(readRoute(),{initial:true,keepScroll:true});
+</script>
+</body>
+</html>

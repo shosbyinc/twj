@@ -1,0 +1,69 @@
+{
+  "scenario": "TWJ-R180-v1.0",
+  "status": "draft",
+  "grade": "B",
+  "blocking": [
+    "no archived primary source — Rule 7.2",
+    "VAT: the generic 15% Saudi rate may not be applied automatically. Regulated confirmation needed for residential usage, sewerage and the meter service charge separately.",
+    "the first-band reading rests on a worked example in a state press release, not on the regulator annex itself"
+  ],
+  "draft_note": "Calculation spec from the city-expansion handoff. Not a publishable observation: no source is archived.",
+  "id": "saudi-nwc-2026",
+  "city": "riyadh",
+  "utility": "National Water Company",
+  "currency": "SAR",
+  "symbol": "SAR",
+  "shape": "monthly_blocks",
+  "tariff_scope": "national",
+  "meter_size": "<=20mm",
+  "components": [
+    {
+      "id": "water_usage",
+      "name": "Water use",
+      "stream": "water",
+      "kind": "volumetric",
+      "blocks": [
+        {
+          "from": 0,
+          "to": 15,
+          "rate": 0.1
+        },
+        {
+          "from": 15,
+          "to": 30,
+          "rate": 1
+        },
+        {
+          "from": 30,
+          "to": 45,
+          "rate": 3
+        },
+        {
+          "from": 45,
+          "to": 60,
+          "rate": 4
+        },
+        {
+          "from": 60,
+          "to": null,
+          "rate": 6
+        }
+      ]
+    },
+    {
+      "id": "meter_service",
+      "name": "Meter service charge, 0–20 mm",
+      "stream": "water",
+      "kind": "fixed",
+      "period": "monthly",
+      "amount": 5
+    }
+  ],
+  "wastewater_note": "Sewerage is 50% of the corresponding water rate; 15 m³ × SAR 0.05 = SAR 0.75 before tax.",
+  "reference_connection": {
+    "size": "Residential, meter 0–20 mm",
+    "designation": "The regulated schedule sets the meter service charge by size band; 0–20 mm is the residential band.",
+    "source_id": "PENDING — no archived source",
+    "basis": "utility_designated"
+  }
+}

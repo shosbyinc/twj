@@ -1,0 +1,56 @@
+{
+  "id": "dewa-slab-tariff",
+  "tier": 1,
+  "publisher": "DEWA",
+  "title": "Slab tariff — water fuel surcharge and VAT, August 2026",
+  "url": "https://www.dewa.gov.ae/en/consumer/billing/slab-tariff",
+  "accessed_at": "2026-08-14",
+  "archive_path": "archive/dewa-slab-tariff-2026-08-16.txt",
+  "archive_sha256": "sha256:96be0ff9ead445edf6da96b264769f47ca27aebf0cd671254a96705384144dcc",
+  "cadence": "monthly — DEWA resets the fuel surcharge each month, so this source is re-checked monthly",
+  "affects": [
+    "dubai"
+  ],
+  "class": "monthly_surcharge",
+  "archive_kind": "screenshot_and_extract",
+  "archive_note": "Three screenshots of the DEWA slab tariff page captured 16 August 2026, each hashed, plus a text extract of the values used. The screenshots are the evidence; the extract is what the engine reads.",
+  "archived_at": "2026-08-16",
+  "archive_bytes": 1558,
+  "screenshots": [
+    {
+      "file": "archive/dewa-slab-tariff-2026-08-16-p8211.png",
+      "sha256": "sha256:062db5dec704f305c7055dc03de1339906fd80566efbecb265ef84090e08cbc9",
+      "bytes": 183891
+    },
+    {
+      "file": "archive/dewa-slab-tariff-2026-08-16-p8212.png",
+      "sha256": "sha256:594d82b469ed1aa66c9e4483f8cf0908ee5e159faa0c563fc7d33cd65a01bde6",
+      "bytes": 253031
+    },
+    {
+      "file": "archive/dewa-slab-tariff-2026-08-16-p8213.png",
+      "sha256": "sha256:a1502c558fe68621e601d455b7b5f0002165d42696a7aeecc698e6880f679e0b",
+      "bytes": 231294
+    }
+  ],
+  "captured_by": "The Water Journal, from a device in Dubai",
+  "extracted": {
+    "residential_slabs_aed_per_m3": {
+      "0-27": 7.7,
+      "27-54": 8.8,
+      "54+": 10.12
+    },
+    "commercial_slabs_aed_per_m3": {
+      "0-45": 7.7,
+      "45-91": 8.8,
+      "91+": 10.12
+    },
+    "meter_service_charge_aed": {
+      "type_1": 5,
+      "type_2": 7
+    },
+    "fuel_surcharge_aed_per_m3": 1.1,
+    "fuel_surcharge_month": "2026-08",
+    "vat": "5% applicable on these tariffs"
+  }
+}

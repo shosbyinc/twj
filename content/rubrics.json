@@ -1,0 +1,47 @@
+{
+  "_note": "Editorial rubrics on the website. Edit this file to add, rename, reorder or remove one. The site reads it at build time; no code changes needed. The Instagram feed carries more rubrics than this — only the ones that gain something from the web belong here.",
+  "rubrics": [
+    {
+      "id": "cities",
+      "name": "Cities",
+      "active": true,
+      "line": "What a city did with its water — the engineering, the politics, and the bill that comes out the other end."
+    },
+    {
+      "id": "science",
+      "name": "Science",
+      "active": true,
+      "line": "One formula, one photograph, and the fact that belongs to that formula alone."
+    },
+    {
+      "id": "myth",
+      "name": "Myth",
+      "active": true,
+      "line": "What water is not. Every claim repeated until it sounded true."
+    },
+    {
+      "id": "human-performance",
+      "name": "Human Performance",
+      "active": true,
+      "line": "The working body and the water it runs on. Metrics, not motivation."
+    },
+    {
+      "id": "earth",
+      "name": "Earth",
+      "active": true,
+      "line": "Water at planetary scale, read from orbit — and the reservoirs the photograph leaves out."
+    },
+    {
+      "id": "mindfulness",
+      "name": "Mindfulness",
+      "active": false,
+      "line": "Attention, stillness, and the surface that holds both. Feed only."
+    },
+    {
+      "id": "nuri",
+      "name": "Nuri Reminds",
+      "active": false,
+      "line": "A puffin with strong opinions about water. Feed only — the joke needs the carousel."
+    }
+  ]
+}

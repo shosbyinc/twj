@@ -1,0 +1,41 @@
+{
+  "id": "newyork-waterboard-fy1985-1984-07-01",
+  "scenario": "TWJ-R180-v1.0",
+  "city": "newyork",
+  "utility": "New York City Water Board",
+  "currency": "USD",
+  "shape": "flat",
+  "grade": "A",
+  "streams_separable": true,
+  "effective_from": "1984-07-01",
+  "fiscal_year": 1985,
+  "source_id": "nycwaterboard-rate-history",
+  "components": [
+    {
+      "id": "water_metered",
+      "name": "Metered water",
+      "stream": "water",
+      "kind": "volumetric",
+      "volume_unit": "ccf",
+      "rate_display": "USD 0.660 / 100 cu ft",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 0.66
+        }
+      ]
+    },
+    {
+      "id": "wastewater_charge",
+      "name": "Wastewater charge",
+      "stream": "wastewater",
+      "kind": "tax_percent",
+      "rate": 0.6,
+      "rate_display": "60% of the water charge",
+      "base": [
+        "water_metered"
+      ]
+    }
+  ]
+}

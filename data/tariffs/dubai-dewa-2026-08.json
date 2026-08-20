@@ -1,0 +1,207 @@
+{
+  "id": "dubai-dewa-2026-08",
+  "scenario": "TWJ-R180-v1.0",
+  "city": "dubai",
+  "utility": "DEWA",
+  "currency": "AED",
+  "shape": "monthly_blocks",
+  "grade": "A",
+  "streams_separable": true,
+  "effective_from": "2026-08-01",
+  "source_id": "dewa-slab-tariff",
+  "notes": [
+    "Blocks are held in the native billing unit — AED per imperial gallon — exactly as the legislation sets them and the invoice bills them.",
+    "The verified invoice carries no sewerage line. The Dubai Municipality fee under Decree No. 47 of 2024 is therefore not established as part of this account's water services bill, and Total Water Services is withheld.",
+    "General residential class. The concessionary class for residences and farms of UAE nationals is a separate scenario.",
+    "DEWA states 1 m³ = 219.9692 IG on the invoice; that factor is used for the scenario conversion.",
+    "Billing lag: on the verified invoice the water line covers 3,740 IG while the sewerage line covers 3,300 IG — the previous month's volume. The scenario therefore computes each service's liability for the same standardized volume; it never sums the lines that happen to share one calendar invoice.",
+    "The volumetric rate is held at 0.035 AED per imperial gallon as the legislation sets it. DEWA's AED 7.70/m³ is that rate restated and rounded: 0.035 × 219.9692 = 7.6989. Computing from the native unit gives AED 143.83 rather than 143.85 — a 0.014% difference, far inside the materiality ceiling, and the same class of question as Singapore's 0.715 versus 0.72.",
+    "The captured tariff page evidences the AUGUST 2026 surcharge. July 2026 is not evidenced by anything we hold, so this observation is dated August. A frozen base period requires every constituent city to be evidenced for the same month, which is an operational constraint on the freeze, not a defect in this figure.",
+    "Conversion settled by the legislation. Executive Council Resolution 16/2011 sets residential water at 3.5, 4.0 and 4.6 fils per gallon. DEWA's published per-m³ rates of 7.700, 8.800 and 10.120 are each exactly those figures multiplied by 220, which is the meter multiplication factor on the invoice. The two routes therefore agree, and 15 m³ is 3,300 IG rather than 3,299.538.",
+    "One conversion for the whole city. The January 2025 invoice bills sewerage on 3,300 IG — a whole number only under a factor of 220 — so the municipality charge is computed on the same basis as the water charge. Using the physical constant for one service and the meter factor for the other would put two different households in one city record."
+  ],
+  "components": [
+    {
+      "id": "water_slab",
+      "name": "Water consumption",
+      "stream": "water",
+      "kind": "volumetric",
+      "volume_unit": "imperial_gallon",
+      "rate_display": "0.035 AED / imperial gallon",
+      "blocks": [
+        {
+          "from": 0,
+          "to": 6000,
+          "rate": 0.035
+        },
+        {
+          "from": 6000,
+          "to": 12000,
+          "rate": 0.04
+        },
+        {
+          "from": 12000,
+          "to": null,
+          "rate": 0.046
+        }
+      ]
+    },
+    {
+      "id": "fuel_surcharge",
+      "name": "Fuel surcharge",
+      "stream": "water",
+      "kind": "volumetric",
+      "volume_unit": "imperial_gallon",
+      "rate_display": "0.005 AED / imperial gallon · August 2026",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 0.005
+        }
+      ],
+      "source_note": "DEWA publishes AED 1.100/m³ for August 2026, which is 0.005 per imperial gallon. Stored in the billing unit the invoice uses. Reset monthly — this figure is evidenced for August 2026 only."
+    },
+    {
+      "id": "vat",
+      "name": "VAT",
+      "stream": "water",
+      "kind": "tax_percent",
+      "rate": 0.05,
+      "rate_display": "5%",
+      "base": [
+        "water_slab",
+        "fuel_surcharge",
+        "meter_service_charge"
+      ],
+      "source_note": "The invoice applies 5% to the subtotal including the meter service charge."
+    },
+    {
+      "id": "meter_service_charge",
+      "name": "Meter service charge",
+      "stream": "water",
+      "kind": "fixed",
+      "period": "monthly",
+      "amount": 5,
+      "rate_display": "AED 5.00 / month",
+      "scope": true,
+      "scope_note": "Type 1 meter, AED 5.00 monthly, as listed by DEWA and as charged on the verified Residential – Flat invoice. A Type 2 connection at AED 7.00 is a different reference customer."
+    },
+    {
+      "id": "municipal_sewerage",
+      "name": "Sewerage fee (Dubai Municipality)",
+      "stream": "wastewater",
+      "kind": "volumetric",
+      "volume_unit": "imperial_gallon",
+      "rate_display": "2.0 fils / imperial gallon · 2026",
+      "blocks": [
+        {
+          "from": 0,
+          "to": null,
+          "rate": 0.02
+        }
+      ],
+      "no_vat": true,
+      "source_note": "Decree No. 47 of 2024 sets 1.5 fils/IG for 2025, 2.0 for 2026 and 2.8 from 2027. The verified January 2025 invoice charges AED 49.50 on 3,300 IG, which is exactly 1.5 fils/IG — the invoice validates the legislation. Collected by DEWA on behalf of Dubai Municipality and not subject to VAT.",
+      "excluded_note": "The Housing fee on the same invoice is a property charge levied by the municipality and belongs to neither metric."
+    }
+  ],
+  "wastewater_status": "established",
+  "grade_reason": "Full evidence chain: legislation sets the slabs, the DEWA tariff page sets the July 2026 surcharge and the Type 1 meter fee, and a verified Residential – Flat invoice reconciles the engine line by line. Uncertainty is zero for this reference customer. The meter type is a scope disclosure, not an error bar.",
+  "materiality": {
+    "low": "143.83",
+    "high": "145.93",
+    "u_percent": 1.449,
+    "grade_ceiling": "B",
+    "note": "Range is Type 1 versus Type 2 meter. Resolved to Type 1 by invoice evidence rather than by assumption, so the metric is publishable at B."
+  },
+  "validated_against": "dewa-invoice-2025-01",
+  "gate": {
+    "primary_source": true,
+    "current_tariff": true,
+    "customer_class": true,
+    "residency_class": true,
+    "volumetric_known": true,
+    "fixed_known": true,
+    "levies_known": true,
+    "reproducible": true
+  },
+  "transparency": {
+    "subsidised_tariff": "unknown",
+    "nationality_dependent": "yes",
+    "wastewater_included": "yes",
+    "fixed_charge": "yes",
+    "consumption_blocks": "yes",
+    "variable_surcharge": "yes"
+  },
+  "residency_class": "general residential, non-concessionary",
+  "residency_note": "The concessionary class for residences and farms of UAE nationals is a separate tariff plan. Neighbouring EtihadWE publishes AED 3.30/m3 flat for citizens against AED 7.70/m3 for expatriates on the first slab — the same city can hold two prices for reasons of entitlement, not consumption.",
+  "base_period": "2026-08",
+  "reference_customer": "Residential – Flat, metered, Type 1 water meter, non-concessionary",
+  "scope_disclosures": [
+    "Reference customer is a Residential – Flat account on a Type 1 water meter. A villa or larger connection may sit on Type 2 at AED 7.00, which is a different reference customer rather than an uncertainty in this one.",
+    "General residential, non-concessionary. The concessionary class for residences and farms of UAE nationals is a separate tariff plan and is never averaged with this one."
+  ],
+  "volume_conversion": {
+    "unit": "imperial_gallon",
+    "m3_per_unit": 0.004545454545454545,
+    "ig_per_m3": 220,
+    "source": "DEWA meter multiplication factor, stated on the verified invoice as 220.00",
+    "note": "DEWA's own working factor. Every rate on its published per-m³ table is the statutory per-gallon rate multiplied by exactly 220: 3.5 → 7.700, 4.0 → 8.800, 4.6 → 10.120. The invoice separately prints 1 m³ = 219.9692 IG, the physical equivalence, which it uses only to display a cubic-metre figure beside the metered gallons. Billing uses 220, so the scenario does too."
+  },
+  "metric_grades": {
+    "water_supply": {
+      "grade": "A",
+      "publishable": true,
+      "basis": "Resolution 16/2011 archived as an original PDF; DEWA tariff page captured and hashed; reconciled exactly against a verified invoice."
+    },
+    "total_water_services": {
+      "grade": "A",
+      "publishable": false,
+      "blocked_by": "The 2026 sewerage rate of 2.0 fils per gallon is read from Decree No. 47 of 2024, which has not been obtained and hashed.",
+      "partial_validation": "The January 2025 invoice charges AED 49.50 on 3,300 IG, which is exactly the 1.5 fils rate the same decree sets for 2025. That validates the schedule for 2025; it does not evidence the 2026 step."
+    }
+  },
+  "reference_connection": {
+    "size": "Residential – Flat, Type 1 water meter",
+    "designation": "DEWA prints a Type 1 meter service charge of AED 5.00/month for a residential flat account; Type 2 at AED 7.00 is a different, larger connection and therefore a different reference customer.",
+    "source_id": "dewa-slab-tariff",
+    "basis": "utility_designated"
+  },
+  "public_reconciliation": {
+    "source_id": "dewa-invoice-2025-01",
+    "kind": "private_invoice",
+    "cases": [
+      {
+        "label": "DEWA invoice, 3,740 imperial gallons",
+        "published": 163.09,
+        "engine": 163.09,
+        "result": "exact",
+        "detail": "The verified January 2025 invoice. Reconciling it is what established the meter multiplication factor of 220 against the physical constant 219.9692, and moved the published figure from AED 143.83 to 143.85."
+      }
+    ],
+    "note": "A private invoice, held as hash_only. It validates the billing logic and supplies no rate (Rule 7.4)."
+  },
+  "verbatim_check_note": "The second and third water slabs rest on Executive Council Resolution 16/2011, archived as the publisher's original PDF, and on DEWA's tariff page archived additionally as page images. Both are stronger captures than text and neither is readable by the verbatim check, which searches text. The slab rates 0.04 and 0.046 AED per imperial gallon (4.0 and 4.6 fils in the Resolution's own units), the August 2026 fuel surcharge of 0.005, and the 2026 sewerage rate of 0.02 are therefore verified by eye against the archived PDF and not by the check. Declared here rather than left to look like a pass.",
+  "verbatim_check_unreachable": [
+    0.046,
+    0.04,
+    0.005,
+    0.02
+  ],
+  "jurisdiction": {
+    "tariff_jurisdiction_id": "ae-dubai-dewa",
+    "utility_id": "dewa",
+    "service_area_id": "dubai-territory",
+    "customer_class_id": "residential-flat-type1",
+    "customer_class_name": "Residential – Flat, Type 1 meter",
+    "tariff_schedule_id": "dubai-dewa-2026-08",
+    "observation_id": "obs-dubai-dewa-2026-08",
+    "note": "City is a display layer. The observation belongs to jurisdiction x utility x service area x customer class x schedule x period."
+  },
+  "continuity": {
+    "basis": "live_publisher_schedule",
+    "in_force_source_id": "dewa-slab-tariff",
+    "note": "DEWA's own slab tariff page as captured 14 August 2026, which is where DEWA publishes a rate change and where the fuel surcharge moves month to month."
+  }
+}

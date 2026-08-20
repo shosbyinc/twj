@@ -1,0 +1,154 @@
+{
+  "id": "perth-watercorp-2026-07-01",
+  "scenario": "TWJ-R180-v1.0",
+  "city": "perth",
+  "utility": "Water Corporation",
+  "currency": "AUD",
+  "symbol": "A$",
+  "shape": "annual_accumulating_blocks",
+  "effective_from": "2026-07-01",
+  "effective_to": "2027-06-30",
+  "grade": "A",
+  "grade_reason": "Grade A on the water supply figure. U = 0: both rates are published by the utility, the accumulating bill year is described by the publisher, the service charge is a fixed state-wide amount reconciled against Water Corporation's own worked example, and the zero tax rests on Commonwealth statute rather than on a general belief about Australian water.",
+  "source_id": "watercorp-charges-2026-27",
+  "sources": [
+    "watercorp-charges-2026-27",
+    "antsa-gst-act-38-285"
+  ],
+  "reference_connection": {
+    "size": "Perth metropolitan residential service — no connection-size parameter",
+    "designation": "Water Corporation prices the residential water service charge as a single fixed state-wide amount of A$305.05, while pricing the business equivalent by meter size from A$324.18 at 20 mm to A$99,282.40 at 350 mm. The distinction is the publisher's own: there is no residential size band to designate.",
+    "source_id": "watercorp-charges-2026-27",
+    "basis": "size_independent"
+  },
+  "billing_basis": "annual_accumulating_blocks",
+  "billing_note": "A bill year is six two-monthly billing periods. Usage accumulates across the whole year and the tier resets only when the next bill year begins, so the 150 kL threshold is crossed once a year rather than once per bill.",
+  "public_reconciliation": {
+    "source_id": "watercorp-charges-2026-27",
+    "cases": [
+      {
+        "label": "Water Corporation service charge example",
+        "published": 1365.61,
+        "engine": 1365.61,
+        "note": "A$917.70 sewerage + A$142.86 drainage + A$305.05 water. Only the water component enters the TWJ supply figure; the sum is checked because it is the publisher's own arithmetic and it confirms the A$305.05 we use."
+      }
+    ],
+    "limits": "Water Corporation publishes no worked example of a residential water use charge over a full bill year, so the volumetric side rests on the published tier table rather than on a reconciliation."
+  },
+  "component_states": [
+    {
+      "component": "volumetric_water",
+      "status": "observed",
+      "source_id": "watercorp-charges-2026-27"
+    },
+    {
+      "component": "water_service_charge",
+      "status": "observed",
+      "source_id": "watercorp-charges-2026-27"
+    },
+    {
+      "component": "gst",
+      "status": "confirmed_absent",
+      "source_id": "antsa-gst-act-38-285",
+      "basis": "A supply of water is GST-free by statute under s 38-285 of the A New Tax System (Goods and Services Tax) Act 1999. This is not the same claim as 'Australian water charges are GST-free', which is a rule of thumb rather than a source."
+    },
+    {
+      "component": "meter_rent",
+      "status": "confirmed_absent",
+      "source_id": "watercorp-charges-2026-27",
+      "basis": "The residential service charge table carries one water item, the fixed A$305.05. No meter rent appears for a household account."
+    },
+    {
+      "component": "wastewater_and_drainage",
+      "status": "non_standardizable",
+      "source_id": "watercorp-charges-2026-27",
+      "reason": "Liability depends on the property's Gross Rental Value, which Water Corporation states is set by law. A property valuation is outside the TWJ reference scenario. This is neither a data error nor a research gap: we know exactly how the charge is computed and the scenario contains no input for it.",
+      "blocker_class": "material",
+      "affects_metric": "total_water_services"
+    }
+  ],
+  "components": [
+    {
+      "id": "water_usage",
+      "name": "Water use",
+      "stream": "water",
+      "kind": "volumetric",
+      "volume_unit": "m3",
+      "rate_display": "A$2.108/kL to 150 kL a bill year, A$2.809/kL to 500 kL, A$5.256/kL above",
+      "source_id": "watercorp-charges-2026-27",
+      "blocks": [
+        {
+          "from": 0,
+          "to": 150,
+          "rate": 2.108
+        },
+        {
+          "from": 150,
+          "to": 500,
+          "rate": 2.809
+        },
+        {
+          "from": 500,
+          "to": null,
+          "rate": 5.256
+        }
+      ]
+    },
+    {
+      "id": "water_service",
+      "name": "Water service charge",
+      "stream": "water",
+      "kind": "fixed",
+      "period": "annual",
+      "amount": 305.05,
+      "rate_display": "A$305.05 / year, fixed state-wide",
+      "source_id": "watercorp-charges-2026-27"
+    }
+  ],
+  "wastewater_grade": "C",
+  "wastewater_grade_reason": "Residential sewerage and drainage are assessed on the property's Gross Rental Value multiplied by a rate in the dollar, and Water Corporation states that the use of GRV is set by law. A property-value assessment is not a function of water and cannot be standardised at 180 m³ a year. Under §5 the grade is assigned per metric: the supply figure is A, total water services is C.",
+  "excluded": [
+    {
+      "item": "Sewerage service charge",
+      "reason": "Assessed on Gross Rental Value: 3.059 cents in the dollar to A$30,000 of GRV and 3.946 cents above, minimum A$506.73. Property-value billing, Grade C under §5.2.",
+      "source_id": "watercorp-charges-2026-27"
+    },
+    {
+      "item": "Drainage service charge",
+      "reason": "Also GRV-assessed, 0.444 cents in the dollar, minimum A$142.86. Stormwater drainage, additionally excluded from universal comparison under §8.",
+      "source_id": "watercorp-charges-2026-27"
+    },
+    {
+      "item": "Brighton Estate and Denham additional charges",
+      "reason": "Locality-specific supplements outside the Perth metropolitan reference area.",
+      "source_id": "watercorp-charges-2026-27"
+    }
+  ],
+  "scope_disclosures": [
+    "Reference account is a separately metered Perth metropolitan residential property. Properties on a shared strata meter are billed to the strata manager and are a different customer.",
+    "The benchmark prices a full bill year at 2026-27 rates. No individual customer experiences exactly that: a bill year starts with the first meter reading of the reading cycle, between March and October depending on location, so a real bill year straddles the 1 July price change and the July or August bill is priced at the previous year's tiers.",
+    "Total Water Services is not published for Perth. Sewerage and drainage are assessed on Gross Rental Value, which is a property valuation rather than a water quantity."
+  ],
+  "shape_note": "180 m³ over a bill year sits 150 kL in Tier 1 and 30 kL in Tier 2. Resolving the same volume monthly would keep every month inside Tier 1 and understate the year by A$84.27.",
+  "metric_eligibility": {
+    "water_supply": {
+      "publishable": true,
+      "basket_eligible": true
+    },
+    "total_water_services": {
+      "publishable": false,
+      "basket_eligible": false,
+      "reason": "non_standardizable"
+    }
+  },
+  "jurisdiction": {
+    "tariff_jurisdiction_id": "au-wa-watercorp",
+    "utility_id": "watercorp",
+    "service_area_id": "perth-metro",
+    "customer_class_id": "residential",
+    "customer_class_name": "Perth metropolitan residential",
+    "tariff_schedule_id": "perth-watercorp-2026-07-01",
+    "observation_id": "obs-perth-watercorp-2026-07-01",
+    "note": "City is a display layer. The observation belongs to jurisdiction x utility x service area x customer class x schedule x period."
+  }
+}

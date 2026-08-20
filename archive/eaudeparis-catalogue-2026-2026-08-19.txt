@@ -1,0 +1,73 @@
+CATALOGUE DES TARIFS ET REDEVANCES EAU DE PARIS — Annexe à la délibération
+Catalogue des tarifs 2026, tarifs HT au 01-01-2026 et TTC 2026
+https://www.eaudeparis.fr/sites/default/files/2025-12/Catalogue%20des%20tarifs%202026.pdf
+Retrieved: 2026-08-19
+
+[Extract. The sections that price a residential water account are reproduced in
+full. The catalogue also prices non-potable water, laboratory analyses, works,
+branch connections, domain occupation and merchandise; those run to eleven pages
+and none of them touches a household bill.]
+
+Columns: designation | coefficient de révision | TVA en vigueur au 01-01-2026 |
+tarif HT au 01-01-2026 | tarif TTC 2026 | unité | référence
+
+1- EAU POTABLE
+PRODUCTION ET DISTRIBUTION DE L'EAU
+Fourniture d'eau potable                              Non   5,50%   1,1319   1,1942   m3   EPO001
+Usage de l'eau de Secours Incendie à d'autres fins
+  que les essais ou la lutte contre l'incendie        Non   5,50%   2,2638   2,3883   m3   EPO001
+Redevance soutien d'étiage (EPTB)                     Non   5,50%   0,0070   0,0074   m3   EPO010
+Prélèvement sur les ressources en eau                 Non   5,50%   0,0880   0,0928   m3   EPO004
+Voies Navigables de France                            Non   5,50%   0,0160   0,0169   m3   EPO009
+Tarif eau potable de secours ou essais aux
+  interconnexions                                     Non   5,50%   0,5600   0,5908   m3   EPO009
+
+ÉLÉMENTS COLLECTÉS POUR LE COMPTE D'ORGANISMES TIERS*
+Part communale (Ville de Paris)                       Non   5,50%   0,0150   0,0158   m3   C.EPO 02
+Collecte des eaux usées (SAP)                         Non  10,00%   0,6090   0,6699   m3   C.EPO 03
+Transport et épuration des eaux usées (SIAAP)         Non  10,00%   1,5440   1,6984   m3   C.EPO 04
+Contre-valeur de la redevance de performance des
+  réseaux d'eau potable (Agence de l'eau)             Non   5,50%   0,0385   0,0406   m3   C.EPO 02
+Contre-valeur de la redevance de performance des
+  systèmes d'assainissement collectifs
+  (Agence de l'eau)                                   Non  10,00%   0,1230   0,1353   m3   C.EPO 04
+Redevance pour consommation de l'eau potable
+  (Agence de l'eau)                                   Non   5,50%   0,3400   0,3587   m3   C.EPO 05
+
+*ces éléments sont collectés par Eau de Paris via la facture d'eau potable pour
+le compte d'organismes tiers, sur la base de tarifs adoptés par leurs assemblées
+délibérantes respectives
+
+3- GESTION DES ABONNÉS ET DES USAGERS
+ABONNEMENT
+Abonnement pour un compteur de diamètre 15 mm   K.DIV 1,01   5,50%     6,21     6,55   Trimestre   GAU093
+Abonnement pour un compteur de diamètre 20 mm   K.DIV 1,01   5,50%    26,25    27,69   Trimestre   GAU094
+Abonnement pour un compteur de diamètre 30 mm   K.DIV 1,01   5,50%    44,62    47,08   Trimestre   GAU095
+Abonnement pour un compteur de diamètre 40 mm   K.DIV 1,01   5,50%    57,75    60,93   Trimestre   GAU096
+Abonnement pour un compteur de diamètre 50 mm   K.DIV 1,01   5,50%    94,50    99,69   Trimestre   GAU097
+Abonnement pour un compteur de diamètre 60 mm   K.DIV 1,01   5,50%   131,25   138,47   Trimestre   GAU098
+Abonnement pour un compteur de diamètre 80 mm   K.DIV 1,01   5,50%   283,50   299,09   Trimestre   GAU099
+Abonnement pour un compteur de diamètre 100 mm  K.DIV 1,01   5,50%   349,12   368,32   Trimestre   GAU100
+Abonnement pour un compteur de diamètre 150 mm  K.DIV 1,01   5,50%   422,61   445,86   Trimestre   GAU101
+Abonnement pour un compteur de diamètre 200 mm  K.DIV 1,01   5,50%   472,49   498,47   Trimestre   GAU102
+Abonnement pour un compteur de diamètre 250 mm  K.DIV 1,01   5,50%   543,36   573,24   Trimestre   GAU103
+Abonnement pour un compteur de diamètre 300 mm  K.DIV 1,01   5,50%   624,87   659,23   Trimestre   GAU104
+Abonnement pour un compteur de diamètre 400 mm  K.DIV 1,01   5,50%   718,59   758,12   Trimestre   GAU105
+Abonnement pour un compteur de diamètre 500 mm  K.DIV 1,01   5,50%   826,39   871,84   Trimestre   GAU106
+
+[No other recurring charge falls on a metered household. The remainder of
+section 3 prices one-off events: individualisation of a collective meter, event
+access to water, provisional access, penalties, meter bench tests, closure and
+reopening of a branch connection, and payment rejection fees.]
+
+INDIVIDUALISATION - INSTRUCTION DEMANDE D'INDIVIDUALISATION
+Vérification du dossier technique                     K.DIV 1,01  20,00%   676,70   812,04  Unité  LAB279
+Installation d'un compteur neuf                       K.DIV 1,01  20,00%   264,57   317,48  Unité  LAB283
+
+FRAIS
+Accès au service                                      K.DIV 1,01  10,00%    24,36    26,80  Unite  GAU049
+
+2- EAU NON POTABLE
+Fourniture d'eau non potable                          K.EAU  5,50%   0,5260   0,5549   m3   ENP005
+[Paris operates a separate non-potable network for street washing and park
+irrigation. It is not a household supply and is excluded.]

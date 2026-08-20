@@ -1,0 +1,32 @@
+{
+  "id": "watercorp-charges-2026-27",
+  "tier": 1,
+  "publisher": "Water Corporation, Western Australia",
+  "title": "Understanding your water use charges; Understanding your service charges (2026-27)",
+  "url": "https://www.watercorporation.com.au/help-and-advice/bill-and-account/rates-and-charges/understanding-your-water-use-charges",
+  "url_secondary": "https://www.watercorporation.com.au/help-and-advice/bill-and-account/rates-and-charges/understanding-your-service-charges",
+  "published_at": "2026-07-01",
+  "accessed_at": "2026-08-17",
+  "archive_path": "archive/watercorp-charges-2026-27.txt",
+  "archive_sha256": "sha256:9057f1b9a75cb04535805eecf839e2958ad15303c52c12019954d4123cff115a",
+  "archive_bytes": 5244,
+  "archived_at": "2026-08-17",
+  "archive_kind": "extract",
+  "archive_note": "Text of both pages, Household tab. Rate tables are machine-readable in the source.",
+  "licence": "public information, cited with attribution",
+  "class": "tariff_schedule",
+  "affects": ["perth"],
+  "captured_by": "The Water Journal",
+  "establishes": [
+    "Perth metropolitan residential water use tiers 2026-27: 2.108/kL to 150 kL, 2.809/kL to 500 kL, 5.256/kL above",
+    "That the tiers accumulate across six two-monthly billing periods over a bill year and reset when it restarts",
+    "The residential water service charge: 305.05 a year, fixed state-wide, set by the State Government",
+    "That residential sewerage and drainage are assessed on Gross Rental Value by law, and cannot be standardised",
+    "That the residential water service charge does not vary by connection size, while the business equivalent does",
+    "A worked example reconciling the service charge: 917.70 sewerage + 142.86 drainage + 305.05 water = 1,365.61"
+  ],
+  "does_not_establish": [
+    "The GST treatment, which is Commonwealth statute rather than a utility page. See antsa-gst-act-38-285.",
+    "The bill year start date for any given property: it is the first meter reading of the reading cycle, between March and October depending on location."
+  ]
+}

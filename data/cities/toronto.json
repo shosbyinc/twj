@@ -1,0 +1,46 @@
+{
+  "id": "toronto",
+  "name": "Toronto",
+  "country": "CA",
+  "coordinates": [
+    43.6532,
+    -79.3832
+  ],
+  "utility": "City of Toronto (Toronto Water)",
+  "tariff_id": "toronto-2025",
+  "status": "published",
+  "sources": [
+    "toronto-municode-441-schedule1",
+    "toronto-utility-billing",
+    "toronto-water-rates-fees"
+  ],
+  "supply": {
+    "categories": [
+      "surface_water"
+    ],
+    "shares_published": false,
+    "note": "Toronto draws its drinking water from Lake Ontario through four treatment plants. Shares are trivially one category and no annual production figure with a year attached has been captured."
+  },
+  "freshness": "verification_due",
+  "freshness_note": "The captured statutory schedule is dated 11 February 2025 and Council approved a 3.75% increase effective 1 January 2026. The 2025 observation is closed with a date; the 2026 one opens when the updated schedule is captured. Nothing published here is recalculated when it is.",
+  "verified_at": "2026-08-19",
+  "verified_by": [
+    "collector"
+  ],
+  "awaiting": "Nothing that holds a figure. The Excise Tax Act provision would explain why no tax is charged; the bill already shows that none is. The Rule 5.1 refusal on the supply metric is structural and is not waiting for anything at all.",
+  "open_items": [
+    "The Excise Tax Act provision behind the absent tax, for provenance rather than for the figure. The City's worked bill closes on its two service charges with no tax line, which is what a household pays; the statutory route for a charge combining water and wastewater is not obvious, because relief for unbottled water supplied by a municipality and relief for wastewater services are separate questions.",
+    "Whether to roll the observation to 2026. The City's live rates page prints $4.8629 per m3 on or before the due date, which Rule 3.10 admits; the Municipal Code schedule for 2026 has not been captured. The 2025 observation is closed with a date and nothing published here changes until somebody decides to move it."
+  ],
+  "grade_note": "Grade C on water supply and Grade A on total water services — the exact inverse of Perth, and for the opposite reason. Perth's water charge is a clean function of volume while its sewerage charge rests on a property valuation. Toronto's combined charge is a clean function of volume and cannot be split at all. The services figure is now published: the last open component, the tax treatment, closed on 19 August 2026.",
+  "why_this_city_matters": "Toronto is in the Index as a negative case and it earns its place. It shows a comparison that the structure of a tariff prevents, rather than one our work has not got to yet. A reader who wants to know why the Index does not rank every city on supply price has one page to look at.",
+  "services_note": "Total Water Services is C$70.31 a month at the 2025 rate, from a by-law, with no recurring fixed charge and no tax. It is the supply figure that does not exist, and this city is in the Index to show the difference between the two kinds of blank.",
+  "withholding_origin": "system_structural",
+  "publication_status": "exception_record",
+  "public_headline": "Supply-only benchmark unavailable",
+  "public_statement": "Toronto's published residential tariff combines water and wastewater in a single per-cubic-metre rate. The statutory instrument is titled Water & Wastewater Consumption Rates. TWJ does not infer a potable-water component without an authoritative decomposition, so no supply price is published. The combined figure is published in full: it is established from a by-law, carries no recurring fixed charge and no tax, and reconciles against the City's own worked bill.",
+  "uwti_eligible": false,
+  "withholding_reason_public": "Structural non-comparability",
+  "evidence_status": "Verified",
+  "resolution_note": "The tax component closed on 19 August 2026, and not the way the record expected. It had asked for the Excise Tax Act provision and reasoned that an absence of mention proves nothing — correct, and it was looking in the wrong instrument. What settled it was the City's own worked bill, where the amount due is the water charge plus the solid waste charge and nothing else. Same move that closed Abu Dhabi's recurring charge eleven days earlier: an enumerated bill answers a question about absence that a schedule cannot."
+}

@@ -1,0 +1,40 @@
+{
+  "id": "toronto-utility-billing",
+  "tier": 1,
+  "publisher": "City of Toronto",
+  "title": "Utility Billing & Programs — how a residential utility bill is calculated",
+  "url": "https://www.toronto.ca/services-payments/property-taxes-utilities/utility-bill/utility-billing-programs/",
+  "published_at": "2017-11-16",
+  "document_date": "2026-05-05",
+  "accessed_at": "2026-08-19",
+  "archive_kind": "extract",
+  "archive_note": "Text of the page as fetched, with the sections carrying figures reproduced and navigation omitted. The page states its own last-modified date of 5 May 2026 in its metadata and its footer.",
+  "licence": "public information, cited with attribution",
+  "class": "bill_guide",
+  "affects": [
+    "toronto"
+  ],
+  "captured_by": "The Water Journal",
+  "establishes": [
+    "A worked residential bill, computed by the City: 38.50 m3 over a 119-day cycle at $5.1188 gives $197.07, and the early payment discount of 4.9981758% takes $9.85 off it, leaving $187.22.",
+    "That a Toronto utility bill carries two kinds of charge and only two — water/sewer and solid waste — and that the amount due is their sum. In the City's own example $187.22 + $111.20 = $298.42 before the due date and $197.07 + $111.20 = $308.27 after it.",
+    "That no tax line appears in either total. The bill closes on the two service charges, which is what the open Rule 7.6 component needed and what the statutory schedule could not give.",
+    "That the early payment discount applies to the water/sewer portion only, is approximately five per cent, and is stated exactly as 4.9981758%.",
+    "That a residential account is read and billed every four months, three times a year, below 6,000 m3 a year."
+  ],
+  "does_not_establish": [
+    "The statutory basis of the tax treatment. The bill shows no HST charged; it does not say under which provision, and whether relief runs through the water half of the combined rate, the wastewater half, or both is not established here.",
+    "A water-only rate. The example prices the combined water/sewer charge, which is the same combined rate the schedule sets.",
+    "Anything about solid waste, which is not a water service and is excluded."
+  ],
+  "reconciliations_passed": [
+    "38.50 x 5.1188 = 197.0738, printed as $197.07.",
+    "4.9981758% of 197.07 = 9.8497, printed as $9.85; 197.07 - 9.85 = 187.22, as printed.",
+    "187.22 + 111.20 = 298.42 and 197.07 + 111.20 = 308.27, both as printed. Both totals close on the two service charges with no residual, which is the enumeration argument in arithmetic.",
+    "5.1188 x (1 - 0.049981758) = 4.86286, which is the on-or-before rate of $4.8629. The discount and the two published rates are the same fact stated twice."
+  ],
+  "archive_path": "archive/toronto-utility-billing-2026-08-19.txt",
+  "archive_sha256": "sha256:f859d8668d30991dedfa3b3d02ad0af71a19eed04cee7fb34e8498cf15f22b73",
+  "archive_bytes": 4585,
+  "archived_at": "2026-08-19"
+}

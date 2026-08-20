@@ -1,0 +1,33 @@
+{
+  "id": "tokyo-supply-ordinance",
+  "tier": 1,
+  "publisher": "Tokyo Metropolitan Government",
+  "title": "東京都給水条例 (Tokyo Metropolitan Water Supply Ordinance), Showa 33 Ordinance No. 41, as amended to Reiwa 7 Ordinance No. 128",
+  "url": "https://www.waterworks.metro.tokyo.lg.jp/reiki_int/reiki_honbun/g171RG00001800.html",
+  "accessed_at": "2026-08-18",
+  "archive_kind": "print_to_pdf",
+  "archive_note": "The Bureau's site refuses automated fetching, so this is a browser print-to-PDF of the ordinance as published in the Bureau's own 例規集. Under the capture rules that is the stronger capture available, and it is the instrument rather than a description of it.",
+  "licence": "public information, cited with attribution",
+  "class": "legislation",
+  "affects": [
+    "tokyo"
+  ],
+  "captured_by": "Evgeny Basov",
+  "establishes": [
+    "Art. 23: the charge is (basic charge + volumetric charge) x 110/100, with fractions of a yen truncated. The multiplier is set by the ordinance itself, not inferred from a worked example.",
+    "Art. 23-2: the basic charge by bore. 13 mm 860 yen, 20 mm 1,170 yen, 25 mm 1,460 yen a month.",
+    "Art. 23-3: the volumetric table for bores of 25 mm and under. Above 5 m3 to 10 m3, 22 yen/m3; above 10 to 20, 128; above 20 to 30, 163; above 30 to 50, 202; above 50 to 100, 213; above 100 to 200, 298; above 200 to 1,000, 372; above 1,000, 404.",
+    "That the first 5 m3 a month carries no volumetric charge for bores of 25 mm and under, because the table begins above 5 m3 — a basic volume inside the basic charge rather than a zero-rated first tier.",
+    "Art. 28: billing is bi-monthly by default, monthly where the manager determines it.",
+    "Art. 30: the statutory reductions, which are means- and status-tested and therefore outside the benchmark under Rule 3.1."
+  ],
+  "does_not_establish": [
+    "The sewerage table, which is levied by the Bureau of Sewerage under a different instrument and is read here from the ready-reckoner.",
+    "The summer basic-charge waiver, which is a temporary measure outside the ordinance.",
+    "Which bore the ordinary single dwelling has. The ordinance prices twelve bores and designates none."
+  ],
+  "archive_path": "archive/tokyo-supply-ordinance-2026-08-18.pdf",
+  "archive_sha256": "sha256:c66a85aaadc908686650bec9f7ef66114ea2b8bd8cd1bc16c5e66776a2991000",
+  "archived_at": "2026-08-18",
+  "archive_bytes": 220318
+}

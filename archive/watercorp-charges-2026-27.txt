@@ -1,0 +1,113 @@
+SOURCE CAPTURE — The Water Journal
+==================================
+Publisher : Water Corporation, Western Australia
+Titles    : "Understanding your water use charges" and
+            "Understanding your service charges"
+URLs      : https://www.watercorporation.com.au/help-and-advice/bill-and-account/rates-and-charges/understanding-your-water-use-charges
+            https://www.watercorporation.com.au/help-and-advice/bill-and-account/rates-and-charges/understanding-your-service-charges
+Captured  : 2026-08-17
+Capture   : Text of both pages as returned by direct fetches, Household tab.
+            Not the publisher's original HTML files; recorded as extracts. The
+            rate tables are machine-readable in the source.
+
+VERBATIM EXTRACT — the passages relied upon
+-------------------------------------------
+
+[Perth metropolitan residential water use pricing 2026-27]
+
+  Usage (kL)/bill year        $/kL
+  Tier 1: 0 - 150 kL          $2.108/kL
+  Tier 2: 151 - 500 kL        $2.809/kL
+  Tier 3: over 500 kL         $5.256/kL
+
+"From 1 July 2026, water use charges have increased by 2.75%."
+
+[How the tiers accumulate — the reason this is not a monthly block tariff]
+
+"At the beginning of your bill year, your water account starts in Tier 1, where
+ you are charged the lowest price per kL for your location.
+
+ A bill year is made up of 6 two-monthly billing periods. It starts with the
+ first meter reading of your reading cycle, which can be any time from March to
+ October, depending on where you live.
+
+ Throughout a bill year, we keep track of your total water use since it started.
+ As your water use goes up, you'll continue moving closer to the next highest
+ tier until your bill year ends.
+
+ If you have moved up a tier during your bill year, you will revert to Tier 1
+ when your new bill year starts."
+
+"For the bill you receive in July or August, your water use charges will be
+ priced at the previous financial year's tier prices. Prices are updated for
+ each financial year."
+
+[2026-27 residential service charges]
+
+  Service charge                Perth metropolitan area
+  Water service charge          $305.05
+
+"Residential water service charges are a fixed, state-wide charge which is
+ reviewed and set each year by the State Government.
+
+ All properties that have a Water Corporation water service available to it
+ (including those not currently connected) are billed for this charge."
+
+"Your service charges are divided across 6 two-monthly bills for the year, so
+ the amount you pay on each bill depends on the number of days within that
+ billing period."
+
+"From 1 July 2026, water, sewerage and drainage service charges have increased
+ by 2.75%."
+
+[Water Corporation's own worked example — a public reconciliation]
+
+"For this example, the sewerage charge of $917.70, drainage server charge of
+ $142.86 and water service charge of $305.05 totals $1,365.61 for the year."
+
+  917.70 + 142.86 + 305.05 = 1,365.61  ✓
+
+[Sewerage and drainage — why they cannot be standardised]
+
+"Residential sewerage and drainage charges are based on your property's Gross
+ Rental Value (GRV), multiplied by a rate in the dollar."
+
+"The use of GRV to calculate your charges is set by law, as it's deemed to be
+ the fairest way to do so for properties throughout WA."
+
+  Sewerage: 3.059 cents in $ GRV to $30,000; 3.946 cents above.
+            Minimum annual charge $506.73.
+  Drainage: 0.444 cents in $ GRV. Minimum annual charge $142.86.
+
+[Residential water service charge does not vary by meter size]
+
+The Business tab prices the water service charge by meter size — $324.18 up to
+20 mm, $506.56 at 25 mm, and so on up to $99,282.40 at 350 mm. The Household tab
+carries one figure, $305.05, described as fixed and state-wide. The distinction
+is the publisher's own, and it is what makes the residential reference
+connection size-independent while the business one is not.
+
+WHAT THESE DOCUMENTS ESTABLISH
+------------------------------
+1. Perth metropolitan residential water use tiers for 2026-27: $2.108/kL to
+   150 kL, $2.809/kL to 500 kL, $5.256/kL above, assessed over a bill year.
+2. That the tiers accumulate across six two-monthly billing periods and reset at
+   the start of each bill year. The threshold is crossed once a year, not once
+   per bill.
+3. The residential water service charge: $305.05 a year, fixed state-wide, set
+   by the State Government, billed to every property with a service available.
+4. That residential sewerage and drainage are assessed on Gross Rental Value by
+   law, and therefore cannot be standardised for a comparative bill.
+5. That the residential water service charge does not vary by connection size,
+   while the business equivalent does.
+
+WHAT THEY DO NOT ESTABLISH
+--------------------------
+The GST treatment. That is a matter of Commonwealth statute, not of a utility
+page: see source antsa-gst-act-38-285.
+
+The bill year start date for any particular property. It is the first meter
+reading of the reading cycle, which falls between March and October depending on
+location. The benchmark therefore prices a full bill year at 2026-27 rates,
+which no individual customer experiences exactly, because a real bill year
+straddles a price change on 1 July. Recorded as scope.

@@ -1,0 +1,27 @@
+{
+  "id": "sp-utilities-bill-guide",
+  "tier": 1,
+  "publisher": "SP Group / SP Services, the billing agent for PUB",
+  "title": "Understanding Your Utilities Bill (with sample redesigned bill)",
+  "url": "https://www.spgroup.com.sg/dam/jcr:0dad3fdf-0983-476e-9cd0-4df47f62bdfd/Understanding%20Your%20Utilities%20Bill.pdf",
+  "accessed_at": "2026-08-17",
+  "archive_path": "archive/sp-utilities-bill-guide-2026-08-17.txt",
+  "archive_sha256": "sha256:e01cd93831b5f09a5e9c2f736d11ce524a4d1be33d9eb72859e866fa760af301",
+  "archive_bytes": 3525,
+  "archived_at": "2026-08-17",
+  "archive_kind": "extract",
+  "archive_note": "Text layer of the PDF. Parts of the sample bill carry SAMPLE watermarks and XX placeholders, and some fields sit in image regions the text layer does not expose — including the Water Conservation Tax rate.",
+  "licence": "public information, cited with attribution",
+  "class": "billing_formula",
+  "affects": ["singapore"],
+  "captured_by": "The Water Journal",
+  "establishes": [
+    "The billing formula: a rate printed to four decimals, multiplied by metered volume, with each line amount rounded to cents",
+    "GST is computed per individual item and the items summed, not applied once to a grand total",
+    "A public reconciliation: 1.4300 -> 33.89 and 1.0900 -> 25.83 both resolve to one consumption of 23.7 m3, which the TWJ engine reproduces exactly",
+    "The water tariff, Water Conservation Tax and Waterborne Tax are the three PUB components of a domestic bill, collected by SP for PUB"
+  ],
+  "does_not_establish": [
+    "The Water Conservation Tax rate as billed. The WCT line is not in the text layer of this capture. At 23.7 m3 the candidates give 16.95 (rate 0.7150) or 17.06 (rate 0.7200). The rate column carries four decimals, so a visual read of that one field would close it."
+  ]
+}

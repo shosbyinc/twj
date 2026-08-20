@@ -1,0 +1,21 @@
+{
+  "id": "pub-water-price",
+  "tier": 1,
+  "publisher": "PUB, Singapore's National Water Agency",
+  "title": "Water Price",
+  "url": "https://www.pub.gov.sg/Public/WaterLoop/Water-Price",
+  "published_at": "2025-04-01",
+  "accessed_at": "2026-08-14",
+  "archive_path": "archive/pub-water-price-2026-08-16.txt",
+  "archive_sha256": "sha256:d6d6df7c10ea9075e6c4953b7c119aae0412cfa974890fd64ee5f9148d842d42",
+  "licence": "public information, cited with attribution",
+  "affects": [
+    "singapore"
+  ],
+  "class": "tariff_schedule",
+  "archived_at": "2026-08-16",
+  "archive_bytes": 1230,
+  "archive_kind": "page_text",
+  "archive_note": "Full page text. The rate table on this page is an image and carries no machine-readable figures.",
+  "captured_by": "The Water Journal"
+}
